@@ -17,8 +17,13 @@ client.on('message', message => {
         file: `resources/${match[2]}.png`
     });
   }
-  if (message.content === 'bye memestar') {
+  
+  if (message.content == 'bye memestar') {
     message.channel.send('see ya, wouldn\'t wanna meme ya');
+  }
+
+  if (message.content == 'hi memestar') {
+    message.channel.send('hi bitches');
   }
 });
 
