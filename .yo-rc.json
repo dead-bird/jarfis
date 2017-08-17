@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Dave Phillips",
+      "authorEmail": "phillips.dave@hotmail.co.uk",
+      "authorUrl": "https://github.com/bringmethedeathstar/memestars"
+    }
+  }
+}

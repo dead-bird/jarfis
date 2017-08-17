@@ -1,0 +1,45 @@
+{
+  "name": "memestars",
+  "version": "0.0.0",
+  "description": "Meme ratings for OG meme bois",
+  "homepage": "https://github.com/bringmethedeathstar/memestars",
+  "author": {
+    "name": "Dave Phillips",
+    "email": "phillips.dave@hotmail.co.uk",
+    "url": "https://github.com/bringmethedeathstar/memestars"
+  },
+  "files": [
+    "app"
+  ],
+  "main": "app/index.js",
+  "keywords": [
+    ""
+  ],
+  "devDependencies": {
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^20.0.0"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "https://github.com/bringmethedeathstar/memestars.git",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "unlicense",
+  "dependencies": {
+    "discord.js": "^11.1.0"
+  }
+}
