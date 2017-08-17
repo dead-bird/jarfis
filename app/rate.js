@@ -1,7 +1,8 @@
+require('dotenv').config({path: '../.env'});
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = 'MzQ3NzU5MzA1NzcwMDA4NTc2.DHdOPg.DddFsqOu9RuX5hfVxx91k5u1h0k';
+const token = process.env.TOKEN;
 const regex = /!r(.*)([0-5])/g;
 
 client.on('ready', () => {
