@@ -1,5 +1,5 @@
 const assert = require('assert');
-const memestars = require('../index.js');
+const memestars = require('../rate.js');
 
 describe('memestars', function () {
   it('has a test', function () {

@@ -6,21 +6,22 @@
   "author": {
     "name": "Dave Phillips",
     "email": "phillips.dave@hotmail.co.uk",
-    "url": "https://github.com/bringmethedeathstar/memestars"
+    "url": "https://github.com/bringmethedeathstar"
   },
   "files": [
     "app"
   ],
-  "main": "app/index.js",
+  "main": "app/rate.js",
   "keywords": [
     ""
   ],
   "devDependencies": {
-    "nsp": "^2.6.3",
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
     "jest": "^19.0.2",
-    "jest-cli": "^20.0.0"
+    "jest-cli": "^20.0.0",
+    "nodemon": "^1.11.0",
+    "nsp": "^2.6.3"
   },
   "scripts": {
     "prepublish": "nsp check",
@@ -40,6 +41,7 @@
   },
   "license": "unlicense",
   "dependencies": {
-    "discord.js": "^11.1.0"
+    "discord.js": "^11.1.0",
+    "dotenv": "^4.0.0"
   }
 }
