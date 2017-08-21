@@ -1,8 +1,8 @@
 {
-  "name": "memestars",
+  "name": "jarfis",
   "version": "0.0.0",
   "description": "Meme ratings for OG meme bois",
-  "homepage": "https://github.com/bringmethedeathstar/memestars",
+  "homepage": "https://github.com/bringmethedeathstar/jarfis",
   "author": {
     "name": "Dave Phillips",
     "email": "phillips.dave@hotmail.co.uk",
@@ -35,7 +35,7 @@
       "node": true
     }
   },
-  "repository": "https://github.com/bringmethedeathstar/memestars.git",
+  "repository": "https://github.com/bringmethedeathstar/jarfis.git",
   "jest": {
     "testEnvironment": "node"
   },

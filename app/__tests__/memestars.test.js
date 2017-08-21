@@ -1,8 +1,8 @@
 const assert = require('assert');
-const memestars = require('../rate.js');
+const jarfis = require('../rate.js');
 
-describe('memestars', function () {
+describe('jarfis', function () {
   it('has a test', function () {
-    assert(false, 'memestars should have a test');
+    assert(false, 'jarfis should have a test');
   });
 });

@@ -1,4 +1,4 @@
-# memestars
+# jarfis
 Meme ratings for OG meme bois
 
 # setup

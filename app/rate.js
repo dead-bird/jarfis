@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = process.env.TOKEN;
 const regex = /!r(.*)([0-5])/g;
-const botName = 'memestar'
+const botName = 'Jarfis'
 
 var greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
 
