@@ -28,6 +28,10 @@ module.exports = {
     desc: 'Rates a meme.',
     args: '<integer between 0 and 5>',
     execute: (client, msg, args) => {
+      msg.delete()
+        .then()
+        .catch(console.error);
+
       msg.channel.send(msg.member.nickname ? msg.member.nickname : msg.author.username, {
         file: `resources/${args[1]}.png`
       });
@@ -62,8 +66,8 @@ module.exports = {
     args: '',
     execute: (client, msg) => {
       msg.delete()
-       .then()
-       .catch(console.error);
+        .then()
+        .catch(console.error);
 
       msg.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
     }
