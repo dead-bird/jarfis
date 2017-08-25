@@ -1,82 +1,46 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({path: '.env'});
 
 const fs = require('fs');
 const Discord = require('discord.js');
+const commands = require('./commands.js');
 const client = new Discord.Client();
-const token = 'MzQ5MTkzMjUzNTYxNTY1MTg2.DH801w.fccyJIqNVSegZoX1HKSy7xdS0aM';
-const rate = /^!r(|\s*)([0-5])/g;
+const token = process.env.TOKEN;
+const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
+const prefix = '!'; //this is still hard coded in commands.js
 
-var bot;
+var bot = {};
 
 try {
   bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
 } catch (err) {
-  name('Jarfis');
-}
-
-var greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
-var nameChange = new RegExp('hey (' + bot.name + '), change your name to (.*)');
-
-function name(name) {
-  fs.writeFileSync('app/data/bot.json', JSON.stringify({name: name}));
-
-  bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
+  commands.reset.execute();
 }
 
 client.on('ready', () => {
   console.log('ready to meme');
 });
 
-client.on('message', message => {
-  var rateMatch = rate.exec(message.content);
-  var nameMatch = nameChange.exec(message.content);
+client.on('message', msg => {
+  //loop through the commands module if msg starts with prefix
+  if (msg.content.startsWith(prefix)) {
+    args = msg.content.slice(prefix.length).split(' ');
 
-  if (rateMatch) {
-    message.delete()
-     .then()
-     .catch(console.error);
-
-    message.channel.send(message.member.nickname ? message.member.nickname : message.author.username, {
-      file: `resources/${rateMatch[2]}.png`
-    });
-  }
-  
-  if (message.content == `bye ${bot.name}`) {
-    message.channel.send('see ya, wouldn\'t wanna meme ya');
+    if (args[0] in commands) {
+      commands[args[0]].execute(client, msg, args, bot);
+    }
   }
 
-  if (nameMatch) {
-    name(nameMatch[2]);
-    message.channel.send('sure thing my dude');
+  //these still need doing
+  if (msg.content == `bye ${bot.name}`) {
+    msg.channel.send('see ya, wouldn\'t wanna meme ya');
   }
 
-  if (greetings.indexOf(message.content.split(' ')[0]) > -1 && message.content.split(' ')[1] == bot.name) {
-    message.channel.send('hi bitches');
+  if (greetings.indexOf(msg.content.split(' ')[0]) > -1 && msg.content.split(' ')[1] == bot.name) {
+    msg.channel.send('hi bitches');
   }
 
-  if (message.content == 'clear') {
-    message.delete()
-     .then()
-     .catch(console.error);
-
-    message.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
-  }
-
-  if (message.content == '!commands') {
-    message.channel.send(`be patient, ${message.member.nickname ? message.member.nickname : message.author.username}, I'm bloody working on it.`);
-  }
-
-  if (message.content == '!name') {
-    message.channel.send(`the name's ${bot.name}, don't wear it out`);
-  }
-
-  if (message.content == 'too pure for this world') {
-    message.channel.send(`thank you senpai`);
-  }
-
-  if (message.content == '!reset') {
-    name('Jarfis');
-    message.channel.send(`reverting to ${bot.name}. Don't fuck me up again I'm a soft boy`);
+  if (msg.content == 'too pure for this world') {
+    msg.channel.send(`thank you senpai`);
   }
 });
 
