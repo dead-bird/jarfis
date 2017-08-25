@@ -35,7 +35,7 @@ module.exports = {
   },
   change: {
     desc: 'Changes the name of the bot.',
-    args: '<string containing the name you wish to set>',
+    args: '<string, no spaces... for now>',
     execute: (client, msg, args) => {
       fs.writeFileSync('app/data/bot.json', JSON.stringify({name: args[1]}));
 
