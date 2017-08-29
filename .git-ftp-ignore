@@ -1,5 +1,5 @@
 node_modules
-__tests__
+app/__tests__
 .*
 git-ftp-setup.sh
 README.md
