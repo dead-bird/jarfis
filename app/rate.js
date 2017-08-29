@@ -16,9 +16,7 @@ try {
   commands.reset.execute();
 }
 
-client.on('ready', () => {
-  console.log('ready to meme');
-});
+client.on('ready', () => { console.log('ready to meme'); });
 
 client.on('message', msg => {
   //loop through the commands module if msg starts with prefix
@@ -41,6 +39,14 @@ client.on('message', msg => {
 
   if (msg.content == 'too pure for this world') {
     msg.channel.send(`thank you senpai`);
+  }
+
+  if (msg.content == '/lenny') {
+    msg.delete()
+      .then()
+      .catch(console.error);
+      
+    msg.channel.send(`( ͡° ͜ʖ ͡°)`);
   }
 });
 

@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
@@ -5,16 +6,17 @@ module.exports = {
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg, args, bot) => {
-      var fields = [];
+      var embed = new Discord.RichEmbed()
+        .setColor(3447003)
+        .setDescription('\:information_source\: here are my commands')
+        .setThumbnail(client.user.avatarURL) // bot's avatar
+        .addBlankField(true);
 
       for (var command in module.exports) {
-        fields.push({name: `!${command} ${module.exports[command].args}`, value: module.exports[command].desc + '\n\n\n\n\n'});
+        embed.addField(`!${command} ${module.exports[command].args}`, module.exports[command].desc);
       }
 
-      msg.channel.send({embed: {
-        color: 3447003,
-        fields: fields
-      }});
+      msg.channel.send({embed});
     }
   },
   name: {
