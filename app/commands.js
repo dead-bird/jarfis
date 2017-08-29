@@ -35,7 +35,7 @@ module.exports = {
         .catch(console.error);
 
       msg.channel.send(msg.member.nickname ? msg.member.nickname : msg.author.username, {
-        file: `resources/${args[1]}.png`
+        file: `app/resources/${args[1]}.png`
       });
     }
   },
