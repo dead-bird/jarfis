@@ -41,7 +41,7 @@ module.exports = {
   },
   change: {
     desc: 'Changes the name of the bot.',
-    args: '<string, no spaces... for now>',
+    args: '<string: no spaces... for now>',
     execute: (client, msg, args) => {
       fs.writeFileSync('app/data/bot.json', JSON.stringify({name: args[1]}));
 
@@ -61,6 +61,13 @@ module.exports = {
       if (msg) {
         msg.channel.send(`reverting to ${bot.name}. Don't fuck me up again I'm a soft boy`);
       }
+    }
+  },
+  tweet: {
+    desc: 'Pulls in a tweet.',
+    args: '<string: URL of the tweet to pull in> <integer>',
+    execute: (client, msg, args, bot) => {
+      msg.channel.send(`haha yes that was a tweet`);
     }
   },
   clear: {
