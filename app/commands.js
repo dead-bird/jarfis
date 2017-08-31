@@ -1,5 +1,8 @@
+require('dotenv').config({path: '.env'});
+
 const Discord = require('discord.js');
 const fs = require('fs');
+const Twitter = require('twitter');
 
 module.exports = {
   help: {
@@ -24,6 +27,13 @@ module.exports = {
     args: '',
     execute: (client, msg, args, bot) => {
       msg.channel.send(`the name's ${bot.name}, don't wear it out`);
+    }
+  },
+  loc: {
+    desc: 'Returns the bot\'s environment.',
+    args: '',
+    execute: (client, msg) => {
+      msg.channel.send(`chillin' at ${process.env.ENV}`);
     }
   },
   r: {
@@ -67,6 +77,19 @@ module.exports = {
     desc: 'Pulls in a tweet.',
     args: '<string: URL of the tweet to pull in> <integer>',
     execute: (client, msg, args, bot) => {
+      var tw = new Twitter({
+        consumer_key: process.env.TWITTER_CONSUMER_KEY,
+        consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+        access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+        access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+      });
+
+      tw.get('favorites/list', function(error, tweets, response) {
+        // if(error) throw error;
+        console.log('wip');  // The favorites. 
+        // console.log(response);  // Raw response object. 
+      });
+
       msg.channel.send(`haha yes that was a tweet`);
     }
   },
