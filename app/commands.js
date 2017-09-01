@@ -93,6 +93,14 @@ module.exports = {
       msg.channel.send(`haha yes that was a tweet`);
     }
   },
+  flip: {
+    desc: 'Flip a coin.',
+    args: '',
+    execute: (client, msg) => {
+      var res = (Math.floor(Math.random() * 2) == 0) ? 'heads' : 'tails';
+      msg.channel.send(`it's ${res} motherfucker`);
+    }
+  },
   clear: {
     desc: 'Hide the edge',
     args: '',
