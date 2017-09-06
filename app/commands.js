@@ -101,8 +101,37 @@ module.exports = {
       msg.channel.send(`it's ${res} motherfucker`);
     }
   },
+  rc: {
+    desc: 'Rancaps your text.',
+    args: '<string>',
+    execute: (client, msg, args) => {
+      var str = '',
+          a   = {},
+          i   = 0,
+          n,
+          r;
+
+      for (i; i < args.length; i++) {
+        if (i !== 0) { str = str += args[i] + ' '; }
+      }
+
+      a = str.split(""),
+      n = a.length;
+
+      for (var i = n - 1; i >= 0; i--) {
+        r = Math.floor(Math.random() * n) + 1;
+        a[r] = (a[r] ? a[r].toUpperCase() : '');
+      }
+
+      msg.delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(a.join(""));
+    }
+  },
   clear: {
-    desc: 'Hide the edge',
+    desc: 'Hide the edge.',
     args: '',
     execute: (client, msg) => {
       msg.delete()
