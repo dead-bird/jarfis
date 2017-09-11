@@ -110,7 +110,7 @@ module.exports = {
     }
   },
   rc: {
-    desc: 'Rancaps your text.',
+    desc: 'RaNCApS YOUR TeXt.',
     args: '<string>',
     execute: (client, msg, args) => {
       var str = '',
@@ -148,5 +148,16 @@ module.exports = {
 
       msg.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
     }
+  },
+  nut: {
+  	desc: 'Good Delicious Nut.',
+  	args: '',
+  	execute: (client, msg) => {
+  		msg.delete()
+        .then()
+        .catch(console.error);
+
+    msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga')	
+  	}
   }
 };
