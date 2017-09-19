@@ -148,5 +148,26 @@ module.exports = {
 
       msg.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
     }
+  },
+  think: {
+    desc: 'Shows a random thinking emoji',
+    args: '',
+    execute: (client, msg) => {
+      var filePath = './app/resources/Dank-Memes/'
+          
+      fs.readdir(filePath, (err, data)=>{
+
+        var r = Math.floor(Math.random() * data.length),
+            selection = filePath + data[r]                        
+          
+        msg.delete()
+          .then()
+          .catch(console.error);    
+
+        msg.channel.send({
+          file: selection
+        });
+      })
+    }
   }
 };
