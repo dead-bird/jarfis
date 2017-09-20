@@ -3,11 +3,11 @@ require('dotenv').config({path: '.env'});
 const fs = require('fs');
 const Discord = require('discord.js');
 const commands = require('./commands.js');
-const client = new Discord.Client();
+const client = new Discord.Client({forceFetchUsers: true})
 const token = process.env.TOKEN;
 const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
 const prefix = '!'; //this is still hard coded in commands.js
-
+const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 var bot = {};
 
 try {
@@ -16,7 +16,22 @@ try {
   commands.reset.execute();
 }
 
-client.on('ready', () => { console.log('ready to meme'); });
+client.on('ready', () => {
+  console.log('ready to meme');
+
+
+  // Started working on random insult
+  // ==================================
+  //
+  // var users = client.users.array(),
+  //     losers = [];
+
+  // for (var i = users.length - 1; i >= 0; i--) {
+  //   if (!users[i].bot && users[i] instanceof Discord.User) losers.push(users[i]);
+  // }
+
+  // client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
+});
 
 client.on('message', msg => {
   //loop through the commands module if msg starts with prefix
