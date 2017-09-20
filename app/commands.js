@@ -153,7 +153,7 @@ module.exports = {
     desc: 'Shows a random thinking emoji',
     args: '',
     execute: (client, msg) => {
-      var filePath = './app/resources/Dank-Memes/'
+      var filePath = './app/resources/thinking/'
           
       fs.readdir(filePath, (err, data)=>{
 
