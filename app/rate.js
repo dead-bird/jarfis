@@ -32,7 +32,7 @@ client.on('message', msg => {
     args = msg.content.slice(prefix.length).split(' ');
 
     if (args[0] in commands) {
-      commands[args[0]].execute(client, msg, args, bot);
+      commands[args[0]].execute(client, msg, args);
     }
   }
 
