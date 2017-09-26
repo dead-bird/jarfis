@@ -8,7 +8,7 @@ module.exports = {
   help: {
     desc: 'Lists all available commands.',
     args: '',
-    execute: (client, msg, args, bot) => {
+    execute: (client, msg, args) => {
       var embed = new Discord.RichEmbed()
         .setColor(3447003)
         .setDescription('\:information_source\: here are my commands')
@@ -25,8 +25,10 @@ module.exports = {
   name: {
     desc: 'Returns the current name of the bot.',
     args: '',
-    execute: (client, msg, args, bot) => {
-      msg.channel.send(`the name's ${bot.name}, don't wear it out`);
+    execute: (client, msg, args) => {
+      var bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+
+      msg.channel.send(`the name's ${bot}, don't wear it out`);
     }
   },
   loc: {
@@ -53,30 +55,27 @@ module.exports = {
     desc: 'Changes the name of the bot.',
     args: '<string: no spaces... for now>',
     execute: (client, msg, args) => {
-      fs.writeFileSync('app/data/bot.json', JSON.stringify({name: args[1]}));
+      var bot;
 
-      bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
-
-      msg.channel.send(`the name's ${bot.name}, don't wear it out`);
+      msg.guild.member(client.user).setNickname(args[1]).then(function () {
+        bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+        msg.channel.send(`just call me ${bot}`);
+      })
     }
   },
   reset: {
     desc: 'Resets the name of the bot.',
     args: '',
     execute: (client, msg) => {
-      fs.writeFileSync('app/data/bot.json', JSON.stringify({name: 'Jarfis'}));
-
-      bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
-
-      if (msg) {
-        msg.channel.send(`reverting to ${bot.name}. Don't fuck me up again I'm a soft boy`);
-      }
+      msg.guild.member(client.user).setNickname('Jarfis').then(function () {
+        msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
+      })
     }
   },
   tweet: {
     desc: 'Pulls in a tweet.',
     args: '<string: URL of the tweet to pull in> <integer>',
-    execute: (client, msg, args, bot) => {
+    execute: (client, msg, args) => {
       var tw = new Twitter({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,

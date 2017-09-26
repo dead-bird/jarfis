@@ -44,11 +44,11 @@ client.on('message', msg => {
   }
 
   //these still need doing
-  if (msg.content == `bye ${bot.name}`) {
+  if (msg.content == `bye ${getBot(msg)}`) {
     msg.channel.send('see ya, wouldn\'t wanna meme ya');
   }
 
-  if (greetings.indexOf(msg.content.split(' ')[0]) > -1 && msg.content.split(' ')[1] == bot.name) {
+  if (greetings.indexOf(msg.content.split(' ')[0]) > -1 && msg.content.split(' ')[1] == getBot(msg)) {
     msg.channel.send('hi bitches');
   }
 
@@ -64,5 +64,9 @@ client.on('message', msg => {
     msg.channel.send(`( ͡° ͜ʖ ͡°)`);
   }
 });
+
+function getBot(msg) {
+  return (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+}
 
 client.login(token);
