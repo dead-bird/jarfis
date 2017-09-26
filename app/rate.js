@@ -8,13 +8,6 @@ const token = process.env.TOKEN;
 const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
-var bot = {};
-
-try {
-  bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
-} catch (err) {
-  commands.reset.execute();
-}
 
 client.on('ready', () => {
   console.log('ready to meme');
