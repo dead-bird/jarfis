@@ -11,19 +11,7 @@ const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 
 client.on('ready', () => {
   console.log('ready to meme');
-
-
-  // Started working on random insult
-  // ==================================
-  //
-  // var users = client.users.array(),
-  //     losers = [];
-
-  // for (var i = users.length - 1; i >= 0; i--) {
-  //   if (!users[i].bot && users[i] instanceof Discord.User) losers.push(users[i]);
-  // }
-
-  // client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
+  insultRand();
 });
 
 client.on('message', msg => {
@@ -57,6 +45,25 @@ client.on('message', msg => {
     msg.channel.send(`( ͡° ͜ʖ ͡°)`);
   }
 });
+
+function insultRand() {
+  var users = client.users.array(),
+      losers = [];
+      minTrig = 3600000; //trigger times 1 and 2 hours
+      maxTrig = 7200000;
+      randTime = 0;
+
+  for (var i = users.length - 1; i >= 0; i--) {
+    if (!users[i].bot && users[i] instanceof Discord.User) losers.push(users[i]);
+  }
+
+  client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
+
+  randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
+  console.log(randTime);
+  setTimeout(insultRand, randTime);
+  console.log("end");
+}
 
 function getBot(msg) {
   return (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
