@@ -60,7 +60,7 @@ module.exports = {
       msg.guild.member(client.user).setNickname(args[1]).then(function () {
         bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
         msg.channel.send(`just call me ${bot}`);
-      })
+      }).catch(error => msg.reply(`can't do that my dude: ${error}`))
     }
   },
   reset: {
@@ -69,7 +69,7 @@ module.exports = {
     execute: (client, msg) => {
       msg.guild.member(client.user).setNickname('Jarfis').then(function () {
         msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
-      })
+      }).catch(error => msg.reply(`can't do that my dude: ${error}`))
     }
   },
   tweet: {
