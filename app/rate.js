@@ -11,7 +11,7 @@ const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 
 client.on('ready', () => {
   console.log('ready to meme');
-  insultRand();
+  if(process.env.ENV ===`Kanto`) {insultRand();}
 });
 
 client.on('message', msg => {
@@ -60,9 +60,7 @@ function insultRand() {
   client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
 
   randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
-  console.log(randTime);
   setTimeout(insultRand, randTime);
-  console.log("end");
 }
 
 function getBot(msg) {
