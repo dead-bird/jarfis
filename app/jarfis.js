@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const commands = require('./commands.js');
 const client = new Discord.Client({forceFetchUsers: true})
 const token = process.env.TOKEN;
-const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe'];
+const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe', 'whaddup'];
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 
