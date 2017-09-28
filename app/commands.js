@@ -14,11 +14,9 @@ module.exports = {
         .setDescription('\:information_source\: here are my commands')
         .setThumbnail(client.user.avatarURL) // bot's avatar
         .addBlankField(true);
-// random
       for (var command in module.exports) {
         embed.addField(`!${command} ${module.exports[command].args}`, module.exports[command].desc);
       }
-
       msg.channel.send({embed});
     }
   },
