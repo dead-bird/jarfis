@@ -168,5 +168,27 @@ module.exports = {
         });
       })
     }
+  },
+  join: {
+    desc: 'Summons Jarfis to your current voice channel',
+    args: '',
+    execute: (client, msg) => {
+      var voice = msg.member.voiceChannel;
+
+      if (voice) {voice.join().then().catch(console.error);}
+
+      //this could be simplified but I'm tired as balls
+    }
+  },
+  leave: {
+    desc: 'Kicks Jarfis from your current voice channel',
+    args: '',
+    execute: (client, msg) => {
+      var voice = msg.member.voiceChannel;
+
+      if (voice) {voice.leave().then().catch(console.error);}
+
+      //this could be simplified but I'm tired as balls
+    }
   }
 };

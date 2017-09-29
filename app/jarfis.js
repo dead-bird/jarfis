@@ -11,7 +11,7 @@ const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 
 client.on('ready', () => {
   console.log('ready to meme');
-  if(process.env.ENV ===`Kanto`) {insultRand();}
+  if (process.env.ENV ===`Kanto`) {insultRand();}
 });
 
 client.on('message', msg => {
