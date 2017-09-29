@@ -184,7 +184,7 @@ module.exports = {
     execute: (client, msg) => {
       var voice = msg.member.voiceChannel;
 
-      if (voice) {voice.leave().then().catch(console.error);}
+      if (voice) {voice.leave();}
 
       //this could be simplified but I'm tired as balls
     }
