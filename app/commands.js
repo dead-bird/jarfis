@@ -155,7 +155,8 @@ module.exports = {
         .catch(console.error);
 
     msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga')	
-  	},
+  	}
+  },
   think: {
     desc: 'Shows a random thinking emoji',
     args: '',
