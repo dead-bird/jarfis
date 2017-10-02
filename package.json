@@ -20,7 +20,7 @@
     "eslint-config-xo-space": "^0.16.0",
     "jest": "^19.0.2",
     "jest-cli": "^20.0.0",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.12.1",
     "nsp": "^2.6.3"
   },
   "scripts": {
@@ -43,6 +43,7 @@
   "dependencies": {
     "discord.js": "^11.1.0",
     "dotenv": "^4.0.0",
+    "ffmpeg-binaries": "^3.2.2-3",
     "twitter": "^1.7.1"
   }
 }

@@ -8,25 +8,25 @@ module.exports = {
   help: {
     desc: 'Lists all available commands.',
     args: '',
-    execute: (client, msg, args, bot) => {
+    execute: (client, msg, args) => {
       var embed = new Discord.RichEmbed()
         .setColor(3447003)
         .setDescription('\:information_source\: here are my commands')
         .setThumbnail(client.user.avatarURL) // bot's avatar
         .addBlankField(true);
-
       for (var command in module.exports) {
         embed.addField(`!${command} ${module.exports[command].args}`, module.exports[command].desc);
       }
-
       msg.channel.send({embed});
     }
   },
   name: {
     desc: 'Returns the current name of the bot.',
     args: '',
-    execute: (client, msg, args, bot) => {
-      msg.channel.send(`the name's ${bot.name}, don't wear it out`);
+    execute: (client, msg, args) => {
+      var bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+
+      msg.channel.send(`the name's ${bot}, don't wear it out`);
     }
   },
   loc: {
@@ -53,30 +53,27 @@ module.exports = {
     desc: 'Changes the name of the bot.',
     args: '<string: no spaces... for now>',
     execute: (client, msg, args) => {
-      fs.writeFileSync('app/data/bot.json', JSON.stringify({name: args[1]}));
+      var bot;
 
-      bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
-
-      msg.channel.send(`the name's ${bot.name}, don't wear it out`);
+      msg.guild.member(client.user).setNickname(args[1]).then(function () {
+        bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+        msg.channel.send(`just call me ${bot}`);
+      }).catch(error => msg.reply(`can't do that my dude: ${error}`))
     }
   },
   reset: {
     desc: 'Resets the name of the bot.',
     args: '',
     execute: (client, msg) => {
-      fs.writeFileSync('app/data/bot.json', JSON.stringify({name: 'Jarfis'}));
-
-      bot = JSON.parse(fs.readFileSync('app/data/bot.json'));
-
-      if (msg) {
-        msg.channel.send(`reverting to ${bot.name}. Don't fuck me up again I'm a soft boy`);
-      }
+      msg.guild.member(client.user).setNickname('Jarfis').then(function () {
+        msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
+      }).catch(error => msg.reply(`can't do that my dude: ${error}`))
     }
   },
   tweet: {
     desc: 'Pulls in a tweet.',
     args: '<string: URL of the tweet to pull in> <integer>',
-    execute: (client, msg, args, bot) => {
+    execute: (client, msg, args) => {
       var tw = new Twitter({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -158,6 +155,48 @@ module.exports = {
         .catch(console.error);
 
     msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga')	
-  	}
+  	},
+  think: {
+    desc: 'Shows a random thinking emoji',
+    args: '',
+    execute: (client, msg) => {
+      var filePath = './app/resources/thinking/'
+          
+      fs.readdir(filePath, (err, data)=>{
+
+        var r = Math.floor(Math.random() * data.length),
+            selection = filePath + data[r]                        
+          
+        msg.delete()
+          .then()
+          .catch(console.error);    
+
+        msg.channel.send({
+          file: selection
+        });
+      })
+    }
+  },
+  join: {
+    desc: 'Summons Jarfis to your current voice channel',
+    args: '',
+    execute: (client, msg) => {
+      var voice = msg.member.voiceChannel;
+
+      if (voice) {voice.join().then().catch(console.error);}
+
+      //this could be simplified but I'm tired as balls
+    }
+  },
+  leave: {
+    desc: 'Kicks Jarfis from your current voice channel',
+    args: '',
+    execute: (client, msg) => {
+      var voice = msg.member.voiceChannel;
+
+      if (voice) {voice.leave();}
+
+      //this could be simplified but I'm tired as balls
+    }
   }
 };
