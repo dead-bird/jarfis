@@ -184,7 +184,16 @@ module.exports = {
     execute: (client, msg) => {
       var voice = msg.member.voiceChannel;
 
-      if (voice) {voice.join().then().catch(console.error);}
+      if (voice) {
+        voice.join()
+        .then(conn => {
+          conn.on('speaking', (user, speaking) => {
+            if (speaking) {
+              console.log(`${user} is speaking`)
+            }
+          });
+        }).catch(console.error);
+      }
 
       //this could be simplified but I'm tired as balls
     }
