@@ -15,6 +15,8 @@ client.on('ready', () => {
   if (process.env.ENV ===`Kanto`) {insultRand();}
 });
 
+//testing live
+
 if (mute === false) {
   client.on('message', msg => {
     //loop through the commands module if msg starts with prefix
