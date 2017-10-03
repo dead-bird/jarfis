@@ -1,5 +1,0 @@
-node_modules
-app/__tests__/*
-.*
-git-ftp-setup.sh
-README.md
