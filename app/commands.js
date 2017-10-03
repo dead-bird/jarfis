@@ -9,6 +9,10 @@ module.exports = {
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg, args) => {
+      msg.delete()
+        .then()
+        .catch(console.error);
+
       var embed = new Discord.RichEmbed()
         .setColor(3447003)
         .setDescription('\:information_source\: here are my commands')
@@ -19,6 +23,7 @@ module.exports = {
         embed.addField(`!${command} ${module.exports[command].args}`, module.exports[command].desc);
       }
 
+      msg.reply('Here you go!');
       msg.channel.send({embed});
     }
   },
@@ -85,8 +90,8 @@ module.exports = {
 
       tw.get('favorites/list', function(error, tweets, response) {
         // if(error) throw error;
-        console.log('wip');  // The favorites. 
-        // console.log(response);  // Raw response object. 
+        console.log('wip');  // The favorites.
+        // console.log(response);  // Raw response object.
       });
 
       msg.channel.send(`haha yes that was a tweet`);
@@ -153,15 +158,15 @@ module.exports = {
     args: '',
     execute: (client, msg) => {
       var filePath = './app/resources/thinking/'
-          
+
       fs.readdir(filePath, (err, data)=>{
 
         var r = Math.floor(Math.random() * data.length),
-            selection = filePath + data[r]                        
-          
+            selection = filePath + data[r]
+
         msg.delete()
           .then()
-          .catch(console.error);    
+          .catch(console.error);
 
         msg.channel.send({
           file: selection
@@ -170,3 +175,23 @@ module.exports = {
     }
   }
 };
+
+//                                              ____________
+//                               --)-----------|____________|
+//                                             ,'       ,'
+//               -)------========            ,'  ____ ,'
+//                        `.    `.         ,'  ,'__ ,'
+//                          `.    `.     ,'       ,'
+//                            `.    `._,'_______,'__
+//                              [._ _| ^--      || |
+//                      ____,...-----|__________ll_|\
+//     ,.,..-------"""""     "----'                 ||
+// .-""  |=========================== ______________ |
+//  "-...l_______________________    |  |'      || |_]
+//                               [`-.|__________ll_|
+//                             ,'    ,' `.        `.
+//                           ,'    ,'     `.    ____`.
+//               -)---------========        `.  `.____`.
+//                                            `.        `.
+//                                              `.________`.
+//                              --)-------------|___________|
