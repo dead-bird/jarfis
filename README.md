@@ -8,6 +8,6 @@ Meme ratings for OG meme bois
 * run `nodemon app/jarfis.js` from project root.
 
 # Live
-* Run app:  `pm2 start app/rate.js`
+* Run app:  `pm2 start app/jarfis.js`
 * Restart:  `pm2 restart rate`
 * Stop app: `pm2 stop rate`
