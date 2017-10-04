@@ -178,35 +178,35 @@ module.exports = {
       })
     }
   },
-  join: {
-    desc: 'Summons Jarfis to your current voice channel',
-    args: '',
-    execute: (client, msg) => {
-      var voice = msg.member.voiceChannel;
+  // join: {
+  //   desc: 'Summons Jarfis to your current voice channel',
+  //   args: '',
+  //   execute: (client, msg) => {
+  //     var voice = msg.member.voiceChannel;
 
-      if (voice) {
-        voice.join()
-        .then(conn => {
-          conn.on('speaking', (user, speaking) => {
-            if (speaking) {
-              console.log(`${user} is speaking`)
-            }
-          });
-        }).catch(console.error);
-      }
+  //     if (voice) {
+  //       voice.join()
+  //       .then(conn => {
+  //         conn.on('speaking', (user, speaking) => {
+  //           if (speaking) {
+  //             console.log(`${user} is speaking`)
+  //           }
+  //         });
+  //       }).catch(console.error);
+  //     }
 
-      //this could be simplified but I'm tired as balls
-    }
-  },
-  leave: {
-    desc: 'Kicks Jarfis from your current voice channel',
-    args: '',
-    execute: (client, msg) => {
-      var voice = msg.member.voiceChannel;
+  //     //this could be simplified but I'm tired as balls
+  //   }
+  // },
+  // leave: {
+  //   desc: 'Kicks Jarfis from your current voice channel',
+  //   args: '',
+  //   execute: (client, msg) => {
+  //     var voice = msg.member.voiceChannel;
 
-      if (voice) {voice.leave();}
+  //     if (voice) {voice.leave();}
 
-      //this could be simplified but I'm tired as balls
-    }
-  }
+  //     //this could be simplified but I'm tired as balls
+  //   }
+  // }
 };
