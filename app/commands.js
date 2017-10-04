@@ -24,7 +24,7 @@ module.exports = {
     desc: 'Returns the current name of the bot.',
     args: '',
     execute: (client, msg, args) => {
-      var bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+      var bot = (typeof(msg.guild.member(client.user).nickname) !== 'undefined' ? msg.guild.member(client.user).nickname : client.user.username);
 
       msg.channel.send(`the name's ${bot}, don't wear it out`);
     }
