@@ -178,6 +178,25 @@ module.exports = {
       })
     }
   },
+  echo: {
+    desc: 'Get Jarfis to parrot you.',
+    args: '<string>',
+    execute: (client, msg, args) => {
+      var str = '';
+
+      for(let i = 0 ; i < args.length ; i++){
+        if (i !== 0){
+          str += args[i] + ' ';
+        }
+      }
+
+      msg.delete()
+          .then()
+          .catch(console.error);
+
+      msg.channel.send(str);
+    }
+  },
   // join: {
   //   desc: 'Summons Jarfis to your current voice channel',
   //   args: '',
