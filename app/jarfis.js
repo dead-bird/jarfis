@@ -70,7 +70,17 @@ function insultRand() {
 }
 
 function getBot(msg) {
-  return (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+  try {
+    if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
+        var bot = msg.guild.member(client.user).nickname;
+    } else {
+        var bot = client.user.username;
+    }
+  } catch (e) {
+    var bot = 'Jarfis';
+  }
+
+return bot;
 }
 
 client.login(token);
