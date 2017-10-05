@@ -173,6 +173,32 @@ module.exports = {
         });
       })
     }
+  }, //Custom response stuff
+  addResp: {
+    desc: 'Add a trigger and response to the bot',
+    args: '"<Trigger:string>", "<Response:string>"',
+    execute: () => {
+      //gitignore the file so local boys not overwrote
+      //write trigger as key response as value to the JSON file
+      //echo command successfully added and repeat what was added in an embed
+    }
+  },
+  delResp: {
+    desc: 'Delete a trigger and response from the bot',
+    args: '"<Trigger:string>"', //Just the trigger needed to delete from the JSON
+    execute: () => {
+      //search for trigger and delete from file
+      //respond with the trigger and response deleted so canbe readded if mistake?
+      //allow to delete with number in list as well as trigger?
+    }
+  },
+  showResp: {
+    desc: 'List all the triggers and responses written to the bot',
+    args: '',
+    execute: () => {
+      //loop over file and list all triggers and responses in a discord embed
+      //maybe paginate responses a la the rythm queue
+    }
   }
 };
 
