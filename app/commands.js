@@ -27,15 +27,14 @@ module.exports = {
       try {
         if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
           if (msg.guild.member(client.user).nickname) {
-            var bot = msg.guild.member(client.user).nickname
-          } else {
-            var bot = client.user.username
+            var bot = msg.guild.member(client.user).nickname;
           }
-        }
+        } else {
+            var bot = client.user.username;
+          }
       } catch(e) {
-        var bot = 'Jarfis'
+        var bot = 'Jarfis';
       }
-
       msg.channel.send(`the name's ${bot}, don't wear it out`);
     }
   },
@@ -93,8 +92,8 @@ module.exports = {
 
       tw.get('favorites/list', function(error, tweets, response) {
         // if(error) throw error;
-        console.log('wip');  // The favorites. 
-        // console.log(response);  // Raw response object. 
+        console.log('wip');  // The favorites.
+        // console.log(response);  // Raw response object.
       });
 
       msg.channel.send(`haha yes that was a tweet`);
@@ -164,7 +163,7 @@ module.exports = {
         .then()
         .catch(console.error);
 
-    msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga')	
+    msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga')
   	}
   },
   think: {
@@ -172,15 +171,15 @@ module.exports = {
     args: '',
     execute: (client, msg) => {
       var filePath = './app/resources/thinking/'
-          
+
       fs.readdir(filePath, (err, data)=>{
 
         var r = Math.floor(Math.random() * data.length),
-            selection = filePath + data[r]                        
-          
+            selection = filePath + data[r]
+
         msg.delete()
           .then()
-          .catch(console.error);    
+          .catch(console.error);
 
         msg.channel.send({
           file: selection
