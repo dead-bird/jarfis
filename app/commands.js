@@ -26,9 +26,7 @@ module.exports = {
     execute: (client, msg, args) => {
       try {
         if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
-          if (msg.guild.member(client.user).nickname) {
             var bot = msg.guild.member(client.user).nickname;
-          }
         } else {
             var bot = client.user.username;
           }
