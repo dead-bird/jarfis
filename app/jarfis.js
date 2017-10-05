@@ -8,11 +8,14 @@ const token = process.env.TOKEN;
 const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe', 'whaddup'];
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
-const mute = false; //stops bot responses 
+const mute = false; //stops bot responses
 
 client.on('ready', () => {
   console.log('ready to meme');
-  if (process.env.ENV ===`Kanto`) {insultRand();}
+  if (process.env.ENV ===`Kanto`) {
+    setTimeout(insultRand,900000);
+    client.channels.get('354952778029989898').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance') //maybe add in latest commit here?
+  }
 });
 
 if (mute === false) {
@@ -67,7 +70,17 @@ function insultRand() {
 }
 
 function getBot(msg) {
-  return (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
+  try {
+    if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
+        var bot = msg.guild.member(client.user).nickname;
+    } else {
+        var bot = client.user.username;
+    }
+  } catch (e) {
+    var bot = 'Jarfis';
+  }
+
+return bot;
 }
 
 client.login(token);
