@@ -11,9 +11,9 @@ const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 const mute = false; //stops bot responses
 
 client.on('ready', () => {
-  console.log('ready to meme');
-  if (process.env.ENV ===`Kanto`) {
-    setTimeout(insultRand,900000);
+  console.log('meme machine is online');
+  if (process.env.ENV === `Kanto`) {
+    setTimeout(insultRand,600000);
     client.channels.get('354952778029989898').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance') //maybe add in latest commit here?
   }
 });
@@ -46,25 +46,27 @@ if (mute === false) {
       msg.delete()
         .then()
         .catch(console.error);
-        
+
       msg.channel.send(`( ͡° ͜ʖ ͡°)`);
     }
   });
 }
 
 function insultRand() {
-  var users = client.users.array(),
+  let users = client.users.array(),
       losers = [];
-      minTrig = 3600000; //trigger times 1 and 2 hours
-      maxTrig = 7200000;
+      minTrig = 36000000; //triggers between 10 and 12 hours
+      maxTrig = 43200000;
       randTime = 0;
+      date = new Date();
 
-  for (var i = users.length - 1; i >= 0; i--) {
-    if (!users[i].bot && users[i] instanceof Discord.User) losers.push(users[i]);
+  if (date.getDay() > 0 && date.getDay() < 6 && date.getHours() >= 9) {
+    for (var i = users.length - 1; i >= 0; i--) {
+      if (!users[i].bot && users[i] instanceof Discord.User) losers.push(users[i]);
+    }
+
+    client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
   }
-
-  client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
-
   randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
   setTimeout(insultRand, randTime);
 }
