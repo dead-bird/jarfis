@@ -60,9 +60,14 @@ module.exports = {
     desc: 'Changes the name of the bot.',
     args: '<string: no spaces... for now>',
     execute: (client, msg, args) => {
-      var bot;
+      var bot,
+          newName = '';
 
-      msg.guild.member(client.user).setNickname(args[1]).then(function () {
+      for(i = 1 ; i < args.length ; i ++){
+        newName += args[i] + ' ';
+      }
+
+      msg.guild.member(client.user).setNickname(newName).then(function () {
         bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
         msg.channel.send(`just call me ${bot}`);
       }).catch(error => msg.reply(`can't do that my dude: ${error}`))
