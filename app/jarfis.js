@@ -27,14 +27,10 @@ if (mute === false) {
       if (args[0] in commands) {
         commands[args[0]].execute(client, msg, args);
       }
-    }
-  } else {
-    if (responses.hasOwnProperty(msg.content.toLowerCase()))
-      msg.channel.send(responses[msg.content.toLowerCase()]);
-  }
-});
-
-      msg.channel.send(`( ͡° ͜ʖ ͡°)`);
+    } else {
+      if (responses.hasOwnProperty(msg.content.toLowerCase())) {
+        msg.channel.send(responses[msg.content.toLowerCase()]);
+      }
     }
   });
 }
