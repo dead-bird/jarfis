@@ -5,9 +5,9 @@ const Discord = require('discord.js');
 const commands = require('./commands.js');
 const client = new Discord.Client({forceFetchUsers: true})
 const token = process.env.TOKEN;
-const greetings = ['hey', 'hi', 'yo', 'sup', 'sound', 'safe', 'whaddup'];
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
+const responses = importResponses();
 const mute = false; //stops bot responses
 
 client.on('ready', () => {
@@ -28,24 +28,11 @@ if (mute === false) {
         commands[args[0]].execute(client, msg, args);
       }
     }
-
-    //these still need doing
-    if (msg.content == `bye ${getBot(msg)}`) {
-      msg.channel.send('see ya, wouldn\'t wanna meme ya');
-    }
-
-    if (greetings.indexOf(msg.content.split(' ')[0]) > -1 && msg.content.split(' ')[1] == getBot(msg)) {
-      msg.channel.send('hi bitches');
-    }
-
-    if (msg.content == 'too pure for this world') {
-      msg.channel.send(`thank you senpai`);
-    }
-
-    if (msg.content == '/lenny') {
-      msg.delete()
-        .then()
-        .catch(console.error);
+  } else {
+    if (responses.hasOwnProperty(msg.content.toLowerCase()))
+      msg.channel.send(responses[msg.content.toLowerCase()]);
+  }
+});
 
       msg.channel.send(`( ͡° ͜ʖ ͡°)`);
     }
@@ -85,4 +72,26 @@ function getBot(msg) {
 return bot;
 }
 
+function importResponses() {
+  let botName = getBot
+  return JSON.parse(fs.readFileSync('app/data/responses.json', 'utf8').replace(/{{bot}}/g, botName)); //just a one of var replacement can expand in future if want to go balls to the wall mental with it
+}
+
 client.login(token);
+
+//       _             _
+//      //             \\
+//     /'               `\
+//    /,'     ..-..     `.\
+//   /,'   .''     ``.   `.\
+//  /,'   :   .---.   :   `.\
+// I I   :  .'\   /`.  :   I I
+// I b__:   . .`~'. .   :__d I
+// I p~~:   . `._.' .   :~~q I
+// I I   :   ./   \.   :   I I
+//  \`.   :   `---'   :   ,'/
+//   \`.   `..     ..'   ,'/
+//    \`.     ``~''     ,'/
+//     \`               '/
+//      \\             //
+//       ~             ~
