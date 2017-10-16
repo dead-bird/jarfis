@@ -8,7 +8,7 @@ const env = process.env;
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 const responses = importResponses();
-const mute = false; //stops bot responses
+const devID = 347775461855854612;
 
 client.on('ready', () => {
   console.log('meme machine is online');
@@ -18,21 +18,25 @@ client.on('ready', () => {
   }
 });
 
-if (mute === false) {
-  client.on('message', msg => {
-    //loop through the commands module if msg starts with prefix
-    if (msg.content.startsWith(prefix)) {
-      args = msg.content.slice(prefix.length).split(' ');
+client.on('message', msg => {
+  let id = msg.guild.id;
 
-      if (args[0] in commands) {
-        commands[args[0]].execute(client, msg, args);
-      }
-    } else {
-      if (responses.hasOwnProperty(msg.content.toLowerCase())) {
-        msg.channel.send(responses[msg.content.toLowerCase()]);
-      }
+  env.ENV === 'dev' ? (id == devID ? listen(client, msg) : '') : (id != devID ? listen(client, msg) : ''); //shitty ternary for now ygm :dab:
+});
+
+function listen(client, msg) {
+  //loop through the commands module if msg starts with prefix
+  if (msg.content.startsWith(prefix)) {
+    args = msg.content.slice(prefix.length).split(' ');
+
+    if (args[0] in commands) {
+      commands[args[0]].execute(client, msg, args);
     }
-  });
+  } else {
+    if (responses.hasOwnProperty(msg.content.toLowerCase())) {
+      msg.channel.send(responses[msg.content.toLowerCase()]);
+    }
+  }
 }
 
 function insultRand() {
