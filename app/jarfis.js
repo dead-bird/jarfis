@@ -4,7 +4,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const commands = require('./commands.js');
 const client = new Discord.Client({forceFetchUsers: true})
-const token = process.env.TOKEN;
+const env = process.env;
 const prefix = '!'; //this is still hard coded in commands.js
 const insults = fs.readFileSync('app/data/insults.txt').toString().split('\n');
 const responses = importResponses();
@@ -12,7 +12,7 @@ const mute = false; //stops bot responses
 
 client.on('ready', () => {
   console.log('meme machine is online');
-  if (process.env.ENV === `Kanto`) {
+  if (env.ENV === 'live') {
     setTimeout(insultRand,600000);
     client.channels.get('354952778029989898').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance') //maybe add in latest commit here?
   }
@@ -73,7 +73,7 @@ function importResponses() {
   return JSON.parse(fs.readFileSync('app/data/responses.json', 'utf8').replace(/{{bot}}/g, botName)); //just a one of var replacement can expand in future if want to go balls to the wall mental with it
 }
 
-client.login(token);
+client.login(env.TOKEN);
 
 //       _             _
 //      //             \\
