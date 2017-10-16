@@ -57,19 +57,19 @@ function insultRand() {
 function getBot(msg) {
   try {
     if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
-        var bot = msg.guild.member(client.user).nickname;
+      var bot = msg.guild.member(client.user).nickname;
     } else {
-        var bot = client.user.username;
+      var bot = client.user.username;
     }
   } catch (e) {
     var bot = 'Jarfis';
   }
 
-return bot;
+  return bot;
 }
 
 function importResponses() {
-  let botName = getBot
+  let botName = getBot;
   return JSON.parse(fs.readFileSync('app/data/responses.json', 'utf8').replace(/{{bot}}/g, botName)); //just a one of var replacement can expand in future if want to go balls to the wall mental with it
 }
 
