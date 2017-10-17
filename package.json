@@ -1,6 +1,6 @@
 {
   "name": "jarfis",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Meme ratings for OG meme bois",
   "homepage": "https://github.com/bringmethedeathstar/jarfis",
   "author": {
@@ -8,37 +8,44 @@
     "email": "phillips.dave@hotmail.co.uk",
     "url": "https://github.com/bringmethedeathstar"
   },
+  "contributors": [
+    {
+      "name": "Toby Gray",
+      "email": "tobyjgray96@gmail.com",
+      "url": "https://github.com/TobyJGray"
+    },
+    {
+      "name": "Dylan Tarry",
+      "email": "",
+      "url": "https://github.com/Dylan-Tarry"
+    }
+  ],
   "files": [
     "app"
   ],
-  "main": "app/rate.js",
+  "main": "app/jarfis.js",
   "keywords": [
     ""
   ],
   "devDependencies": {
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
-    "jest": "^19.0.2",
-    "jest-cli": "^20.0.0",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "nsp": "^2.6.3"
   },
   "scripts": {
     "prepublish": "nsp check",
-    "pretest": "eslint . --fix",
-    "test": "jest"
+    "pretest": "eslint .",
+    "test": "mocha app/**/test.js"
   },
   "eslintConfig": {
     "extends": "xo-space",
     "env": {
-      "jest": true,
       "node": true
     }
   },
   "repository": "https://github.com/bringmethedeathstar/jarfis.git",
-  "jest": {
-    "testEnvironment": "node"
-  },
   "license": "unlicense",
   "dependencies": {
     "discord.js": "^11.1.0",
