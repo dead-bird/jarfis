@@ -42,7 +42,8 @@
   "eslintConfig": {
     "extends": "xo-space",
     "env": {
-      "node": true
+      "node": true,
+      "mocha": true
     }
   },
   "repository": "https://github.com/bringmethedeathstar/jarfis.git",

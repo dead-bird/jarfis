@@ -6,6 +6,7 @@ Meme ratings for OG meme bois
 * ensure `nodemon` is correctly installed
 * duplicate `.env.example`, enter the correct `token` and save the file as `.env`
 * run `nodemon app/jarfis.js` from project root.
+* before pushing run npm test
 
 # Live
 * Run app:  `pm2 start app/jarfis.js`
