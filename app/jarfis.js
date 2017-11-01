@@ -8,7 +8,7 @@ const env = process.env;
 const prefix = '!'; // This is still hard coded in commands.js
 const insults = fs.readFileSync(`${__dirname}/data/insults.txt`).toString().split('\n');
 const responses = importResponses();
-const devID = '347775461855854612';
+const devId = '347775461855854612';
 
 client.on('ready', () => {
   console.log('meme machine is online');
@@ -19,9 +19,19 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  let id = msg.guild.id;
+  let id = 0; // This is here to avoid an id of null when dm
 
-  env.ENV === 'dev' ? (id === devID ? listen(client, msg) : '') : (id !== devID ? listen(client, msg) : ''); // Shitty ternary for now ygm :dab:
+  try {
+    id = msg.guild.id;
+  } catch (e) {
+    console.log("DM msg from " + msg.channel.recipient.username);
+  }
+
+  if (env.ENV === 'dev' && id === devId) {
+    listen(client, msg);
+  } else if (env.ENV !== 'dev' && id !== devId) {
+    listen(client, msg);
+  }
 });
 
 function listen(client, msg) {
@@ -42,8 +52,8 @@ function listen(client, msg) {
 function insultRand() {
   let users = client.users.array();
   let losers = [];
-  let minTrig = 36000000; // Triggers between 10 and 12 hours
-  let maxTrig = 43200000;
+  let minTrig = 10800000; // Triggers between 3 and 6 hours
+  let maxTrig = 21600000;
   let randTime = 0;
   let date = new Date();
 
