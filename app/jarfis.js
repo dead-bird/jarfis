@@ -24,7 +24,7 @@ client.on('message', msg => {
   try {
     id = msg.guild.id;
   } catch (e) {
-    console.log("DM msg from " + msg.channel.recipient.username);
+    console.log('DM msg from ' + msg.channel.recipient.username);
   }
 
   if (env.ENV === 'dev' && id === devId) {
@@ -44,7 +44,7 @@ function listen(client, msg) {
     if (args[0] in commands) {
       commands[args[0]].execute(client, msg, args);
     }
-  } else if (responses.hasOwnProperty(msg.content.toLowerCase())) {
+  } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
     msg.channel.send(responses[msg.content.toLowerCase()]);
   }
 }

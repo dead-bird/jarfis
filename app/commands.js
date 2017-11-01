@@ -2,7 +2,7 @@ require('dotenv').config({path: '.env'});
 
 const Discord = require('discord.js');
 const fs = require('fs');
-const Twitter = require('twitter');
+// //const Twitter = require('twitter'); // Not currently in use
 const env = process.env;
 
 module.exports = {
@@ -97,18 +97,18 @@ module.exports = {
     desc: 'Pulls in a tweet.',
     args: '<string: URL of the tweet to pull in> <integer>',
     execute: (client, msg) => {
-      // let tw = new Twitter({
-      //   consumer_key: env.TWITTER_CONSUMER_KEY,
-      //   consumer_secret: env.TWITTER_CONSUMER_SECRET,
-      //   access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
-      //   access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
-      // });
+      /* //let tw = new Twitter({
+         consumer_key: env.TWITTER_CONSUMER_KEY,
+         consumer_secret: env.TWITTER_CONSUMER_SECRET,
+         access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
+         access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
+       });
 
-      // tw.get('favorites/list', function (error, tweets, response) {
-      //   // If(error) throw error;
-      //   console.log('wip'); // The favorites.
-      //   // console.log(response);  // Raw response object.
-      // });
+       tw.get('favorites/list', function (error, tweets, response) {
+          if(error) throw error;
+         console.log('wip'); // The favorites.
+          console.log(response);  // Raw response object.
+       }); */
 
       msg.channel.send(`haha yes that was a tweet`);
     }
