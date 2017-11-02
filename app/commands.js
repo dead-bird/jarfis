@@ -4,7 +4,6 @@ const Discord = require('discord.js');
 const fs = require('fs');
 // //const Twitter = require('twitter'); // Not currently in use
 const env = process.env;
-const banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
 
 module.exports = {
   help: {
@@ -222,64 +221,6 @@ module.exports = {
         .catch(console.error);
 
       msg.channel.send(str);
-    }
-  },
-  ban: {
-    desc: 'Stop people *cough* Ramon *cough* from issuing commands',
-    args: '<user>',
-    execute: (client, msg, args) => {
-      var id = args[1].match(/\d+/g).toString();
-
-      if (banList) {
-        var oBanList = JSON.parse(banList);
-        oBanList[(client.users.get(id).username)] = id;
-        var banned = (JSON.stringify(oBanList));
-
-        fs.writeFile(`${__dirname}/data/banlist.json`, banned, err => {
-          if (err) {
-            throw err;
-          }
-        });
-      } else {
-        var firstUser = '{"' + client.users.get(id).username + '":"' + id + '"}';
-
-        fs.writeFile(`${__dirname}/data/banlist.json`, firstUser, err => {
-          if (err) {
-            throw err;
-          }
-        });
-      }
-    }
-  },
-  unban: {
-    desc: 'For when you\'ve had enough :dsd: for one day',
-    args: '<user>',
-    execute: (client, msg, args) => {
-      var id = args[1].match(/\d+/g).toString();
-      var user = client.users.get(id).username;
-
-      if (banList) {
-        var oBanList = JSON.parse(banList);
-        var blockedUserId = oBanList[user];
-
-        if (blockedUserId) {
-          delete oBanList[user];
-          fs.writeFile(`${__dirname}/data/banlist.json`, JSON.stringify(oBanList), err => {
-            if (err) {
-              throw err;
-            }
-          });
-          msg.delete()
-            .then()
-            .catch(console.error);
-          msg.channel.send(`<@${blockedUserId}> is now unbanned`);
-        } else {
-          msg.delete()
-            .then()
-            .catch(console.error);
-          msg.channel.send('Awkward, This person isnt banned!');
-        }
-      }
     }
   },
   // Join: {
