@@ -36,17 +36,30 @@ client.on('message', msg => {
 });
 
 function listen(client, msg) {
-  let args;
+// This is very bad, i know its very bad, but i am very bad at being good.... and coding. Feel free to improve
+  var banlist = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+  if (banlist) {
+    var oBanlist = JSON.parse(banlist);
+    var blockedUserId = oBanlist[msg.author.username];
+  }
 
-  // Loop through the commands module if msg starts with prefix
-  if (msg.content.startsWith(prefix)) {
-    args = msg.content.slice(prefix.length).split(' ');
-
-    if (args[0] in commands) {
-      commands[args[0]].execute(client, msg, args);
+  if (msg.author.id === blockedUserId) {
+    if (msg.content.startsWith(prefix)) {
+      msg.channel.send('Nah soz mate!');
     }
-  } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
-    msg.channel.send(responses[msg.content.toLowerCase()]);
+  } else {
+    let args;
+
+    // Loop through the commands module if msg starts with prefix
+    if (msg.content.startsWith(prefix)) {
+      args = msg.content.slice(prefix.length).split(' ');
+
+      if (args[0] in commands) {
+        commands[args[0]].execute(client, msg, args);
+      }
+    } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
+      msg.channel.send(responses[msg.content.toLowerCase()]);
+    }
   }
 }
 
