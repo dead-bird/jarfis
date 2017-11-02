@@ -1,9 +1,14 @@
-/* globals describe, it */
+let assert = require('assert');
 
-const assert = require('assert');
-
-describe('jarfis', function () {
-  it('has a test', function () {
-    assert(true, 'jarfis should have a test');
+describe('Example Test', function () {
+  describe('Pass', function () {
+    it('should pass the test', function () {
+      assert.equal(1, 1);
+    });
+  });
+  describe('Jarfis', function () {
+    it('return true', function () {
+      assert('Jarfis');
+    });
   });
 });

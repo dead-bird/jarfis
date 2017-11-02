@@ -11,6 +11,7 @@ const responses = importResponses();
 const devId = '347775461855854612';
 
 client.on('ready', () => {
+  client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
   console.log('meme machine is online');
   if (env.ENV === 'live') {
     setTimeout(insultRand, 600000);
@@ -24,7 +25,7 @@ client.on('message', msg => {
   try {
     id = msg.guild.id;
   } catch (e) {
-    console.log('DM msg from ' + msg.channel.recipient.username);
+
   }
 
   if (env.ENV === 'dev' && id === devId) {

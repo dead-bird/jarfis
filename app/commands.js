@@ -53,6 +53,7 @@ module.exports = {
     args: '',
     execute: (client, msg) => {
       msg.channel.send(`chillin' at ${env.LOC}`);
+      client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
     }
   },
   r: {
