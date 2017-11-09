@@ -10,6 +10,7 @@ const insults = fs.readFileSync(`${__dirname}/data/insults.txt`).toString().spli
 const responses = importResponses();
 const devId = '347775461855854612';
 
+
 client.on('ready', () => {
   client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
   console.log('meme machine is online');
@@ -36,17 +37,32 @@ client.on('message', msg => {
 });
 
 function listen(client, msg) {
-  let args;
+// This is very bad, i know its very bad, but i am very bad at being good.... and coding. Feel free to improve
+  let banlist = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+  let isBanned = false;
 
-  // Loop through the commands module if msg starts with prefix
-  if (msg.content.startsWith(prefix)) {
-    args = msg.content.slice(prefix.length).split(' ');
+  if (banlist) {
+    let aBanlist = JSON.parse(banlist);
+    isBanned = aBanlist.includes(msg.author.id);
+  }
 
-    if (args[0] in commands) {
-      commands[args[0]].execute(client, msg, args);
+  if (isBanned) {
+    if (msg.content.startsWith(prefix)) {
+      msg.channel.send('Nah soz mate!');
     }
-  } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
-    msg.channel.send(responses[msg.content.toLowerCase()]);
+  } else {
+    let args;
+
+    // Loop through the commands module if msg starts with prefix
+    if (msg.content.startsWith(prefix)) {
+      args = msg.content.slice(prefix.length).split(' ');
+
+      if (args[0] in commands) {
+        commands[args[0]].execute(client, msg, args);
+      }
+    } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
+      msg.channel.send(responses[msg.content.toLowerCase()]);
+    }
   }
 }
 

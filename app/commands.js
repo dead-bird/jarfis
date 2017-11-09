@@ -223,6 +223,66 @@ module.exports = {
       msg.channel.send(str);
     }
   },
+  ban: {
+    desc: 'Stop people *cough* Ramon *cough* from issuing commands',
+    args: '<user>',
+    execute: (client, msg, args) => {
+      let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+      let id = args[1].match(/\d+/g).toString();
+
+      if(banList){
+        let aBanList = JSON.parse(banList);
+        aBanList.push(id);
+        let banned = (JSON.stringify(aBanList));
+
+        fs.writeFileSync(`${__dirname}/data/banlist.json`, banned, err => {
+          if (err) {
+            throw err;
+          }
+        });
+      } else {
+        let firstUser = `["${id}"]`;
+
+        fs.writeFileSync(`${__dirname}/data/banlist.json`, firstUser, err => {
+          if (err) {
+            throw err;
+          }
+        });
+      }
+    }
+  },
+  unban: {
+    desc: 'For when you\'ve had enough :dsd: for one day',
+    args: '<user>',
+    execute: (client, msg, args) => {
+      let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+      let id = args[1].match(/\d+/g).toString();
+
+      if(banList){
+        let aBanList = JSON.parse(banList);
+
+        for (let i = 0; i < aBanList.length; i++) {
+          if (aBanList[i] === id) {
+            aBanList.splice(i, 1);
+            fs.writeFileSync(`${__dirname}/data/banlist.json`, JSON.stringify(aBanList), err => {
+              if (err) {
+                throw err;
+              }
+            });
+            msg.delete()
+              .then()
+              .catch(console.error);
+            msg.channel.send(`<@${id}> is now unbanned`);
+            return true;
+          }
+        }
+        msg.delete()
+          .then()
+          .catch(console.error);
+        msg.channel.send(`Awkward, <@${id}> doesnt seem to be banned`);
+      }
+    }
+  },
   // Join: {
   //   desc: 'Summons Jarfis to your current voice channel',
   //   args: '',
