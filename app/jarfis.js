@@ -47,6 +47,7 @@ function listen(client, msg) {
   if (isBanned) {
     if (msg.content.startsWith(prefix)) {
       msg.channel.send('Nah soz mate!');
+    }
   } else {
     let args;
 
