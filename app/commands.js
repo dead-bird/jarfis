@@ -230,7 +230,7 @@ module.exports = {
       let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
       let id = args[1].match(/\d+/g).toString();
 
-      if(banList){
+      if (banList) {
         let aBanList = JSON.parse(banList);
         aBanList.push(id);
         let banned = (JSON.stringify(aBanList));
@@ -258,7 +258,7 @@ module.exports = {
       let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
       let id = args[1].match(/\d+/g).toString();
 
-      if(banList){
+      if (banList) {
         let aBanList = JSON.parse(banList);
 
         for (let i = 0; i < aBanList.length; i++) {

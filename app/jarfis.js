@@ -10,7 +10,6 @@ const insults = fs.readFileSync(`${__dirname}/data/insults.txt`).toString().spli
 const responses = importResponses();
 const devId = '347775461855854612';
 
-
 client.on('ready', () => {
   client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
   console.log('meme machine is online');
