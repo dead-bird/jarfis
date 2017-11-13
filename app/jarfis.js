@@ -44,20 +44,19 @@ function listen(client, msg) {
     let aBanlist = JSON.parse(banlist);
     isBanned = aBanlist.includes(msg.author.id);
   }
-
   if (isBanned) {
     if (msg.content.startsWith(prefix)) {
       msg.channel.send('Nah soz mate!');
-    }
   } else {
     let args;
 
     // Loop through the commands module if msg starts with prefix
     if (msg.content.startsWith(prefix)) {
       args = msg.content.slice(prefix.length).split(' ');
+      let cmd = args[0].toLowerCase();
 
-      if (args[0] in commands) {
-        commands[args[0]].execute(client, msg, args);
+      if (cmd in commands) {
+        commands[cmd].execute(client, msg, args);
       }
     } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
       msg.channel.send(responses[msg.content.toLowerCase()]);
