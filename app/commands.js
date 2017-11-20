@@ -227,27 +227,34 @@ module.exports = {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '<user>',
     execute: (client, msg, args) => {
-      let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
-      let id = args[1].match(/\d+/g).toString();
+      if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
+        let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+        let id = args[1].match(/\d+/g).toString();
 
-      if (banList) {
-        let aBanList = JSON.parse(banList);
-        aBanList.push(id);
-        let banned = (JSON.stringify(aBanList));
+        if (banList) {
+          let aBanList = JSON.parse(banList);
+          aBanList.push(id);
+          let banned = (JSON.stringify(aBanList));
 
-        fs.writeFileSync(`${__dirname}/data/banlist.json`, banned, err => {
-          if (err) {
-            throw err;
-          }
-        });
+          fs.writeFileSync(`${__dirname}/data/banlist.json`, banned, err => {
+            if (err) {
+              throw err;
+            }
+          });
+          msg.channel.send(`<@${id}> is now banned`);
+        } else {
+          let firstUser = `["${id}"]`;
+
+          fs.writeFileSync(`${__dirname}/data/banlist.json`, firstUser, err => {
+            if (err) {
+              throw err;
+            }
+          });
+          msg.channel.send(`<@${id}> is now banned`);
+        }
       } else {
-        let firstUser = `["${id}"]`;
-
-        fs.writeFileSync(`${__dirname}/data/banlist.json`, firstUser, err => {
-          if (err) {
-            throw err;
-          }
-        });
+        // Not super useful message but at least it doesnt crash
+        msg.channel.send(`Something went wrong`);
       }
     }
   },
@@ -255,31 +262,36 @@ module.exports = {
     desc: 'For when you\'ve had enough :dsd: for one day',
     args: '<user>',
     execute: (client, msg, args) => {
-      let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
-      let id = args[1].match(/\d+/g).toString();
+      if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
+        let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+        let id = args[1].match(/\d+/g).toString();
 
-      if (banList) {
-        let aBanList = JSON.parse(banList);
+        if (banList) {
+          let aBanList = JSON.parse(banList);
 
-        for (let i = 0; i < aBanList.length; i++) {
-          if (aBanList[i] === id) {
-            aBanList.splice(i, 1);
-            fs.writeFileSync(`${__dirname}/data/banlist.json`, JSON.stringify(aBanList), err => {
-              if (err) {
-                throw err;
-              }
-            });
-            msg.delete()
-              .then()
-              .catch(console.error);
-            msg.channel.send(`<@${id}> is now unbanned`);
-            return true;
+          for (let i = 0; i < aBanList.length; i++) {
+            if (aBanList[i] === id) {
+              aBanList.splice(i, 1);
+              fs.writeFileSync(`${__dirname}/data/banlist.json`, JSON.stringify(aBanList), err => {
+                if (err) {
+                  throw err;
+                }
+              });
+              msg.delete()
+                .then()
+                .catch(console.error);
+              msg.channel.send(`<@${id}> is now unbanned`);
+              return true;
+            }
           }
+          msg.delete()
+            .then()
+            .catch(console.error);
+          msg.channel.send(`Awkward, <@${id}> doesnt seem to be banned`);
         }
-        msg.delete()
-          .then()
-          .catch(console.error);
-        msg.channel.send(`Awkward, <@${id}> doesnt seem to be banned`);
+      } else {
+        // Not super useful message but at least it doesnt crash
+        msg.channel.send(`Something went wrong`);
       }
     }
   },
