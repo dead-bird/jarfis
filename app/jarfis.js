@@ -15,7 +15,7 @@ client.on('ready', () => {
   console.log('meme machine is online');
   if (env.ENV === 'live') {
     setTimeout(insultRand, 600000);
-    client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance'); // Maybe add in latest commit here?
+    client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
   }
 });
 
