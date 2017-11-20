@@ -15,7 +15,7 @@ client.on('ready', () => {
   console.log('meme machine is online');
   if (env.ENV === 'live') {
     setTimeout(insultRand, 600000);
-    client.channels.get('354952778029989898').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance'); // Maybe add in latest commit here?
+    client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance'); // Maybe add in latest commit here?
   }
 });
 
@@ -80,7 +80,7 @@ function insultRand() {
       }
     }
 
-    client.channels.get('354952778029989898').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
+    client.channels.get('380676777170698240').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
   }
   randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
   setTimeout(insultRand, randTime);
