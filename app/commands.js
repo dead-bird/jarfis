@@ -344,12 +344,33 @@ module.exports = {
       // allow to delete with number in list as well as trigger?
     }
   },
-  showResp: {
+  showresp: {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
-    execute: () => {
-      // Loop over file and list all triggers and responses in a discord embed
-      // maybe paginate responses a la the rythm queue
+    execute: (client, msg) => {
+      var resps = fs.readFileSync(`${__dirname}/data/responses.json`, 'utf8');
+
+      if (resps) {
+        var oResps = JSON.parse(resps);
+
+        msg.delete()
+          .then()
+          .catch(console.error);
+
+        let embed = new Discord.RichEmbed()
+          .setColor(3447003)
+          .setDescription(':information_source: here are my responses')
+          .setThumbnail(client.user.avatarURL) // Bot's avatar
+          .addBlankField(true);
+
+        for (var responses in oResps) {
+          if (oResps) {
+            embed.addField(`${responses}`, `"${oResps[responses]}"`);
+          }
+        }
+
+        msg.channel.send({embed});
+      }
     }
   }
 };
