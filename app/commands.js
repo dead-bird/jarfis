@@ -6,7 +6,7 @@ const fs = require('fs');
 const env = process.env;
 
 module.exports = {
-  help: {
+  help: { // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg) => {
@@ -205,7 +205,7 @@ module.exports = {
     }
   },
   echo: {
-    desc: 'Get Jarfis to parrot you.',
+    desc: 'Speak on Jarfis\' behalf.',
     args: '<string>',
     execute: (client, msg, args) => {
       let str = '';
