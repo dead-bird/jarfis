@@ -169,17 +169,6 @@ module.exports = {
       msg.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
     }
   },
-  nut: {
-    desc: 'Good Delicious Nut.',
-    args: '',
-    execute: (client, msg) => {
-      msg.delete()
-        .then()
-        .catch(console.error);
-
-      msg.channel.send('Let you fuck my face\nGood nutritious nut, on deck nigga');
-    }
-  },
   think: {
     desc: 'Shows a random thinking emoji',
     args: '',
