@@ -28,40 +28,57 @@ client.on('message', msg => {
 
   }
 
-  if (env.ENV === 'dev' && id === devId) {
-    listen(client, msg);
-  } else if (env.ENV !== 'dev' && id !== devId) {
-    listen(client, msg);
+  if (id) {
+    if (env.ENV === 'dev' && id === devId) {
+      checkAuthor(client, msg, id);
+    } else if (env.ENV !== 'dev' && id !== devId) {
+      checkAuthor(client, msg, id);
+    }
   }
 });
 
-function listen(client, msg) {
-// This is very bad, i know its very bad, but i am very bad at being good.... and coding. Feel free to improve
-  let banlist = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
-  let isBanned = false;
+function checkAuthor(client, msg, id) {
+  let path = `${__dirname}/data/servers/${id}`;
 
-  if (banlist) {
-    let aBanlist = JSON.parse(banlist);
-    isBanned = aBanlist.includes(msg.author.id);
-  }
-  if (isBanned) {
-    if (msg.content.startsWith(prefix)) {
-      msg.channel.send('Nah soz mate!');
-    }
-  } else {
-    let args;
+  if (fs.existsSync(`${path}/banlist.json`)) {
+    fs.readFile(`${path}/banlist.json`, 'utf8', (err, data) => {
+      if (err) { console.log(err); }
 
-    // Loop through the commands module if msg starts with prefix
-    if (msg.content.startsWith(prefix)) {
-      args = msg.content.slice(prefix.length).split(' ');
-      let cmd = args[0].toLowerCase();
+      if (JSON.parse(data).includes(msg.author.id) && msg.content.startsWith(prefix)) {
+        msg.channel.send('Nah soz mate!');
 
-      if (cmd in commands) {
-        commands[cmd].execute(client, msg, args);
+        return false;
       }
-    } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
-      msg.channel.send(responses[msg.content.toLowerCase()]);
+
+      listen(client, msg);
+    });
+  } else {
+    if (!fs.existsSync(path)) {
+      fs.mkdirSync(path);
     }
+
+    fs.writeFile(`${path}/banlist.json`, JSON.stringify(new Array), (err) => {
+      if (err) { return console.log(err); }
+
+      listen(client, msg);
+    });
+  }
+}
+
+function listen(client, msg) {
+  let args;
+
+  // Loop through the commands module if msg starts with prefix
+  if (msg.content.startsWith(prefix)) {
+    args = msg.content.slice(prefix.length).split(' ');
+
+    let cmd = args[0].toLowerCase();
+
+    if (cmd in commands) {
+      commands[cmd].execute(client, msg, args);
+    }
+  } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
+    msg.channel.send(responses[msg.content.toLowerCase()]);
   }
 }
 

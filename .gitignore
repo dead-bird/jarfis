@@ -1,3 +1,5 @@
 node_modules
 coverage
 .env
+app/data/servers/*
+!app/data/servers/.gitkeep
