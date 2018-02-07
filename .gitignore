@@ -2,4 +2,4 @@ node_modules
 coverage
 .env
 app/data/servers/*
-!app/data/servers/.gitkeep
+!app/data/servers/guilds.json
