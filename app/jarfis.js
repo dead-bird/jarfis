@@ -47,6 +47,13 @@ client.on('guildCreate', (guild) => {
   });
 });
 
+// Pin Announcements
+client.on('channelPinsUpdate', (channel, time) => { // wip
+  channel.fetchPinnedMessages().then(messages => {
+    console.log(messages);
+  });
+});
+
 client.login(env.TOKEN);
 
 //       _             _
