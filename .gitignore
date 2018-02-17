@@ -3,3 +3,5 @@ coverage
 .env
 app/data/servers/*
 !app/data/servers/guilds.json
+
+npm-debug\.log
