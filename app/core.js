@@ -7,6 +7,17 @@ const fs = require('fs');
 const env = process.env;
 
 let self = module.exports = {
+  // init
+  init: () => {
+    client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
+
+    console.log('meme machine is online');
+
+    if (env.ENV === 'live') {
+      setTimeout(insultRand, 600000);
+      client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
+    }
+  },
   // check if message author is in banlist
   checkAuthor: (client, msg, id) => {
     fs.readFile(`${__dirname}/data/servers/${id}/banlist.json`, 'utf8', (err, data) => {
@@ -63,7 +74,7 @@ let self = module.exports = {
     setTimeout(insultRand, randTime);
   },
   //
-  getBot: (msg) => {
+  getBot: msg => {
     let bot;
 
     try {
@@ -82,21 +93,32 @@ let self = module.exports = {
     let botName = self.getBot;
     return JSON.parse(fs.readFileSync(`${__dirname}/data/responses.json`, 'utf8').replace(/{{bot}}/g, botName)); // Just a one of var replacement can expand in future if want to go balls to the wall mental with it
   },
-  // Create server config
-  newConfig: (guilds, id) => {
+  checkGuild: () => {
+    fs.readFile(`${__dirname}/data/servers/guilds.json`, 'utf8', (err, data) => {
+      if (err) { console.log(err); }
+
+      let guilds = JSON.parse(data);
+
+      if (!guilds.includes(guild.id)) {
+        self.newGuild(guilds, guild.id);
+      }
+    });
+  },
+  // Create guild config
+  newGuild: (guilds, id) => {
     let path = `${__dirname}/data/servers/${id}`;
 
     // Create server directory
-    fs.mkdir(path, (err) => {
+    fs.mkdir(path, err => {
       if (err) { console.log(err); }
 
       // Create blank banlist
-      fs.writeFile(`${path}/banlist.json`, JSON.stringify(new Array), (err) => {
+      fs.writeFile(`${path}/banlist.json`, JSON.stringify(new Array), err => {
         if (err) { console.log(err); }
       });
 
       // Create blank responses
-      fs.writeFile(`${path}/responses.json`, JSON.stringify(new Object()), (err) => {
+      fs.writeFile(`${path}/responses.json`, JSON.stringify(new Object()), err => {
         if (err) { console.log(err); }
       });
     });
@@ -104,8 +126,18 @@ let self = module.exports = {
     // Add server ID to guilds.json
     guilds.push(id);
 
-    fs.writeFile(`${__dirname}/data/servers/guilds.json`, JSON.stringify(guilds), (err) => {
+    fs.writeFile(`${__dirname}/data/servers/guilds.json`, JSON.stringify(guilds), err => {
       if (err) { console.log(err); }
     });
+  },
+  // Announce number of pins in a channel
+  announcePins: channel => {
+    let pins = 0;
+
+    channel.fetchPinnedMessages().then((messages, msg) => {
+      messages.map(() => { return pins++ });
+
+      channel.send(pins + '/50 pins my dudes');
+    }).catch(console.error);
   },
 }
