@@ -8,12 +8,7 @@ const env = process.env;
 const devId = '347775461855854612';
 
 client.on('ready', () => {
-  client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
-  console.log('meme machine is online');
-  if (env.ENV === 'live') {
-    setTimeout(insultRand, 600000);
-    client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
-  }
+  core.init();
 });
 
 client.on('message', msg => {
@@ -25,7 +20,7 @@ client.on('message', msg => {
 
   }
 
-  if (id) {
+  if (id) { // this is fucking tragic :c
     if (env.ENV === 'dev' && id === devId) {
       core.checkAuthor(client, msg, id);
     } else if (env.ENV !== 'dev' && id !== devId) {
@@ -35,23 +30,13 @@ client.on('message', msg => {
 });
 
 // Create server shit when Jarfis joins a server
-client.on('guildCreate', (guild) => {
-  fs.readFile(`${__dirname}/data/servers/guilds.json`, 'utf8', (err, data) => {
-    if (err) { console.log(err); }
-
-    let guilds = JSON.parse(data);
-
-    if (!guilds.includes(guild.id)) {
-      core.newConfig(guilds, guild.id);
-    }
-  });
+client.on('guildCreate', guild => {
+  core.checkGuild();
 });
 
 // Pin Announcements
-client.on('channelPinsUpdate', (channel, time) => { // wip
-  channel.fetchPinnedMessages().then(messages => {
-    console.log(messages);
-  });
+client.on('channelPinsUpdate', (channel, time) => {
+  core.announcePins(channel);
 });
 
 client.login(env.TOKEN);
