@@ -1,7 +1,7 @@
 node_modules
 coverage
 .env
-app/data/servers/*
-!app/data/servers/guilds.json
+app/data/guilds/*
+!app/data/guilds/guilds.json
 
 npm-debug\.log
