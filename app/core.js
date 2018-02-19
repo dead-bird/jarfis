@@ -121,9 +121,9 @@ let self = module.exports = {
 
       // Create default responses
       let res = {
-        lenny: '( ͡° ͜ʖ ͡°)',
-        'bye {{bot}}': 'see ya, wouldn\'t wanna meme ya',
         'hey {{bot}}': 'hi bitches',
+        'bye {{bot}}': 'see ya, wouldn\'t wanna meme ya',
+        lenny: '( ͡° ͜ʖ ͡°)',
       };
 
       fs.writeFile(`${path}/responses.json`, JSON.stringify(res), err => {
