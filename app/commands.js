@@ -29,25 +29,6 @@ module.exports = {
       msg.channel.send({embed});
     }
   },
-  name: {
-    desc: 'Returns the current name of the bot.',
-    args: '',
-    execute: (client, msg) => {
-      let bot;
-
-      try {
-        if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
-          bot = msg.guild.member(client.user).nickname;
-        } else {
-          bot = client.user.username;
-        }
-      } catch (e) {
-        bot = 'Jarfis';
-      }
-
-      msg.channel.send(`the name's ${bot}, don't wear it out`);
-    }
-  },
   loc: {
     desc: 'Returns the bot\'s environment.',
     args: '',
