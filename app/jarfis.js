@@ -8,7 +8,7 @@ const env = process.env;
 const devId = '347775461855854612';
 
 client.on('ready', () => {
-  core.init();
+  core.init(client);
 });
 
 client.on('message', msg => {
@@ -31,7 +31,7 @@ client.on('message', msg => {
 
 // Create server shit when Jarfis joins a server
 client.on('guildCreate', guild => {
-  core.checkGuild();
+  core.checkGuild(guild.id);
 });
 
 // Pin Announcements
