@@ -75,26 +75,6 @@ module.exports = {
       }).catch(error => msg.reply(`can't do that my dude: ${error}`));
     }
   },
-  tweet: {
-    desc: 'Pulls in a tweet.',
-    args: '<string: URL of the tweet to pull in> <integer>',
-    execute: (client, msg) => {
-      /* //let tw = new Twitter({
-         consumer_key: env.TWITTER_CONSUMER_KEY,
-         consumer_secret: env.TWITTER_CONSUMER_SECRET,
-         access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
-         access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
-       });
-
-       tw.get('favorites/list', function (error, tweets, response) {
-          if(error) throw error;
-         console.log('wip'); // The favorites.
-          console.log(response);  // Raw response object.
-       }); */
-
-      msg.channel.send(`haha yes that was a tweet`);
-    }
-  },
   flip: {
     desc: 'Flip a coin.',
     args: '',
@@ -270,55 +250,24 @@ module.exports = {
       }
     }
   },
-  // Join: {
-  //   desc: 'Summons Jarfis to your current voice channel',
-  //   args: '',
-  //   execute: (client, msg) => {
-  //     var voice = msg.member.voiceChannel;
-
-  //     if (voice) {
-  //       voice.join()
-  //       .then(conn => {
-  //         conn.on('speaking', (user, speaking) => {
-  //           if (speaking) {
-  //             console.log(`${user} is speaking`)
-  //           }
-  //         });
-  //       }).catch(console.error);
-  //     }
-
-  //     //this could be simplified but I'm tired as balls
+  // addResp: {
+  //   desc: 'Add a trigger and response to the bot',
+  //   args: '"<Trigger:string>", "<Response:string>"',
+  //   execute: () => {
+  //     // Gitignore the file so local boys not overwrote
+  //     // write trigger as key response as value to the JSON file
+  //     // echo command successfully added and repeat what was added in an embed
   //   }
   // },
-  // leave: {
-  //   desc: 'Kicks Jarfis from your current voice channel',
-  //   args: '',
-  //   execute: (client, msg) => {
-  //     var voice = msg.member.voiceChannel;
-
-  //     if (voice) {voice.leave();}
-
-  //     //this could be simplified but I'm tired as balls
+  // delResp: {
+  //   desc: 'Delete a trigger and response from the bot',
+  //   args: '"<Trigger:string>"', // Just the trigger needed to delete from the JSON
+  //   execute: () => {
+  //     // Search for trigger and delete from file
+  //     // respond with the trigger and response deleted so canbe readded if mistake?
+  //     // allow to delete with number in list as well as trigger?
   //   }
-  // }
-  addResp: {
-    desc: 'Add a trigger and response to the bot',
-    args: '"<Trigger:string>", "<Response:string>"',
-    execute: () => {
-      // Gitignore the file so local boys not overwrote
-      // write trigger as key response as value to the JSON file
-      // echo command successfully added and repeat what was added in an embed
-    }
-  },
-  delResp: {
-    desc: 'Delete a trigger and response from the bot',
-    args: '"<Trigger:string>"', // Just the trigger needed to delete from the JSON
-    execute: () => {
-      // Search for trigger and delete from file
-      // respond with the trigger and response deleted so canbe readded if mistake?
-      // allow to delete with number in list as well as trigger?
-    }
-  },
+  // },
   showresp: {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
