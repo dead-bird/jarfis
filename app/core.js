@@ -36,7 +36,7 @@ let self = module.exports = {
   // Loop through the commands module if msg starts with prefix
   listen: (client, msg) => {
     let args;
-    let responses = self.getResponses();
+    let responses = self.getResponses(msg.guild.id);
 
     if (msg.content.startsWith(prefix)) {
       args = msg.content.slice(prefix.length).split(' ');
@@ -90,9 +90,10 @@ let self = module.exports = {
 
     return bot;
   },
-  getResponses: () => {
-    let botName = self.getBot;
-    return JSON.parse(fs.readFileSync(`${__dirname}/data/responses.json`, 'utf8').replace(/{{bot}}/g, botName)); // Just a one of var replacement can expand in future if want to go balls to the wall mental with it
+  getResponses: (id) => {
+    let path = `${__dirname}/data/guilds/${id}/responses.json`;
+
+    return JSON.parse(fs.readFileSync(path, 'utf8').replace(/{{bot}}/g, self.getBot)); // Just a one of var replacement can expand in future if want to go balls to the wall mental with it
   },
   checkGuild: (id) => {
     fs.readFile(`${__dirname}/data/guilds/guilds.json`, 'utf8', (err, data) => {
