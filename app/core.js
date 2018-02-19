@@ -117,8 +117,14 @@ let self = module.exports = {
         if (err) { console.log(err); }
       });
 
-      // Create blank responses
-      fs.writeFile(`${path}/responses.json`, JSON.stringify(new Object()), err => {
+      // Create default responses
+      let res = {
+        lenny: '( ͡° ͜ʖ ͡°)',
+        'bye {{bot}}': 'see ya, wouldn\'t wanna meme ya',
+        'hey {{bot}}': 'hi bitches',
+      };
+
+      fs.writeFile(`${path}/responses.json`, JSON.stringify(res), err => {
         if (err) { console.log(err); }
       });
     });
