@@ -93,14 +93,14 @@ let self = module.exports = {
     let botName = self.getBot;
     return JSON.parse(fs.readFileSync(`${__dirname}/data/responses.json`, 'utf8').replace(/{{bot}}/g, botName)); // Just a one of var replacement can expand in future if want to go balls to the wall mental with it
   },
-  checkGuild: () => {
-    fs.readFile(`${__dirname}/data/servers/guilds.json`, 'utf8', (err, data) => {
+  checkGuild: (id) => {
+    fs.readFile(`${__dirname}/data/guilds/guilds.json`, 'utf8', (err, data) => {
       if (err) { console.log(err); }
 
       let guilds = JSON.parse(data);
 
-      if (!guilds.includes(guild.id)) {
-        self.newGuild(guilds, guild.id);
+      if (!guilds.includes(id)) {
+        self.newGuild(guilds, id);
       }
     });
   },
