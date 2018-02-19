@@ -1,10 +1,10 @@
 require('dotenv').config({path: '.env'});
 
-const Discord = require('discord.js');
-const commands = require('./commands.js');
-const prefix = '!'; // This is still hard coded in commands.js
-const fs = require('fs');
-const env = process.env;
+const commands = require('./commands.js'),
+      Discord  = require('discord.js'),
+      fs       = require('fs'),
+      env      = process.env,
+      prefix   = '!'; // This is still hard coded in commands.js
 
 let self = module.exports = {
   // init

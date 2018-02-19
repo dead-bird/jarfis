@@ -1,11 +1,11 @@
 require('dotenv').config({path: '.env'});
 
-const fs = require('fs');
-const Discord = require('discord.js');
-const core = require('./core.js');
-const client = new Discord.Client({forceFetchUsers: true});
-const env = process.env;
-const devId = '347775461855854612';
+const client  = new Discord.Client({forceFetchUsers: true}),
+      Discord = require('discord.js'),
+      devId   = '347775461855854612',
+      core    = require('./core.js'),
+      fs      = require('fs'),
+      env     = process.env;
 
 client.on('ready', () => {
   core.init(client);

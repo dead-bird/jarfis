@@ -1,18 +1,15 @@
 require('dotenv').config({path: '.env'});
 
-const Discord = require('discord.js');
-const fs = require('fs');
-// //const Twitter = require('twitter'); // Not currently in use
-const env = process.env;
+const Discord = require('discord.js'),
+      fs      = require('fs'),
+      env     = process.env;
 
 module.exports = {
   help: { // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg) => {
-      msg.delete()
-        .then()
-        .catch(console.error);
+      msg.delete().then().catch(console.error);
 
       let embed = new Discord.RichEmbed()
         .setColor(3447003)
@@ -41,9 +38,7 @@ module.exports = {
     desc: 'Rates a meme.',
     args: '<integer between 0 and 5>',
     execute: (client, msg, args) => {
-      msg.delete()
-        .then()
-        .catch(console.error);
+      msg.delete().then().catch(console.error);
 
       msg.channel.send(msg.member.nickname ? msg.member.nickname : msg.author.username, {
         file: `app/resources/${args[1]}.png`
@@ -112,9 +107,7 @@ module.exports = {
         a[r] = (a[r] ? a[r].toUpperCase() : '');
       }
 
-      msg.delete()
-        .then()
-        .catch(console.error);
+      msg.delete().then().catch(console.error);
 
       msg.channel.send(a.join(''));
     }
@@ -123,9 +116,7 @@ module.exports = {
     desc: 'Hide the edge.',
     args: '',
     execute: (client, msg) => {
-      msg.delete()
-        .then()
-        .catch(console.error);
+      msg.delete().then().catch(console.error);
 
       msg.channel.send('.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n+--------+\n+**CLEAR**+\n+--------+');
     }
@@ -143,9 +134,7 @@ module.exports = {
           let r = Math.floor(Math.random() * data.length);
           let selection = filePath + data[r];
 
-          msg.delete()
-            .then()
-            .catch(console.error);
+          msg.delete().then().catch(console.error);
 
           msg.channel.send({
             file: selection
@@ -166,9 +155,7 @@ module.exports = {
         }
       }
 
-      msg.delete()
-        .then()
-        .catch(console.error);
+      msg.delete().then().catch(console.error);
 
       msg.channel.send(str);
     }
@@ -232,16 +219,15 @@ module.exports = {
                   throw err;
                 }
               });
-              msg.delete()
-                .then()
-                .catch(console.error);
+
+              msg.delete().then().catch(console.error);
               msg.channel.send(`<@${id}> is now unbanned`);
+
               return true;
             }
           }
-          msg.delete()
-            .then()
-            .catch(console.error);
+
+          msg.delete().then().catch(console.error);
           msg.channel.send(`Awkward, <@${id}> doesnt seem to be banned`);
         }
       } else {
@@ -277,9 +263,7 @@ module.exports = {
       if (resps) {
         var oResps = JSON.parse(resps);
 
-        msg.delete()
-          .then()
-          .catch(console.error);
+        msg.delete().then().catch(console.error);
 
         let embed = new Discord.RichEmbed()
           .setColor(3447003)
