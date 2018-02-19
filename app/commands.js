@@ -197,7 +197,7 @@ module.exports = {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '<user>',
     execute: (client, msg, args) => {
-      let path = `${__dirname}/data/servers/${msg.guild.id}/banlist.json`;
+      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
 
       if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
         let banList = fs.readFileSync(path, 'utf8');
@@ -235,7 +235,7 @@ module.exports = {
     desc: 'For when you\'ve had enough :dsd: for one day',
     args: '<user>',
     execute: (client, msg, args) => {
-      let path = `${__dirname}/data/servers/${msg.guild.id}/banlist.json`;
+      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
 
       if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
         let banList = fs.readFileSync(path, 'utf8');
