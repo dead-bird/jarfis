@@ -14,7 +14,8 @@ let self = module.exports = {
     console.log('meme machine is online');
 
     if (env.ENV === 'live') {
-      setTimeout(insultRand, 600000);
+      setTimeout(self.insult, 600000);
+
       client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
     }
   },
@@ -50,7 +51,7 @@ let self = module.exports = {
     }
   },
   //
-  insultRand: () => {
+  insult: () => {
     let users = client.users.array();
     let losers = [];
     let minTrig = 10800000; // Triggers between 3 and 6 hours
@@ -71,7 +72,7 @@ let self = module.exports = {
     }
 
     randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
-    setTimeout(insultRand, randTime);
+    setTimeout(self.insult, randTime);
   },
   //
   getBot: msg => {
