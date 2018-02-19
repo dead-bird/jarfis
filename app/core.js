@@ -20,7 +20,7 @@ let self = module.exports = {
   },
   // check if message author is in banlist
   checkAuthor: (client, msg, id) => {
-    fs.readFile(`${__dirname}/data/servers/${id}/banlist.json`, 'utf8', (err, data) => {
+    fs.readFile(`${__dirname}/data/guilds/${id}/banlist.json`, 'utf8', (err, data) => {
       if (err) { console.log(err); }
 
       if (JSON.parse(data).includes(msg.author.id) && msg.content.startsWith(prefix)) {
@@ -106,7 +106,7 @@ let self = module.exports = {
   },
   // Create guild config
   newGuild: (guilds, id) => {
-    let path = `${__dirname}/data/servers/${id}`;
+    let path = `${__dirname}/data/guilds/${id}`;
 
     // Create server directory
     fs.mkdir(path, err => {
@@ -126,7 +126,7 @@ let self = module.exports = {
     // Add server ID to guilds.json
     guilds.push(id);
 
-    fs.writeFile(`${__dirname}/data/servers/guilds.json`, JSON.stringify(guilds), err => {
+    fs.writeFile(`${__dirname}/data/guilds/guilds.json`, JSON.stringify(guilds), err => {
       if (err) { console.log(err); }
     });
   },
