@@ -8,7 +8,7 @@ const env = process.env;
 
 let self = module.exports = {
   // init
-  init: () => {
+  init: (client) => {
     client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
 
     console.log('meme machine is online');
