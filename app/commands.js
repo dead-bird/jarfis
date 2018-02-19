@@ -29,25 +29,6 @@ module.exports = {
       msg.channel.send({embed});
     }
   },
-  name: {
-    desc: 'Returns the current name of the bot.',
-    args: '',
-    execute: (client, msg) => {
-      let bot;
-
-      try {
-        if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) {
-          bot = msg.guild.member(client.user).nickname;
-        } else {
-          bot = client.user.username;
-        }
-      } catch (e) {
-        bot = 'Jarfis';
-      }
-
-      msg.channel.send(`the name's ${bot}, don't wear it out`);
-    }
-  },
   loc: {
     desc: 'Returns the bot\'s environment.',
     args: '',
@@ -92,26 +73,6 @@ module.exports = {
       msg.guild.member(client.user).setNickname('Jarfis').then(function () {
         msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
       }).catch(error => msg.reply(`can't do that my dude: ${error}`));
-    }
-  },
-  tweet: {
-    desc: 'Pulls in a tweet.',
-    args: '<string: URL of the tweet to pull in> <integer>',
-    execute: (client, msg) => {
-      /* //let tw = new Twitter({
-         consumer_key: env.TWITTER_CONSUMER_KEY,
-         consumer_secret: env.TWITTER_CONSUMER_SECRET,
-         access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
-         access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET
-       });
-
-       tw.get('favorites/list', function (error, tweets, response) {
-          if(error) throw error;
-         console.log('wip'); // The favorites.
-          console.log(response);  // Raw response object.
-       }); */
-
-      msg.channel.send(`haha yes that was a tweet`);
     }
   },
   flip: {
@@ -216,8 +177,10 @@ module.exports = {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '<user>',
     execute: (client, msg, args) => {
+      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
+
       if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
-        let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+        let banList = fs.readFileSync(path, 'utf8');
         let id = args[1].match(/\d+/g).toString();
 
         if (banList) {
@@ -225,16 +188,17 @@ module.exports = {
           aBanList.push(id);
           let banned = (JSON.stringify(aBanList));
 
-          fs.writeFileSync(`${__dirname}/data/banlist.json`, banned, err => {
+          fs.writeFileSync(path, banned, err => {
             if (err) {
               throw err;
             }
           });
+
           msg.channel.send(`<@${id}> is now banned`);
         } else {
           let firstUser = `["${id}"]`;
 
-          fs.writeFileSync(`${__dirname}/data/banlist.json`, firstUser, err => {
+          fs.writeFileSync(path, firstUser, err => {
             if (err) {
               throw err;
             }
@@ -251,8 +215,10 @@ module.exports = {
     desc: 'For when you\'ve had enough :dsd: for one day',
     args: '<user>',
     execute: (client, msg, args) => {
+      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
+
       if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
-        let banList = fs.readFileSync(`${__dirname}/data/banlist.json`, 'utf8');
+        let banList = fs.readFileSync(path, 'utf8');
         let id = args[1].match(/\d+/g).toString();
 
         if (banList) {
@@ -261,7 +227,7 @@ module.exports = {
           for (let i = 0; i < aBanList.length; i++) {
             if (aBanList[i] === id) {
               aBanList.splice(i, 1);
-              fs.writeFileSync(`${__dirname}/data/banlist.json`, JSON.stringify(aBanList), err => {
+              fs.writeFileSync(path, JSON.stringify(aBanList), err => {
                 if (err) {
                   throw err;
                 }
@@ -284,60 +250,29 @@ module.exports = {
       }
     }
   },
-  // Join: {
-  //   desc: 'Summons Jarfis to your current voice channel',
-  //   args: '',
-  //   execute: (client, msg) => {
-  //     var voice = msg.member.voiceChannel;
-
-  //     if (voice) {
-  //       voice.join()
-  //       .then(conn => {
-  //         conn.on('speaking', (user, speaking) => {
-  //           if (speaking) {
-  //             console.log(`${user} is speaking`)
-  //           }
-  //         });
-  //       }).catch(console.error);
-  //     }
-
-  //     //this could be simplified but I'm tired as balls
+  // addResp: {
+  //   desc: 'Add a trigger and response to the bot',
+  //   args: '"<Trigger:string>", "<Response:string>"',
+  //   execute: () => {
+  //     // Gitignore the file so local boys not overwrote
+  //     // write trigger as key response as value to the JSON file
+  //     // echo command successfully added and repeat what was added in an embed
   //   }
   // },
-  // leave: {
-  //   desc: 'Kicks Jarfis from your current voice channel',
-  //   args: '',
-  //   execute: (client, msg) => {
-  //     var voice = msg.member.voiceChannel;
-
-  //     if (voice) {voice.leave();}
-
-  //     //this could be simplified but I'm tired as balls
+  // delResp: {
+  //   desc: 'Delete a trigger and response from the bot',
+  //   args: '"<Trigger:string>"', // Just the trigger needed to delete from the JSON
+  //   execute: () => {
+  //     // Search for trigger and delete from file
+  //     // respond with the trigger and response deleted so canbe readded if mistake?
+  //     // allow to delete with number in list as well as trigger?
   //   }
-  // }
-  addResp: {
-    desc: 'Add a trigger and response to the bot',
-    args: '"<Trigger:string>", "<Response:string>"',
-    execute: () => {
-      // Gitignore the file so local boys not overwrote
-      // write trigger as key response as value to the JSON file
-      // echo command successfully added and repeat what was added in an embed
-    }
-  },
-  delResp: {
-    desc: 'Delete a trigger and response from the bot',
-    args: '"<Trigger:string>"', // Just the trigger needed to delete from the JSON
-    execute: () => {
-      // Search for trigger and delete from file
-      // respond with the trigger and response deleted so canbe readded if mistake?
-      // allow to delete with number in list as well as trigger?
-    }
-  },
-  showresp: {
+  // },
+  responses: {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
     execute: (client, msg) => {
-      var resps = fs.readFileSync(`${__dirname}/data/responses.json`, 'utf8');
+      var resps = fs.readFileSync(`${__dirname}/data/guilds/${msg.guild.id}/responses.json`, 'utf8');
 
       if (resps) {
         var oResps = JSON.parse(resps);

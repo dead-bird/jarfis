@@ -1,14 +1,14 @@
 {
   "name": "jarfis",
-  "version": "1.0.0",
-  "description": "Meme ratings for OG meme bois",
-  "homepage": "https://github.com/bringmethedeathstar/jarfis",
-  "author": {
-    "name": "Dave Phillips",
-    "email": "phillips.dave@hotmail.co.uk",
-    "url": "https://github.com/bringmethedeathstar"
-  },
+  "version": "0.9.5",
+  "description": "a Discord bot that does some things",
+  "homepage": "https://github.com/dead-bird/jarfis",
   "contributors": [
+    {
+      "name": "Dave Phillips",
+      "email": "phillips.dave@hotmail.co.uk",
+      "url": "https://github.com/bringmethedeathstar"
+    },
     {
       "name": "Toby Gray",
       "email": "tobyjgray96@gmail.com",
@@ -46,7 +46,7 @@
       "mocha": true
     }
   },
-  "repository": "https://github.com/bringmethedeathstar/jarfis.git",
+  "repository": "https://github.com/dead-bird/jarfis.git",
   "license": "unlicense",
   "dependencies": {
     "discord.js": "^11.1.0",
