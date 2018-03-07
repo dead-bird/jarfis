@@ -283,15 +283,23 @@ module.exports = {
   },
   clap: {
     desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
-    args: '<string>',
+    args: '<string>(-raw)',
     execute: (client, msg, args) => {
-      let str = ':clap:'; // prepend a clap
+      let clap = ':clap:';
+
+      if(args[args.length-1] === '-raw'){
+         clap = '\\👏';
+         args.splice(args.length-1, args.length);
+      }
+
+      let str = clap; // prepend a clap
 
       for (let i = 0; i < args.length; i++) {
         if (i !== 0) {
-          str += args[i] + ':clap:';
+          str += args[i] + clap;
         }
       }
+
       msg.delete().then().catch(console.error);
       msg.channel.send(str);
     }
