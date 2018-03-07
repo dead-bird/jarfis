@@ -280,6 +280,21 @@ module.exports = {
         msg.channel.send({embed});
       }
     }
+  },
+  clap: {
+    desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
+    args: '<string>',
+    execute: (client, msg, args) => {
+      let str = ':clap:'; // prepend a clap
+
+      for (let i = 0; i < args.length; i++) {
+        if (i !== 0) {
+          str += args[i] + ':clap:';
+        }
+      }
+      msg.delete().then().catch(console.error);
+      msg.channel.send(str);
+    }
   }
 };
 
