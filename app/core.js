@@ -72,7 +72,7 @@ let self = module.exports = {
     }
 
     randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
-    setTimeout(self.insult, randTime);
+    setTimeout(self.insult(client), randTime);
   },
   //
   getBot: msg => {
