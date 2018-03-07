@@ -287,7 +287,7 @@ module.exports = {
     execute: (client, msg, args) => {
       let clap = ':clap:';
 
-      if(args[args.length-1] === '-raw'){
+      if (args[args.length-1] === '-raw') {
          clap = '\\👏';
          args.splice(args.length-1, args.length);
       }
