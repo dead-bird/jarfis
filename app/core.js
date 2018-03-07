@@ -16,7 +16,7 @@ let self = module.exports = {
     if (env.ENV === 'live') {
       setTimeout(self.insult, 600000);
 
-      client.channels.get('380676777170698240').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
+      client.channels.get('415900255691866122').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
     }
   },
   // check if message author is in banlist
