@@ -1,7 +1,7 @@
 require('dotenv').config({path: '.env'});
 
-const client  = new Discord.Client({forceFetchUsers: true}),
-      Discord = require('discord.js'),
+const Discord = require('discord.js'),
+      client  = new Discord.Client({forceFetchUsers: true}),
       devId   = '347775461855854612',
       core    = require('./core.js'),
       fs      = require('fs'),
