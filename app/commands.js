@@ -41,7 +41,7 @@ module.exports = {
       msg.delete().then().catch(console.error);
 
       msg.channel.send(msg.member.nickname ? msg.member.nickname : msg.author.username, {
-        file: `app/resources/${args[1]}.png`
+        file: `app/resources/responses/rate/${args[1]}.png`
       });
     }
   },
@@ -125,7 +125,7 @@ module.exports = {
     desc: 'Shows a random thinking emoji',
     args: '',
     execute: (client, msg) => {
-      let filePath = './app/resources/thinking/';
+      let filePath = './app/resources/responses/think/';
 
       fs.readdir(filePath, (err, data) => {
         if (err) {
