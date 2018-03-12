@@ -287,12 +287,12 @@ module.exports = {
     execute: (client, msg, args) => {
       let clap = ':clap:';
 
-      if (args[args.length-1] === '-raw') {
-         clap = '\\👏';
-         args.splice(args.length-1, args.length);
+      if (args[args.length - 1] === '-raw') {
+        clap = '\\👏';
+        args.splice(args.length - 1, args.length);
       }
 
-      let str = clap; // prepend a clap
+      let str = clap; // Prepend a clap
 
       for (let i = 0; i < args.length; i++) {
         if (i !== 0) {
@@ -302,6 +302,30 @@ module.exports = {
 
       msg.delete().then().catch(console.error);
       msg.channel.send(str);
+    }
+  },
+  banner: {
+    desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
+    args: '<string> A-Z and 0-9',
+    execute: (client, msg, args) => {
+      let str = '';
+      let i = 0;
+
+      for (i; i < args.length; i++) {
+        if (i !== 0) {
+          str += args[i] + ' ';
+        }
+      }
+
+      var numStr = [':zero:', ':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:'];
+      let a = str.toLowerCase()
+        .replace(/([a-z])/g, ':regional_indicator_$1: ')
+        .replace(/([0-9])/g, function ($1) {
+          return numStr[$1];
+        });
+
+      msg.delete().catch(console.error);
+      msg.channel.send(a);
     }
   }
 };
