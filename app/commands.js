@@ -360,8 +360,8 @@ module.exports = {
           headers: headers,
           form: {
             'template_id': '124276589',
-            'username': env.IMGFLIP_USER,
-            'password': env.IMGFLIP_PASS,
+            'username': `${env.IMGFLIP_USER}`,
+            'password': `${env.IMGFLIP_PASS}`,
             'max_font_size': '30px',
             'boxes': [{
               "text": text1,
@@ -387,7 +387,12 @@ module.exports = {
         request(options, function (error, response, body) {
           if (!error && response.statusCode == 200) {
             var resp = JSON.parse(body)
-            msg.channel.send(resp['data']['url']);
+            try {
+              msg.channel.send(resp['data']['url']);
+            } catch (e) {
+              msg.channel.send('Big **oof** my dude check the logs');
+              console.log('imgflip error: \n' + e);
+            }
           }
         })
 
