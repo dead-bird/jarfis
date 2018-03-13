@@ -2,6 +2,7 @@ require('dotenv').config({path: '.env'});
 
 const Discord = require('discord.js'),
       fs      = require('fs'),
+      request = require('request');
       env     = process.env;
 
 module.exports = {
@@ -326,6 +327,72 @@ module.exports = {
 
       msg.delete().catch(console.error);
       msg.channel.send(a);
+    }
+  },
+  drake: {
+    desc: 'Generate a dank memay',
+    args: '"Top Text" "Bottom Text"',
+    execute: (client, msg, args) => {
+      // Hard code one as an example, need to think about a more dynamic approach
+      // For all the legit new cool mems on the block dawg
+      if (args.length < 2) {
+        msg.channel.send("please give me two inputs my dude");
+      } else {
+        let str = '';
+        let i = 0;
+
+        for (i; i < args.length; i++) {
+          if (i !== 0) str += args[i] + ' '; // Args into 1 string
+        }
+
+        memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+
+        let text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
+        let text2 = memeText[1].replace(/['"]+/g, '');
+
+        var headers = {
+          'User-Agent' : 'Super Agent/0.0.1',
+        }
+
+        var options = {
+          url: 'https://api.imgflip.com/caption_image',
+          method: 'POST',
+          headers: headers,
+          form: {
+            'template_id': '124276589',
+            'username': env.IMGFLIP_USER,
+            'password': env.IMGFLIP_PASS,
+            'max_font_size': '30px',
+            'boxes': [{
+              "text": text1,
+              "x": 190, // Hardcoded values to make drake meme work
+              "y": 10,
+              "width": 180,
+              "height": 180,
+              "color": "#ffffff",
+              "outline_color": "#000000"
+            },
+            {
+              "text": text2,
+              "x": 190,
+              "y": 130,
+              "width": 180,
+              "height": 180,
+              "color": "#ffffff",
+              "outline_color": "#000000"
+            }]
+          },
+        }
+
+        request(options, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            var resp = JSON.parse(body)
+            msg.channel.send(resp['data']['url']);
+          }
+        })
+
+        msg.delete().catch(console.error);
+      }
     }
   }
 };
