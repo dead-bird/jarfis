@@ -5,7 +5,7 @@ const Discord = require('discord.js'),
       request = require('request');
       env     = process.env;
 
-module.exports = {
+let self = module.exports = {
   help: { // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     args: '',
@@ -38,10 +38,15 @@ module.exports = {
   r: {
     desc: 'Rates a meme.',
     args: '<integer between 0 and 5>',
+    valid: (i) => {
+      return i >= 0 && i <= 5;
+    },
     execute: (client, msg, args) => {
+      if (!self.r.valid(args[1])) return msg.reply('gimme dat fatty number between 0-5 ya\'dig');
+
       msg.delete().then().catch(console.error);
 
-      msg.channel.send(msg.member.nickname ? msg.member.nickname : msg.author.username, {
+      msg.channel.send(msg.member.nickname || msg.author.username, {
         file: `app/resources/responses/rate/${args[1]}.png`
       });
     }
