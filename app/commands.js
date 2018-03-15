@@ -352,8 +352,14 @@ let self = module.exports = {
 
         memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
-        let text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
-        let text2 = memeText[1].replace(/['"]+/g, '');
+        try {
+          let text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
+          let text2 = memeText[1].replace(/['"]+/g, '');
+        } catch (e) {
+          msg.channel.send('Small **oof** my dude check your quotes');
+          console.log('args error: \n' + e);
+          return;
+        }
 
         var headers = {
           'User-Agent' : 'Super Agent/0.0.1',
