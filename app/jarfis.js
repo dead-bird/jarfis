@@ -13,7 +13,7 @@ client.on('ready', () => {
   console.log('meme machine is online');
 
   if (env.ENV === 'live') {
-    setTimeout(insult, 600000);
+    //setTimeout(insult, 600000);
 
     client.channels.get('415900255691866122').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
   }
@@ -27,14 +27,12 @@ client.on('message', msg => {
   } catch (e) {
 
   }
-
-  if (id) { // this is fucking tragic :c
-    if (env.ENV === 'dev' && id === devId) {
+// this is fucking tragicish :c
+  // stop dev bot replying in live
+  if ((env.ENV === 'dev' && id === devId) || (env.ENV !== 'dev' && id !== devId)){
       core.checkAuthor(client, msg, id);
-    } else if (env.ENV !== 'dev' && id !== devId) {
-      core.checkAuthor(client, msg, id);
-    }
   }
+
 });
 
 // Create server shit when Jarfis joins a server

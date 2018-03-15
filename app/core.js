@@ -38,6 +38,8 @@ let self = module.exports = {
     let args;
     let responses = self.getResponses(msg.guild.id);
 
+    msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
+
     if (msg.content.startsWith(prefix)) {
       args = msg.content.slice(prefix.length).split(' ');
 

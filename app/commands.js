@@ -391,13 +391,14 @@ let self = module.exports = {
 
         request(options, function (error, response, body) {
           if (!error && response.statusCode == 200) {
-            var resp = JSON.parse(body)
+            var resp = JSON.parse(body);
             try {
-              msg.channel.send(resp['data']['url']);
+              msg.channel.send('© ' + (msg.member.nickname ? msg.member.nickname : msg.author.username) + ':\n' + resp['data']['url']);
             } catch (e) {
               msg.channel.send('Big **oof** my dude check the logs');
               console.log('imgflip error: \n' + e);
             }
+
           }
         })
 
