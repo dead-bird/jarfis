@@ -353,8 +353,8 @@ let self = module.exports = {
         memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
         try {
-          let text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
-          let text2 = memeText[1].replace(/['"]+/g, '');
+          var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
+          var text2 = memeText[1].replace(/['"]+/g, '');
         } catch (e) {
           msg.channel.send('Small **oof** my dude check your quotes');
           console.log('args error: \n' + e);
