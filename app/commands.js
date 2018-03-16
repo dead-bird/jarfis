@@ -282,76 +282,72 @@ let self = module.exports = {
     execute: (client, msg, args) => {
       // Hard code one as an example, need to think about a more dynamic approach
       // For all the legit new cool mems on the block dawg
-      if (args.length < 2) {
-        msg.channel.send("please give me two inputs my dude");
-      } else {
-        let str = '';
-        let i = 0;
+      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs my dude");
+      
+      let str = '';
 
-        for (i; i < args.length; i++) {
-          if (i !== 0) str += args[i] + ' '; // Args into 1 string
-        }
+      args.forEach(arg => { str += arg + ' ' });
 
-        memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+      memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
-        try {
-          var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
-          var text2 = memeText[1].replace(/['"]+/g, '');
-        } catch (e) {
-          msg.channel.send('Small **oof** my dude check your quotes');
-          console.log('args error: \n' + e);
-          return;
-        }
+      try {
+        var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
+        var text2 = memeText[1].replace(/['"]+/g, '');
+      } catch (e) {
+        console.log('args error: \n' + e);
+        return msg.channel.send('Small **oof** my dude check your quotes');
+      }
 
-        var headers = {
-          'User-Agent' : 'Super Agent/0.0.1',
-        }
+      let headers = {
+        'User-Agent' : 'Super Agent/0.0.1',
+      }
 
-        var options = {
-          url: 'https://api.imgflip.com/caption_image',
-          method: 'POST',
-          headers: headers,
-          form: {
-            'template_id': '124276589',
-            'username': `${env.IMGFLIP_USER}`,
-            'password': `${env.IMGFLIP_PASS}`,
-            'max_font_size': '30px',
-            'boxes': [{
-              "text": text1,
-              "x": 190, // Hardcoded values to make drake meme work
-              "y": 10,
-              "width": 180,
-              "height": 180,
-              "color": "#ffffff",
-              "outline_color": "#000000"
+      let options = {
+        url: 'https://api.imgflip.com/caption_image',
+        method: 'POST',
+        headers: headers,
+        form: {
+          template_id: 124276589,
+          username: env.IMGFLIP_USER,
+          password: env.IMGFLIP_PASS,
+          max_font_size: '30px',
+          boxes: [
+            {
+              text: text1,
+              x: 190, // Hardcoded values to make drake meme work
+              y: 10,
+              width: 180,
+              height: 180,
+              color: '#ffffff',
+              outline_color: '#000000'
             },
             {
-              "text": text2,
-              "x": 190,
-              "y": 130,
-              "width": 180,
-              "height": 180,
-              "color": "#ffffff",
-              "outline_color": "#000000"
-            }]
-          },
-        }
-
-        request(options, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            var resp = JSON.parse(body);
-            try {
-              msg.channel.send('© ' + (msg.member.nickname ? msg.member.nickname : msg.author.username) + ':\n' + resp['data']['url']);
-            } catch (e) {
-              msg.channel.send('Big **oof** my dude check the logs');
-              console.log('imgflip error: \n' + e);
+              text: text2,
+              x: 190,
+              y: 130,
+              width: 180,
+              height: 180,
+              color: '#ffffff',
+              outline_color: '#000000'
             }
-
-          }
-        })
-
-        msg.delete().catch(console.error);
+          ]
+        },
       }
+
+      request(options, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+          let resp = JSON.parse(body);
+
+          try {
+            msg.channel.send('© ' + (msg.member.nickname || msg.author.username) + ':\n' + resp['data']['url']);
+          } catch (e) {
+            msg.channel.send('Big **oof** my dude check the logs');
+            console.log('imgflip error: \n' + e);
+          }
+        }
+      });
+
+      msg.delete().catch(console.error);
     }
   }
 };
