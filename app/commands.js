@@ -162,6 +162,8 @@ let self = module.exports = {
     desc: 'Speak on Jarfis\' behalf.',
     args: '<string>',
     execute: (client, msg, args) => {
+      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+
       let str = '';
 
       args.forEach(arg => { str += arg + ' ' });
