@@ -1,147 +1,56 @@
 require('dotenv').config({path: '.env'});
 
-const commands = require('./commands.js'),
-      Discord  = require('discord.js'),
-      fs       = require('fs'),
-      env      = process.env,
-      prefix   = '!'; // This is still hard coded in commands.js
+const Level      = require('enmap-level'),
+      Discord    = require('discord.js'),
+      Enmap      = require('enmap'),
+      fs         = require('fs'),
+      env        = process.env;
 
 let self = module.exports = {
-  // init
-  init: (client) => {
-    // client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
+  // need to put init back in
 
-    // console.log('meme machine is online');
-
-    // if (env.ENV === 'live') {
-    //   setTimeout(self.insult(client), 600000);
-
-    //   client.channels.get('415900255691866122').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
-    // }
+  // users
+  getUser: (client, id) => {
+    return client.losers.get(id) || self.newUser(client, id);
   },
-  // check if message author is in banlist
-  checkAuthor: (client, msg, id) => {
-    fs.readFile(`${__dirname}/data/guilds/${id}/banlist.json`, 'utf8', (err, data) => {
-      if (err) { console.log(err); }
+  newUser: (client, id) => {
+    let user = { banned: false };
 
-      if (JSON.parse(data).includes(msg.author.id) && msg.content.startsWith(prefix)) {
-        msg.channel.send('Nah soz mate!');
+    client.losers.set(id, user);
 
-        return false;
-      }
-
-      self.listen(client, msg);
-    });
+    return user;
   },
-  // Loop through the commands module if msg starts with prefix
-  listen: (client, msg) => {
-    let args;
-    let responses = self.getResponses(msg.guild.id);
 
-    msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
-
-    if (msg.content.startsWith(prefix)) {
-      args = msg.content.slice(prefix.length).split(' ');
-
-      let cmd = args[0].toLowerCase();
-
-      if (cmd in commands) {
-        commands[cmd].execute(client, msg, args);
-      }
-    } else if (Object.prototype.hasOwnProperty.call(responses, msg.content.toLowerCase())) {
-      msg.channel.send(responses[msg.content.toLowerCase()]);
-    }
+  // servers
+  getGuild: (client, guild) => {
+    return client.servers.get(guild.id) || self.newGuild(client, guild);
   },
-  //
-  // insult: (client) => {
-  //   let users = client.users.array();
-  //   let losers = [];
-  //   let minTrig = 10800000; // Triggers between 3 and 6 hours
-  //   let maxTrig = 21600000;
-  //   let randTime = 0;
-  //   let date = new Date();
-  //   let insults = fs.readFileSync(`${__dirname}/data/insults.txt`).toString().split('\n');
+  newGuild: (client, guild, respond = false) => {
+    let server = {
+      prefix: "!",
+      insults: true,
+      active: "",
+      default: guild.channels.first().id || null,
+      announcements: false,
+      responses: {
+        lenny: "( ͡° ͜ʖ ͡°)",
+      },
+    };
 
-  //   if (date.getDay() > 0 && date.getDay() < 6 && date.getHours() >= 9) {
-  //     for (var i = users.length - 1; i >= 0; i--) {
-  //       if (!users[i].bot && users[i] instanceof Discord.User) {
-  //         losers.push(users[i]);
-  //       }
-  //     }
+    client.servers.set(guild.id, server);
 
+    if (respond && server.default) {
+      let id = server.default,
+          pf = server.prefix;
 
-  //     client.channels.get('380676777170698240').send(`<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${insults[Math.floor(Math.random() * insults.length)]}`);
-  //   }
-
-  //   randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
-  //   setTimeout(self.insult(client), randTime);
-  // },
-  //
-  getBot: msg => {
-    let bot;
-
-    try {
-      if ('guild' in msg && 'member' in msg.guild && 'user' in client && msg.guild.member(client.user).nickname) { // this should be beter :c
-        bot = msg.guild.member(client.user).nickname;
-      } else {
-        bot = client.user.username;
-      }
-    } catch (e) {
-      bot = 'Jarfis';
+      client.channels.get(id).send(`What up pimps! My prefix is \`${pf}\` and your default channel is <#${id}>. Hit dat fatty \`${pf}help\` to change shit`);
     }
 
-    return bot;
+    return server;
   },
-  getResponses: (id) => {
-    let path = `${__dirname}/data/guilds/${id}/responses.json`;
 
-    return JSON.parse(fs.readFileSync(path, 'utf8').replace(/{{bot}}/g, self.getBot)); // Just a one of var replacement can expand in future if want to go balls to the wall mental with it
-  },
-  checkGuild: (id) => {
-    fs.readFile(`${__dirname}/data/guilds/guilds.json`, 'utf8', (err, data) => {
-      if (err) { console.log(err); }
-
-      let guilds = JSON.parse(data);
-
-      if (!guilds.includes(id)) {
-        self.newGuild(guilds, id);
-      }
-    });
-  },
-  // Create guild config
-  newGuild: (guilds, id) => {
-    let path = `${__dirname}/data/guilds/${id}`;
-
-    // Create server directory
-    fs.mkdir(path, err => {
-      if (err) { console.log(err); }
-
-      // Create blank banlist
-      fs.writeFile(`${path}/banlist.json`, JSON.stringify(new Array), err => {
-        if (err) { console.log(err); }
-      });
-
-      // Create default responses
-      let res = {
-        'hey {{bot}}': 'hi bitches',
-        'bye {{bot}}': 'see ya, wouldn\'t wanna meme ya',
-        lenny: '( ͡° ͜ʖ ͡°)',
-      };
-
-      fs.writeFile(`${path}/responses.json`, JSON.stringify(res), err => {
-        if (err) { console.log(err); }
-      });
-    });
-
-    // Add server ID to guilds.json
-    guilds.push(id);
-
-    fs.writeFile(`${__dirname}/data/guilds/guilds.json`, JSON.stringify(guilds), err => {
-      if (err) { console.log(err); }
-    });
-  },
-  // Announce number of pins in a channel
-  announcePins: channel => {
+  // channels
+  newPin: channel => {
     let pins = 0;
 
     channel.fetchPinnedMessages().then((messages, msg) => {

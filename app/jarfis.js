@@ -1,51 +1,70 @@
 require('dotenv').config({path: '.env'});
 
-const Discord = require('discord.js'),
-      client  = new Discord.Client({forceFetchUsers: true}),
-      devId   = '347775461855854612',
-      core    = require('./core.js'),
-      fs      = require('fs'),
-      env     = process.env;
+const commands = require('./commands.js'),
+      Discord  = require('discord.js'),
+      client   = new Discord.Client({forceFetchUsers: true}),
+      core     = require('./core.js'),
+      env      = process.env;
 
 client.on('ready', () => {
+  client.servers = new Enmap({provider: new Level({name: 'servers'})});
+  client.losers  = new Enmap({provider: new Level({name: 'losers'})});
+  
   client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
 
   console.log('meme machine is online');
 
   if (env.ENV === 'live') {
-    //setTimeout(insult, 600000);
-
-    client.channels.get('415900255691866122').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
+    let guild = self.getGuild(client, msg.guild);
+  
+    setTimeout(self.insult, 600000);
+  
+    client.channels.get(guild.default).send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
   }
 });
 
 client.on('message', msg => {
-  let id = 0; // This is here to avoid an id of null when dm
+  if (msg.author.bot) return;
 
-  try {
-    id = msg.guild.id;
-  } catch (e) {
+  let id  = msg.guild.id || 0;
 
+  if ((env.ENV === 'dev' && id === env.DEV_ID) || (env.ENV !== 'dev' && id !== env.DEV_ID)) {
+    listen(client, msg);
   }
-// this is fucking tragicish :c
-  // stop dev bot replying in live
-  if ((env.ENV === 'dev' && id === devId) || (env.ENV !== 'dev' && id !== devId)){
-      core.checkAuthor(client, msg, id);
-  }
-
 });
 
 // Create server shit when Jarfis joins a server
 client.on('guildCreate', guild => {
-  core.checkGuild(guild.id);
+  core.newGuild(client, guild, true);
 });
 
 // Pin Announcements
 client.on('channelPinsUpdate', (channel, time) => {
-  core.announcePins(channel);
+  core.newPin(channel);
 });
 
 client.login(env.TOKEN);
+
+// Loop through the commands module if msg starts with prefix
+function listen(client, msg) {
+  let guild = core.getGuild(client, msg.guild),
+      user  = core.getUser(client, msg.author.id);
+
+  msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
+
+  if (msg.content.startsWith(guild.prefix)) {
+    if (user.banned) return msg.channel.send('Nah soz mate!');
+
+    let args = msg.content.slice(guild.prefix.length).trim().split(/ +/g),
+        cmd  = args.shift().toLowerCase();
+
+    if (cmd in commands) {
+      commands[cmd].execute(client, msg, args);
+    }
+  } else if (Object.prototype.hasOwnProperty.call(guild.responses, msg.content.toLowerCase())) {
+    msg.channel.send(guild.responses[msg.content.toLowerCase()]);
+  }
+}
 
 function insult() {
   let users = client.users.array();

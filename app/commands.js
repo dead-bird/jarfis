@@ -1,29 +1,46 @@
 require('dotenv').config({path: '.env'});
 
-const Discord = require('discord.js'),
-      fs      = require('fs'),
-      request = require('request');
-      env     = process.env;
+const settings = require('./settings.js'),
+      Discord  = require('discord.js'),
+      core     = require('./core.js'),
+      request  = require('request');
+      fs       = require('fs'),
+      env      = process.env;
 
 let self = module.exports = {
   help: { // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg) => {
+      let pf = core.getGuild(client, msg.guild).prefix;
+
+      let embed = new Discord.RichEmbed().setAuthor('command me daddy', client.user.avatarURL).setColor(3447003)
+      
+      for (var cmd in module.exports) {
+        if (cmd) embed.addField('\u200B', `**${pf}${cmd} ${module.exports[cmd].args}**\n${module.exports[cmd].desc}`);
+      }
+      
       msg.delete().then().catch(console.error);
+      msg.channel.send({embed});
+    }
+  },
+  settings: {
+    desc: 'List current settings for the bot.',
+    args: '<setting> <change>',
+    execute: (client, msg, args) => {
+      let space = '\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020';
 
       let embed = new Discord.RichEmbed()
         .setColor(3447003)
-        .setDescription(':information_source: here are my commands')
-        .setThumbnail(client.user.avatarURL) // Bot's avatar
+        .setDescription(`:joystick:  Run <settings> <setting name> for more information \n ${space} Run <settings> <setting name> <change> to edit`)
+        .setThumbnail(client.user.avatarURL)
         .addBlankField(true);
 
-      for (var command in module.exports) {
-        if (command) {
-          embed.addField(`!${command} ${module.exports[command].args}`, module.exports[command].desc);
-        }
+      for (var setting in settings) {
+        embed.addField('\u200B', `**${settings[setting].name}**\n ${space} ${settings[setting].desc}`);
       }
 
+      msg.delete().then().catch(console.error);
       msg.channel.send({embed});
     }
   },
@@ -48,32 +65,29 @@ let self = module.exports = {
 
       msg.channel.send(msg.member.nickname || msg.author.username, {
         file: `app/resources/responses/rate/${args[1]}.png`
-      });
+      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   change: {
     desc: 'Changes the name of the bot.',
     args: '<string: no spaces... for now>',
     execute: (client, msg, args) => {
-      let newName = '';
+      let name = '';
 
-      for (let i = 1; i < args.length; i++) {
-        newName += args[i] + ' ';
-      }
+      args.forEach(arg => { name += arg + ' ' });
 
-      msg.guild.member(client.user).setNickname(newName).then(function () {
-        let bot = (msg.guild.member(client.user).nickname ? msg.guild.member(client.user).nickname : client.user.username);
-        msg.channel.send(`just call me ${bot}`);
-      }).catch(error => msg.reply(`can't do that my dude: ${error}`));
+      msg.guild.member(client.user).setNickname(name).then(() => {
+        msg.channel.send(`just call me ${name}`);
+      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   reset: {
     desc: 'Resets the name of the bot.',
     args: '',
     execute: (client, msg) => {
-      msg.guild.member(client.user).setNickname('Jarfis').then(function () {
+      msg.guild.member(client.user).setNickname('Jarfis').then(() => {
         msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
-      }).catch(error => msg.reply(`can't do that my dude: ${error}`));
+      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   flip: {
@@ -97,13 +111,8 @@ let self = module.exports = {
     args: '<string>',
     execute: (client, msg, args) => {
       let str = '';
-      let i = 0;
 
-      for (i; i < args.length; i++) {
-        if (i !== 0) {
-          str += args[i] + ' ';
-        }
-      }
+      args.forEach(arg => { str += arg + ' ' });
 
       let a = str.split('');
       let n = a.length;
@@ -142,9 +151,7 @@ let self = module.exports = {
 
           msg.delete().then().catch(console.error);
 
-          msg.channel.send({
-            file: selection
-          });
+          msg.channel.send({ file: selection }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
         }
       });
     }
@@ -155,107 +162,56 @@ let self = module.exports = {
     execute: (client, msg, args) => {
       let str = '';
 
-      for (let i = 0; i < args.length; i++) {
-        if (i !== 0) {
-          str += args[i] + ' ';
-        }
-      }
+      args.forEach(arg => { str += arg + ' ' });
 
       msg.delete().then().catch(console.error);
 
-      msg.channel.send(str);
+      msg.channel.send(str).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   ban: {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '<user>',
     execute: (client, msg, args) => {
-      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
+      let id   = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
+          user = core.getUser(client, id);
 
-      if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
-        let banList = fs.readFileSync(path, 'utf8');
-        let id = args[1].match(/\d+/g).toString();
-
-        if (banList) {
-          let aBanList = JSON.parse(banList);
-          aBanList.push(id);
-          let banned = (JSON.stringify(aBanList));
-
-          fs.writeFileSync(path, banned, err => {
-            if (err) {
-              throw err;
-            }
-          });
-
-          msg.channel.send(`<@${id}> is now banned`);
-        } else {
-          let firstUser = `["${id}"]`;
-
-          fs.writeFileSync(path, firstUser, err => {
-            if (err) {
-              throw err;
-            }
-          });
-          msg.channel.send(`<@${id}> is now banned`);
-        }
-      } else {
-        // Not super useful message but at least it doesnt crash
-        msg.channel.send(`Something went wrong`);
-      }
+      if (user.banned) return msg.channel.send(`<@${id}> is already banned my dude`);
+      
+      user.banned = true;
+      
+      client.losers.set(id, user);
+      
+      msg.channel.send(`<@${id}> is now banned`);
     }
   },
   unban: {
     desc: 'For when you\'ve had enough :dsd: for one day',
     args: '<user>',
     execute: (client, msg, args) => {
-      let path = `${__dirname}/data/guilds/${msg.guild.id}/banlist.json`;
+      let id   = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
+          user = core.getUser(client, id);
 
-      if (args[1].match(/(<@!\d*>|<@\d*>)/g)) {
-        let banList = fs.readFileSync(path, 'utf8');
-        let id = args[1].match(/\d+/g).toString();
-
-        if (banList) {
-          let aBanList = JSON.parse(banList);
-
-          for (let i = 0; i < aBanList.length; i++) {
-            if (aBanList[i] === id) {
-              aBanList.splice(i, 1);
-              fs.writeFileSync(path, JSON.stringify(aBanList), err => {
-                if (err) {
-                  throw err;
-                }
-              });
-
-              msg.delete().then().catch(console.error);
-              msg.channel.send(`<@${id}> is now unbanned`);
-
-              return true;
-            }
-          }
-
-          msg.delete().then().catch(console.error);
-          msg.channel.send(`Awkward, <@${id}> doesnt seem to be banned`);
-        }
-      } else {
-        // Not super useful message but at least it doesnt crash
-        msg.channel.send(`Something went wrong`);
-      }
+      if (!user.banned) return msg.channel.send(`<@${id}> isn't even banned you ***idiot***`);
+      
+      user.banned = false;
+      
+      client.losers.set(id, user);
+      
+      msg.channel.send(`<@${id}> is now unbanned`);
     }
   },
   // addResp: {
   //   desc: 'Add a trigger and response to the bot',
   //   args: '"<Trigger:string>", "<Response:string>"',
   //   execute: () => {
-  //     // Gitignore the file so local boys not overwrote
-  //     // write trigger as key response as value to the JSON file
   //     // echo command successfully added and repeat what was added in an embed
   //   }
   // },
   // delResp: {
   //   desc: 'Delete a trigger and response from the bot',
-  //   args: '"<Trigger:string>"', // Just the trigger needed to delete from the JSON
+  //   args: '"<Trigger:string>"', 
   //   execute: () => {
-  //     // Search for trigger and delete from file
   //     // respond with the trigger and response deleted so canbe readded if mistake?
   //     // allow to delete with number in list as well as trigger?
   //   }
@@ -264,27 +220,18 @@ let self = module.exports = {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
     execute: (client, msg) => {
-      var resps = fs.readFileSync(`${__dirname}/data/guilds/${msg.guild.id}/responses.json`, 'utf8');
+      let guild = core.getGuild(client, msg.guild);
 
-      if (resps) {
-        var oResps = JSON.parse(resps);
-
-        msg.delete().then().catch(console.error);
-
-        let embed = new Discord.RichEmbed()
-          .setColor(3447003)
-          .setDescription(':information_source: here are my responses')
-          .setThumbnail(client.user.avatarURL) // Bot's avatar
-          .addBlankField(true);
-
-        for (var responses in oResps) {
-          if (oResps) {
-            embed.addField(`${responses}`, `"${oResps[responses]}"`);
-          }
-        }
-
-        msg.channel.send({embed});
+      let embed = new Discord.RichEmbed()
+        .setAuthor(`${client.user.username}'s Responses`, client.user.avatarURL)
+        .setColor(3447003)
+        
+      for (let res in guild.responses) {
+        if (guild.responses.hasOwnProperty(res)) embed.addField('\u200B', `**${res}**\n${guild.responses[res]}`);
       }
+
+      msg.delete().then().catch(console.error);
+      msg.channel.send({embed});
     }
   },
   clap: {
