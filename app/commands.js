@@ -59,7 +59,7 @@ let self = module.exports = {
       return i >= 0 && i <= 5;
     },
     execute: (client, msg, args) => {
-      if (!self.r.valid(args[1])) return msg.reply('gimme dat fatty number between 0-5 ya\'dig');
+      if (!self.r.valid(args[0])) return msg.reply('gimme dat fatty number between 0-5 ya\'dig');
 
       msg.delete().then().catch(console.error);
 
