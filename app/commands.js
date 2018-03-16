@@ -243,19 +243,15 @@ let self = module.exports = {
     args: '<string>(-raw)',
     execute: (client, msg, args) => {
       let clap = ':clap:';
-
-      if (args[args.length - 1] === '-raw') {
+      
+      if (args[0] === '-raw') {
         clap = '\\👏';
-        args.splice(args.length - 1, args.length);
+        args.splice(0, 1);
       }
-
+      
       let str = clap; // Prepend a clap
-
-      for (let i = 0; i < args.length; i++) {
-        if (i !== 0) {
-          str += args[i] + clap;
-        }
-      }
+      
+      args.forEach(arg => { str += arg + clap });
 
       msg.delete().then().catch(console.error);
       msg.channel.send(str);
