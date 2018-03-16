@@ -1,9 +1,11 @@
 require('dotenv').config({path: '.env'});
 
 const commands = require('./commands.js'),
+      Level    = require('enmap-level'),
       Discord  = require('discord.js'),
       client   = new Discord.Client({forceFetchUsers: true}),
       core     = require('./core.js'),
+      Enmap    = require('enmap'),
       env      = process.env;
 
 client.on('ready', () => {

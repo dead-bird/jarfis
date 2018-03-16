@@ -1,8 +1,6 @@
 require('dotenv').config({path: '.env'});
 
-const Level      = require('enmap-level'),
-      Discord    = require('discord.js'),
-      Enmap      = require('enmap'),
+const Discord    = require('discord.js'),
       fs         = require('fs'),
       env        = process.env;
 
