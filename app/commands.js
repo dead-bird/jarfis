@@ -261,24 +261,19 @@ let self = module.exports = {
     desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
     args: '<string> A-Z and 0-9',
     execute: (client, msg, args) => {
+      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+      
       let str = '';
-      let i = 0;
 
-      for (i; i < args.length; i++) {
-        if (i !== 0) {
-          str += args[i] + ' ';
-        }
-      }
+      args.forEach(arg => { str += arg + ' ' });
 
-      var numStr = [':zero:', ':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:'];
+      let numStr = [':zero:', ':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:'];
       let a = str.toLowerCase()
         .replace(/([a-z])/g, ':regional_indicator_$1: ')
-        .replace(/([0-9])/g, function ($1) {
-          return numStr[$1];
-        });
+        .replace(/([0-9])/g, $1 => numStr[$1] );
 
       msg.delete().catch(console.error);
-      msg.channel.send(a);
+      msg.channel.send(a).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   drake: {
