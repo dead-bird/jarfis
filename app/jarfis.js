@@ -21,9 +21,9 @@ client.on('ready', () => {
   
     // setTimeout(self.insult, 600000);
   
-    // client.channels.get('415900255691866122')
-    //                .send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>')
-    //                .catch(console.error); // Maybe add in latest commit here?
+    client.channels.get('415900255691866122')
+                   .send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>')
+                   .catch(console.error); // Maybe add in latest commit here?
   }
 });
 
