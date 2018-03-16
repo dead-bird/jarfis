@@ -17,11 +17,11 @@ client.on('ready', () => {
   console.log('meme machine is online');
 
   if (env.ENV === 'live') {
-    let guild = self.getGuild(client, msg.guild);
+    // let guild = core.getGuild(client, msg.guild);
   
-    setTimeout(self.insult, 600000);
+    // setTimeout(self.insult, 600000);
   
-    client.channels.get(guild.default).send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
+    client.channels.get('415900255691866122').send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>'); // Maybe add in latest commit here?
   }
 });
 

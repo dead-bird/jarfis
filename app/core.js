@@ -24,11 +24,13 @@ let self = module.exports = {
     return client.servers.get(guild.id) || self.newGuild(client, guild);
   },
   newGuild: (client, guild, respond = false) => {
+    if (!guild) return;
+    
     let server = {
       prefix: "!",
       insults: true,
       active: "",
-      default: guild.channels.first().id || null,
+      default: (guild.channels ? guild.channels.first().id : null),
       announcements: false,
       responses: {
         lenny: "( ͡° ͜ʖ ͡°)",
