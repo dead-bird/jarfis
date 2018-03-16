@@ -110,6 +110,8 @@ let self = module.exports = {
     desc: 'RaNCApS YOUR TeXt.',
     args: '<string>',
     execute: (client, msg, args) => {
+      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+
       let str = '';
 
       args.forEach(arg => { str += arg + ' ' });
@@ -124,7 +126,7 @@ let self = module.exports = {
 
       msg.delete().then().catch(console.error);
 
-      msg.channel.send(a.join(''));
+      msg.channel.send(a.join('')).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
   clear: {
