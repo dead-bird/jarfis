@@ -24,26 +24,26 @@ let self = module.exports = {
       msg.channel.send({embed});
     }
   },
-  settings: {
-    desc: 'List current settings for the bot.',
-    args: '<setting> <change>',
-    execute: (client, msg, args) => {
-      let space = '\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020';
+  // settings: {
+  //   desc: 'List current settings for the bot.',
+  //   args: '<setting> <change>',
+  //   execute: (client, msg, args) => {
+  //     let space = '\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020';
 
-      let embed = new Discord.RichEmbed()
-        .setColor(3447003)
-        .setDescription(`:joystick:  Run <settings> <setting name> for more information \n ${space} Run <settings> <setting name> <change> to edit`)
-        .setThumbnail(client.user.avatarURL)
-        .addBlankField(true);
+  //     let embed = new Discord.RichEmbed()
+  //       .setColor(3447003)
+  //       .setDescription(`:joystick:  Run <settings> <setting name> for more information \n ${space} Run <settings> <setting name> <change> to edit`)
+  //       .setThumbnail(client.user.avatarURL)
+  //       .addBlankField(true);
 
-      for (var setting in settings) {
-        embed.addField('\u200B', `**${settings[setting].name}**\n ${space} ${settings[setting].desc}`);
-      }
+  //     for (var setting in settings) {
+  //       embed.addField('\u200B', `**${settings[setting].name}**\n ${space} ${settings[setting].desc}`);
+  //     }
 
-      msg.delete().then().catch(console.error);
-      msg.channel.send({embed});
-    }
-  },
+  //     msg.delete().then().catch(console.error);
+  //     msg.channel.send({embed});
+  //   }
+  // },
   loc: {
     desc: 'Returns the bot\'s environment.',
     args: '',
