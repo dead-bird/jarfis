@@ -357,7 +357,7 @@ let self = module.exports = {
       let str = '';
       args.forEach(arg => { str += arg + ' ' });
       msg.delete().catch(console.error);
-      for (i = 0 ; i < 6 ; i++) {
+      for (i = 0 ; i < 5 ; i++) {
         msg.channel.send(str);
       }
     }
