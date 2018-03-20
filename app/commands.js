@@ -291,8 +291,8 @@ let self = module.exports = {
       memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
       try {
-        var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
-        var text2 = memeText[1].replace(/['"]+/g, '');
+        var text1 = memeText[0].replace(/['"]+/g, '').toUpperCase(); // Shitty quote removal
+        var text2 = memeText[1].replace(/['"]+/g, '').toUpperCase();
       } catch (e) {
         console.log('args error: \n' + e);
         return msg.channel.send('Small **oof** my dude check your quotes');
@@ -347,6 +347,43 @@ let self = module.exports = {
         }
       });
 
+      msg.delete().catch(console.error);
+    }
+  },
+  spam: {
+    desc: 'spam',
+    args: 'spam',
+    execute: (client, msg, args) => {
+      let str = '';
+      args.forEach(arg => { str += arg + ' ' });
+      msg.delete().catch(console.error);
+      for (i = 0 ; i < 6 ; i++) {
+        msg.channel.send(str);
+      }
+    }
+  },
+  edrake: {
+    desc: 'Generate a dank memay with emoji',
+    args: '"Top Text" "Bottom Text"',
+    execute: (client, msg, args) => {
+      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs my dude");
+
+      let str = '';
+
+      args.forEach(arg => { str += arg + ' ' });
+
+      memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+
+      try {
+        var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
+        var text2 = memeText[1].replace(/['"]+/g, '');
+      } catch (e) {
+        console.log('args error: \n' + e);
+        return msg.channel.send('Small **oof** my dude check your quotes');
+      }
+      meme = '<:drakeno:420253513239494657> ' + text1 + '\n<:drakeyes:420253514116104198> ' + text2; // ids need to change if emoji deleted from csit++
+
+      msg.channel.send(meme);
       msg.delete().catch(console.error);
     }
   }
