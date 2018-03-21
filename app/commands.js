@@ -173,6 +173,8 @@ let self = module.exports = {
       msg.channel.send(str).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
     }
   },
+
+  // Bans
   ban: {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '<user>',
@@ -205,21 +207,67 @@ let self = module.exports = {
       msg.channel.send(`<@${id}> is now unbanned`);
     }
   },
-  // addResp: {
-  //   desc: 'Add a trigger and response to the bot',
-  //   args: '"<Trigger:string>", "<Response:string>"',
-  //   execute: () => {
-  //     // echo command successfully added and repeat what was added in an embed
-  //   }
-  // },
-  // delResp: {
-  //   desc: 'Delete a trigger and response from the bot',
-  //   args: '"<Trigger:string>"', 
-  //   execute: () => {
-  //     // respond with the trigger and response deleted so canbe readded if mistake?
-  //     // allow to delete with number in list as well as trigger?
-  //   }
-  // },
+
+  // Responses
+  add: {
+    desc: 'Add a trigger and response to the bot',
+    args: '"Trigger" "Response"',
+    execute: (client, msg, args) => {
+      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs");
+      
+      let server = core.getGuild(client, msg.guild);
+      let str = '';
+
+      args.forEach(arg => { str += arg + ' ' });
+
+      let text = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+
+      try {
+        var trigger = text[0].replace(/['"]+/g, ''); // Shitty quote removal
+        var response = text[1].replace(/['"]+/g, '');
+      } catch (e) {
+        console.log('args error: \n' + e);
+        return msg.channel.send('Small **oof** my dude check your quotes');
+      }
+
+      if (server.responses[trigger]) return msg.channel.send('be more original - trigger already exists').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      
+      server.responses[trigger] = response;
+
+      core.setGuild(client, msg.guild.id, server);
+
+      msg.channel.send('*I\'ll remember that*').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+    }
+  },
+  remove: {
+    desc: 'Delete a trigger and response from the bot',
+    args: '"Trigger"', 
+    execute: (client, msg, args) => {
+      if (!args.length) return msg.channel.send("Small **oof** my dude please give me one input");
+      
+      let server = core.getGuild(client, msg.guild);
+      let str = '';
+
+      args.forEach(arg => { str += arg + ' ' });
+
+      let text = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+
+      try {
+        var trigger = text[0].replace(/['"]+/g, ''); // Shitty quote removal
+      } catch (e) {
+        console.log('args error: \n' + e);
+        return msg.channel.send('Small **oof** my dude check your quotes');
+      }
+
+      if (!server.responses[trigger]) return msg.channel.send('couldn\'t find that trigger, maybe learn to spell?').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+
+      delete server.responses[trigger];
+
+      core.setGuild(client, msg.guild.id, server);
+
+      msg.channel.send(`I've removed \`${trigger}\` from your responses`).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+    }
+  },
   responses: {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
