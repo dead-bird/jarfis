@@ -23,6 +23,9 @@ let self = module.exports = {
   getGuild: (client, guild) => {
     return client.servers.get(guild.id) || self.newGuild(client, guild);
   },
+  setGuild: (client, id, server) => {
+    return client.servers.set(id, server);
+  },
   newGuild: (client, guild, respond = false) => {
     if (!guild) return;
 
