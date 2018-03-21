@@ -279,7 +279,7 @@ let self = module.exports = {
         .setColor(3447003)
         
       for (let res in guild.responses) {
-        if (guild.responses.hasOwnProperty(res)) embed.addField('\u200B', `**${res}**\n${guild.responses[res]}`, true);
+        if (guild.responses.hasOwnProperty(res)) embed.addField('\u200B', `**${res}**\n${guild.responses[res]}`);
       }
 
       msg.delete().then().catch(console.error);
