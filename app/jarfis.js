@@ -44,7 +44,11 @@ client.on('guildCreate', guild => {
 
 // Pin Announcements
 client.on('channelPinsUpdate', (channel, time) => {
-  core.newPin(channel);
+  let id  = channel.guild.id || 0;
+
+  if ((env.ENV === 'dev' && id === env.DEV_ID) || (env.ENV !== 'dev' && id !== env.DEV_ID)) {
+    core.newPin(channel);
+  }
 });
 
 client.login(env.TOKEN);
