@@ -25,7 +25,7 @@ let self = module.exports = {
   },
   newGuild: (client, guild, respond = false) => {
     if (!guild) return;
-    
+
     let server = {
       prefix: "!",
       insults: true,
@@ -55,8 +55,10 @@ let self = module.exports = {
 
     channel.fetchPinnedMessages().then((messages, msg) => {
       messages.map(() => { return pins++ });
-
-      channel.send(pins + '/50 pins my dudes');
+      if (pins >= 45) {
+        channel.send(pins + '/50 pins getting a little cramped my dudes');
+      }
+      channel.send(pins + '/50 pins my dudes ennit');
     }).catch(console.error);
   },
 }
