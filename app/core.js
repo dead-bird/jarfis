@@ -8,10 +8,10 @@ let self = module.exports = {
   // need to put init back in
 
   // users
-  getUser: (client, id) => {
+  getUser(client, id) {
     return client.losers.get(id) || self.newUser(client, id);
   },
-  newUser: (client, id) => {
+  newUser(client, id) {
     let user = { banned: false };
 
     client.losers.set(id, user);
@@ -20,13 +20,13 @@ let self = module.exports = {
   },
 
   // servers
-  getGuild: (client, guild) => {
+  getGuild(client, guild) {
     return client.servers.get(guild.id) || self.newGuild(client, guild);
   },
-  setGuild: (client, id, server) => {
+  setGuild(client, id, server) {
     return client.servers.set(id, server);
   },
-  newGuild: (client, guild, respond = false) => {
+  newGuild(client, guild, respond = false) {
     if (!guild) return;
 
     let server = {
@@ -53,7 +53,7 @@ let self = module.exports = {
   },
 
   // channels
-  newPin: channel => {
+  newPin(channel) {
     let pins = 0;
 
     channel.fetchPinnedMessages().then((messages, msg) => {
