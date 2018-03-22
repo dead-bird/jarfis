@@ -59,13 +59,13 @@ let self = module.exports = {
       return i >= 0 && i <= 5;
     },
     execute: (client, msg, args) => {
-      if (!self.r.valid(args[0])) return msg.reply('gimme dat fatty number between 0-5 ya\'dig');
+      if (!self.r.valid(args[0])) return msg.reply('gimme dat fatty number between 0-5 ya\'dig'); // add to error handler
 
       msg.delete().then().catch(console.error);
 
       msg.channel.send(msg.member.nickname || msg.author.username, {
         file: `app/resources/responses/rate/${args[1]}.png`
-      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      }).catch(err => core.err.dead(msg, err));
     }
   },
   change: {
@@ -78,7 +78,7 @@ let self = module.exports = {
 
       msg.guild.member(client.user).setNickname(name).then(() => {
         msg.channel.send(`just call me ${name}`);
-      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      }).catch(err => core.err.dead(msg, err));
     }
   },
   reset: {
@@ -87,7 +87,7 @@ let self = module.exports = {
     execute: (client, msg) => {
       msg.guild.member(client.user).setNickname('Jarfis').then(() => {
         msg.channel.send(`reverting to Jarfis. Don't fuck me up again I'm a soft boy`);
-      }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      }).catch(err => core.err.dead(msg, err));
     }
   },
   flip: {
@@ -110,7 +110,7 @@ let self = module.exports = {
     desc: 'RaNCApS YOUR TeXt.',
     args: '<string>',
     execute: (client, msg, args) => {
-      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+      if (!args.length) return core.err.empty(msg);
 
       let str = '';
 
@@ -126,7 +126,7 @@ let self = module.exports = {
 
       msg.delete().then().catch(console.error);
 
-      msg.channel.send(a.join('')).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      msg.channel.send(a.join('')).catch(err => core.err.dead(msg, err));
     }
   },
   clear: {
@@ -153,7 +153,7 @@ let self = module.exports = {
 
           msg.delete().then().catch(console.error);
 
-          msg.channel.send({ file: selection }).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+          msg.channel.send({ file: selection }).catch(err => core.err.dead(msg, err));
         }
       });
     }
@@ -162,7 +162,7 @@ let self = module.exports = {
     desc: 'Speak on Jarfis\' behalf.',
     args: '<string>',
     execute: (client, msg, args) => {
-      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+      if (!args.length) return core.err.empty(msg);
 
       let str = '';
 
@@ -170,7 +170,7 @@ let self = module.exports = {
 
       msg.delete().then().catch(console.error);
 
-      msg.channel.send(str).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
     }
   },
 
@@ -188,7 +188,7 @@ let self = module.exports = {
       
       client.losers.set(id, user);
       
-      msg.channel.send(`<@${id}> is now banned`);
+      msg.channel.send(`<@${id}> is now banned`).catch(err => core.err.dead(msg, err));
     }
   },
   unban: {
@@ -204,7 +204,7 @@ let self = module.exports = {
       
       client.losers.set(id, user);
       
-      msg.channel.send(`<@${id}> is now unbanned`);
+      msg.channel.send(`<@${id}> is now unbanned`).catch(err => core.err.dead(msg, err));
     }
   },
 
@@ -213,7 +213,7 @@ let self = module.exports = {
     desc: 'Add a trigger and response to the bot',
     args: '"Trigger" "Response"',
     execute: (client, msg, args) => {
-      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs");
+      if (args.length < 2) return core.err.args(msg);
       
       let server = core.getGuild(client, msg.guild);
       let str = '';
@@ -227,23 +227,23 @@ let self = module.exports = {
         var response = text[1].replace(/['"]+/g, '');
       } catch (e) {
         console.log('args error: \n' + e);
-        return msg.channel.send('Small **oof** my dude check your quotes');
+        return msg.channel.send('Small **oof** my dude check your quotes').catch(err => core.err.dead(msg, err));
       }
 
-      if (server.responses[trigger]) return msg.channel.send('be more original - trigger already exists').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      if (server.responses[trigger]) return msg.channel.send('be more original - trigger already exists').catch(err => core.err.dead(msg, err));
       
       server.responses[trigger] = response;
 
       core.setGuild(client, msg.guild.id, server);
 
-      msg.channel.send('*I\'ll remember that*').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      msg.channel.send('*I\'ll remember that*').catch(err => core.err.dead(msg, err));
     }
   },
   remove: {
     desc: 'Delete a trigger and response from the bot',
     args: '"Trigger"', 
     execute: (client, msg, args) => {
-      if (!args.length) return msg.channel.send("Small **oof** my dude please give me one input");
+      if (!args.length) return core.err.args(msg, 1);
       
       let server = core.getGuild(client, msg.guild);
       let str = '';
@@ -259,13 +259,13 @@ let self = module.exports = {
         return msg.channel.send('Small **oof** my dude check your quotes');
       }
 
-      if (!server.responses[trigger]) return msg.channel.send('couldn\'t find that trigger, maybe learn to spell?').catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      if (!server.responses[trigger]) return msg.channel.send('couldn\'t find that trigger, maybe learn to spell?').catch(err => core.err.dead(msg, err));
 
       delete server.responses[trigger];
 
       core.setGuild(client, msg.guild.id, server);
 
-      msg.channel.send(`I've removed \`${trigger}\` from your responses`).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      msg.channel.send(`I've removed \`${trigger}\` from your responses`).catch(err => core.err.dead(msg, err));
     }
   },
   responses: {
@@ -283,7 +283,7 @@ let self = module.exports = {
       }
 
       msg.delete().then().catch(console.error);
-      msg.channel.send({embed});
+      msg.channel.send({embed}).catch(err => core.err.dead(msg, err));
     }
   },
   clap: {
@@ -302,14 +302,14 @@ let self = module.exports = {
       args.forEach(arg => { str += arg + clap });
 
       msg.delete().then().catch(console.error);
-      msg.channel.send(str);
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
     }
   },
   banner: {
     desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
     args: '<string> A-Z and 0-9',
     execute: (client, msg, args) => {
-      if (!args.length) return msg.reply(`Small **oof** my dude I need some text`);
+      if (!args.length) return core.err.empty(msg);
       
       let str = '';
 
@@ -321,7 +321,7 @@ let self = module.exports = {
         .replace(/([0-9])/g, $1 => numStr[$1] );
 
       msg.delete().catch(console.error);
-      msg.channel.send(a).catch(error => msg.reply(`Small **oof** my dude: ${error}`));
+      msg.channel.send(a).catch(err => core.err.dead(msg, err));
     }
   },
   drake: {
@@ -330,7 +330,7 @@ let self = module.exports = {
     execute: (client, msg, args) => {
       // Hard code one as an example, need to think about a more dynamic approach
       // For all the legit new cool mems on the block dawg
-      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs my dude");
+      if (args.length < 2) return core.err.args(msg);
       
       let str = '';
 
@@ -389,7 +389,7 @@ let self = module.exports = {
           try {
             msg.channel.send('© ' + (msg.member.nickname || msg.author.username) + ':\n' + resp['data']['url']);
           } catch (e) {
-            msg.channel.send('Big **oof** my dude check the logs');
+            msg.channel.send('Big **oof** my dude check the logs').catch(err => core.err.dead(msg, err));
             console.log('imgflip error: \n' + e);
           }
         }
@@ -406,7 +406,7 @@ let self = module.exports = {
       args.forEach(arg => { str += arg + ' ' });
       msg.delete().catch(console.error);
       for (i = 0 ; i < 5 ; i++) {
-        msg.channel.send(str);
+        msg.channel.send(str).catch(err => core.err.dead(msg, err));
       }
     }
   },
@@ -414,7 +414,7 @@ let self = module.exports = {
     desc: 'Generate a dank memay with emoji',
     args: '"Top Text" "Bottom Text"',
     execute: (client, msg, args) => {
-      if (args.length < 2) return msg.channel.send("Small **oof** my dude please give me two inputs my dude");
+      if (args.length < 2) return core.err.args(msg);
 
       let str = '';
 
@@ -427,11 +427,11 @@ let self = module.exports = {
         var text2 = memeText[1].replace(/['"]+/g, '');
       } catch (e) {
         console.log('args error: \n' + e);
-        return msg.channel.send('Small **oof** my dude check your quotes');
+        return msg.channel.send('Small **oof** my dude check your quotes').catch(err => core.err.dead(msg, err));
       }
       meme = '<:drakeno:420253513239494657> ' + text1 + '\n<:drakeyes:420253514116104198> ' + text2; // ids need to change if emoji deleted from csit++
 
-      msg.channel.send(meme);
+      msg.channel.send(meme).catch(err => core.err.dead(msg, err));
       msg.delete().catch(console.error);
     }
   }
