@@ -65,4 +65,22 @@ let self = module.exports = {
       }
     }).catch(console.error);
   },
+
+  // Error Handler
+  err: {
+    empty(msg, text = 'Small **oof** my dude I need some text') {
+      self.err.reply(msg, text);
+    },
+    args(msg, i = 2) {
+      self.err.reply(msg, `Small **oof** my dude please give me ${i} ${i > 1 ? 'inputs' : 'input'}`);
+    },
+    dead(msg, err) {
+      self.err.reply(msg, `Small **oof** my dude ${err}`);
+    },
+    reply(msg, text) {
+      msg.reply(text || `Small **oof** my dude`).catch(error => {
+        console.log(`oh my christ if it's fucked up here lord help us:\n ${error}`)
+      });
+    }
+  }
 }
