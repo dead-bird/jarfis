@@ -64,7 +64,7 @@ let self = module.exports = {
       msg.delete().then().catch(console.error);
 
       msg.channel.send(msg.member.nickname || msg.author.username, {
-        file: `app/resources/responses/rate/${args[1]}.png`
+        file: `app/resources/responses/rate/${args[0]}.png`
       }).catch(err => core.err.dead(msg, err));
     }
   },
