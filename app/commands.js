@@ -429,7 +429,8 @@ let self = module.exports = {
         console.log('args error: \n' + e);
         return msg.channel.send('Small **oof** my dude check your quotes').catch(err => core.err.dead(msg, err));
       }
-      meme = '<:drakeno:420253513239494657> ' + text1 + '\n<:drakeyes:420253514116104198> ' + text2; // ids need to change if emoji deleted from csit++
+
+      let meme = `<:drakeno:420253513239494657> ${text1} \n<:drakeyes:420253514116104198> ${text2}`; // ids need to change if emoji deleted from csit++
 
       msg.channel.send(meme).catch(err => core.err.dead(msg, err));
       msg.delete().catch(console.error);
@@ -446,7 +447,7 @@ let self = module.exports = {
       let insults = fs.readFileSync(`${__dirname}/data/insults.txt`).toString().split('\n');
       let selectedInsult = insults[Math.floor(Math.random() * insults.length)];
 
-      msg.channel.send(user + ' you ' + selectedInsult);
+      msg.channel.send(`${user} you ${selectedInsult}`);
     }
   }
 };
