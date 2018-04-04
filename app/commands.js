@@ -272,18 +272,27 @@ let self = module.exports = {
     desc: 'List all the triggers and responses written to the bot',
     args: '',
     execute: (client, msg) => {
+      let chunk = 25;
+      let fields = [];
       let guild = core.getGuild(client, msg.guild);
 
-      let embed = new Discord.RichEmbed()
-        .setAuthor(`${client.user.username}'s Responses`, client.user.avatarURL)
-        .setColor(3447003)
-        
+      msg.delete().then().catch(console.error);
+      
       for (let res in guild.responses) {
-        if (guild.responses.hasOwnProperty(res)) embed.addField('\u200B', `**${res}**\n${guild.responses[res]}`);
+        if (guild.responses.hasOwnProperty(res)) {
+          fields.push({ name: '\u200B', value: `**${res}**\n${guild.responses[res]}` });
+        }
       }
 
-      msg.delete().then().catch(console.error);
-      msg.channel.send({embed}).catch(err => core.err.dead(msg, err));
+      for (let i = 0; i < fields.length; i += chunk) {
+        let embed = new Discord.RichEmbed()
+          .setAuthor(`${client.user.username}'s Responses`, client.user.avatarURL)
+          .setColor(3447003);
+
+        embed.fields = fields.slice(i , i + chunk);
+
+        msg.channel.send({embed}).catch(err => core.err.dead(msg, err));
+      }
     }
   },
   clap: {
