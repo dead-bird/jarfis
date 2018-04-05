@@ -16,14 +16,17 @@ client.on('ready', () => {
 
   console.log('meme machine is online');
   
-  if (env.ENV === 'live') {
+  if (env.ENV === 'dev') return;
+
+  client.servers.defer.then(() => { // all data is loaded now.
     client.guilds.map((guild) => {
-      let s = core.server.get(client, guild);
-  
-      client.channels.get(s.default).send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>').catch(console.error); // Maybe add in latest commit here?
+      core.server.get(client, guild, s => {
+        client.channels.get(s.default).send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>').catch(console.error); // Maybe add in latest commit here?
+      });
     });
-    // setTimeout(self.insult, 600000);
-  }
+  });
+  
+  // setTimeout(self.insult, 600000);
 });
 
 client.on('message', msg => {
