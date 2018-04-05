@@ -1,6 +1,6 @@
 require('dotenv').config({path: '.env'});
 
-const settings = require('./settings.js'),
+const settings = require('./commands/settings.js'),
       Discord  = require('discord.js'),
       core     = require('./core.js'),
       request  = require('request');

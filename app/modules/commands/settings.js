@@ -1,7 +1,9 @@
 const Discord = require('discord.js'),
-      core = require('./core.js');
+      core = require('../core.js');
 
 let self = module.exports = {
+  desc: 'List/Change current settings for the bot.',
+  args: '[change] [settingName] [value]',
   execute(client, msg, args) {
     if (!args.length) return self.list(client, msg);
   
