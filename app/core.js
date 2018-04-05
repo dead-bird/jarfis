@@ -7,49 +7,54 @@ const Discord    = require('discord.js'),
 let self = module.exports = {
   // need to put init back in
 
-  // users
-  getUser(client, id) {
-    return client.losers.get(id) || self.newUser(client, id);
+
+  user: {
+    get(client, id) {
+      return client.losers.get(id) || self.user.new(client, id);
+    },
+    set() {
+      // will probably use
+    },
+    new(client, id) {
+      let user = { banned: false };
+
+      client.losers.set(id, user);
+
+      return user;
+    },
   },
-  newUser(client, id) {
-    let user = { banned: false };
 
-    client.losers.set(id, user);
+  server: {
+    get(client, guild, callback = false) {
+      let options = client.servers.get(guild.id) || self.server.new(client, guild);
 
-    return user;
-  },
+      return typeof callback === 'function' ? callback(options) : options;
+    },
+    set(client, id, options) {
+      return client.servers.set(id, options);
+    },
+    new(client, guild, callback = false) { //I feel like new() should be in set() if nothing is passed maybe?
+      if (!guild) return;
 
-  // servers
-  getGuild(client, guild) {
-    return client.servers.get(guild.id) || self.newGuild(client, guild);
-  },
-  setGuild(client, id, server) {
-    return client.servers.set(id, server);
-  },
-  newGuild(client, guild, respond = false) {
-    if (!guild) return;
+      let options = self.server.default(client, guild);
 
-    let server = {
-      prefix: "!",
-      insults: true,
-      active: "",
-      default: (guild.channels ? guild.channels.first().id : null),
-      announcements: false,
-      responses: {
-        lenny: "( ͡° ͜ʖ ͡°)",
-      },
-    };
+      client.servers.set(guild.id, options);
 
-    client.servers.set(guild.id, server);
-
-    if (respond && server.default) {
-      let id = server.default,
-          pf = server.prefix;
-
-      client.channels.get(id).send(`What up pimps! My prefix is \`${pf}\` and your default channel is <#${id}>. Hit dat fatty \`${pf}help\` to change shit`);
-    }
-
-    return server;
+      return typeof callback === 'function' ? callback(options) : options;
+    },
+    default(client, guild) {
+      return {
+        prefix: "!",
+        insults: true,
+        active: "",
+        default: (guild.channels ? guild.channels.first().id : null),
+        announcements: true,
+        restart: false,
+        responses: {
+          lenny: { response: "( ͡° ͜ʖ ͡°)", author: client.user.id },
+        },
+      };
+    },
   },
 
   // channels
@@ -77,10 +82,17 @@ let self = module.exports = {
     dead(msg, err) {
       self.err.reply(msg, `Small **oof** my dude ${err}`);
     },
+    perms(msg) {
+      self.err.reply(msg, 'that\'s a big 7k **oof** my dude, you don\'t have permission to do that');
+    },
     reply(msg, text) {
       msg.reply(text || `Small **oof** my dude`).catch(error => {
         console.log(`oh my christ if it's fucked up here lord help us:\n ${error}`)
       });
     }
+  },
+
+  roles: {
+    daddy: id => env.OWNERS.split(', ').includes(id),
   }
 }

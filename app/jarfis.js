@@ -15,22 +15,21 @@ client.on('ready', () => {
   client.user.setPresence({game: {name: `in ${env.LOC}`, type: 0}});
 
   console.log('meme machine is online');
-
+  
   if (env.ENV === 'live') {
-    // let guild = core.getGuild(client, msg.guild);
+    client.guilds.map((guild) => {
+      let s = core.server.get(client, guild);
   
+      client.channels.get(s.default).send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>').catch(console.error); // Maybe add in latest commit here?
+    });
     // setTimeout(self.insult, 600000);
-  
-    client.channels.get('415900255691866122')
-                   .send('What up pimps! It\'s me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>')
-                   .catch(console.error); // Maybe add in latest commit here?
   }
 });
 
 client.on('message', msg => {
   if (msg.author.bot || !msg.guild) return;
 
-  let id  = msg.guild.id || 0;
+  let id = msg.guild.id || 0;
 
   if ((env.ENV === 'dev' && id === env.DEV_ID) || (env.ENV !== 'dev' && id !== env.DEV_ID)) {
     listen(client, msg);
@@ -39,7 +38,11 @@ client.on('message', msg => {
 
 // Create server shit when Jarfis joins a server
 client.on('guildCreate', guild => {
-  core.newGuild(client, guild, true);
+  core.server.new(client, guild, options => {
+    let id = options.default, pf = options.prefix;
+
+    client.channels.get(id).send(`What up pimps! My prefix is \`${pf}\` and your default channel is <#${id}>. Hit dat fatty \`${pf}help\` to change shit`);
+  });
 });
 
 // Pin Announcements
@@ -55,8 +58,8 @@ client.login(env.TOKEN);
 
 // Loop through the commands module if msg starts with prefix
 function listen(client, msg) {
-  let guild = core.getGuild(client, msg.guild),
-      user  = core.getUser(client, msg.author.id);
+  let guild = core.server.get(client, msg.guild),
+      user  = core.user.get(client, msg.author.id);
 
   msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
 

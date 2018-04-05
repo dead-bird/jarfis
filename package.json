@@ -30,12 +30,13 @@
   "devDependencies": {
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
-    "mocha": "^4.0.1",
+    "mocha": "^4.1.0",
     "nodemon": "^1.12.1",
     "nsp": "^2.6.3"
   },
   "scripts": {
-    "prepublish": "nsp check",
+    "prestart": "mocha app/test/env.js",
+    "start": "nodemon",
     "pretest": "eslint .",
     "test": "mocha app/**/test.js"
   },

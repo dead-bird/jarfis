@@ -12,7 +12,7 @@ let self = module.exports = {
     desc: 'Lists all available commands.',
     args: '',
     execute: (client, msg) => {
-      let pf = core.getGuild(client, msg.guild).prefix;
+      let pf = core.server.get(client, msg.guild).prefix;
 
       let embed = new Discord.RichEmbed().setAuthor('command me daddy', client.user.avatarURL).setColor(3447003)
       
@@ -24,26 +24,13 @@ let self = module.exports = {
       msg.channel.send({embed});
     }
   },
-  // settings: {
-  //   desc: 'List current settings for the bot.',
-  //   args: '<setting> <change>',
-  //   execute: (client, msg, args) => {
-  //     let space = '\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020';
-
-  //     let embed = new Discord.RichEmbed()
-  //       .setColor(3447003)
-  //       .setDescription(`:joystick:  Run <settings> <setting name> for more information \n ${space} Run <settings> <setting name> <change> to edit`)
-  //       .setThumbnail(client.user.avatarURL)
-  //       .addBlankField(true);
-
-  //     for (var setting in settings) {
-  //       embed.addField('\u200B', `**${settings[setting].name}**\n ${space} ${settings[setting].desc}`);
-  //     }
-
-  //     msg.delete().then().catch(console.error);
-  //     msg.channel.send({embed});
-  //   }
-  // },
+  settings: {
+    desc: 'List/Change current settings for the bot.',
+    args: '[change] [settingName] [value]',
+    execute: (client, msg, args) => {
+      settings.execute(client, msg, args);
+    }
+  },
   loc: {
     desc: 'Returns the bot\'s environment.',
     args: '',
@@ -180,7 +167,7 @@ let self = module.exports = {
     args: '<user>',
     execute: (client, msg, args) => {
       let id   = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
-          user = core.getUser(client, id);
+          user = core.user.get(client, id);
 
       if (user.banned) return msg.channel.send(`<@${id}> is already banned my dude`);
       
@@ -196,7 +183,7 @@ let self = module.exports = {
     args: '<user>',
     execute: (client, msg, args) => {
       let id   = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
-          user = core.getUser(client, id);
+          user = core.user.get(client, id);
 
       if (!user.banned) return msg.channel.send(`<@${id}> isn't even banned you ***idiot***`);
       
@@ -215,7 +202,7 @@ let self = module.exports = {
     execute: (client, msg, args) => {
       if (args.length < 2) return core.err.args(msg);
       
-      let server = core.getGuild(client, msg.guild);
+      let server = core.server.get(client, msg.guild);
       let str = '';
 
       args.forEach(arg => { str += arg + ' ' });
@@ -232,9 +219,12 @@ let self = module.exports = {
 
       if (server.responses[trigger]) return msg.channel.send('be more original - trigger already exists').catch(err => core.err.dead(msg, err));
       
-      server.responses[trigger] = response;
+      server.responses[trigger] = {
+        response: response,
+        author: msg.author.id
+      }
 
-      core.setGuild(client, msg.guild.id, server);
+      core.server.set(client, msg.guild.id, server);
 
       msg.channel.send('*I\'ll remember that*').catch(err => core.err.dead(msg, err));
     }
@@ -245,7 +235,7 @@ let self = module.exports = {
     execute: (client, msg, args) => {
       if (!args.length) return core.err.args(msg, 1);
       
-      let server = core.getGuild(client, msg.guild);
+      let server = core.server.get(client, msg.guild);
       let str = '';
 
       args.forEach(arg => { str += arg + ' ' });
@@ -263,7 +253,7 @@ let self = module.exports = {
 
       delete server.responses[trigger];
 
-      core.setGuild(client, msg.guild.id, server);
+      core.server.set(client, msg.guild.id, server);
 
       msg.channel.send(`I've removed \`${trigger}\` from your responses`).catch(err => core.err.dead(msg, err));
     }
@@ -274,14 +264,19 @@ let self = module.exports = {
     execute: (client, msg) => {
       let chunk = 25;
       let fields = [];
-      let guild = core.getGuild(client, msg.guild);
+      let guild = core.server.get(client, msg.guild);
+      let reply = `I don't have any responses yet my dude, you can add some using \`${guild.prefix}add "trigger" "response"\``
 
       msg.delete().then().catch(console.error);
-      
+
       for (let res in guild.responses) {
-        if (guild.responses.hasOwnProperty(res)) {
-          fields.push({ name: '\u200B', value: `**${res}**\n${guild.responses[res]}` });
-        }
+        if (!guild.responses.hasOwnProperty(res)) break;
+
+        let trigger = guild.responses[res], author  = '';
+        
+        if (trigger.author) author = `\n*(added by ${client.users.get(trigger.author)})*` || ''; // fallback for old style responses without author
+
+        fields.push({ name: '\u200B', value: `**${res}**\n${trigger.response || trigger}${author}` });
       }
 
       for (let i = 0; i < fields.length; i += chunk) {
@@ -291,7 +286,9 @@ let self = module.exports = {
 
         embed.fields = fields.slice(i , i + chunk);
 
-        msg.channel.send({embed}).catch(err => core.err.dead(msg, err));
+        if (embed.fields.length) reply = { embed };
+
+        msg.channel.send(reply).catch(err => core.err.dead(msg, err));
       }
     }
   },
