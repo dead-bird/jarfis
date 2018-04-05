@@ -73,7 +73,7 @@ function listen(client, msg) {
       commands[cmd].execute(client, msg, args);
     }
   } else if (Object.prototype.hasOwnProperty.call(guild.responses, msg.content.toLowerCase())) {
-    msg.channel.send(guild.responses[msg.content.toLowerCase()]);
+    msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
   }
 }
 
