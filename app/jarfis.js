@@ -61,22 +61,14 @@ client.login(env.TOKEN);
 
 // Loop through the commands module if msg starts with prefix
 function listen(client, msg) {
-  let guild = core.server.get(client, msg.guild),
-      user  = core.user.get(client, msg.author.id);
+  let server = core.server.get(client, msg.guild);
 
   msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
 
-  if (msg.content.startsWith(guild.prefix)) {
-    if (user.banned) return msg.channel.send('Nah soz mate!');
-
-    let args = msg.content.slice(guild.prefix.length).trim().split(/ +/g),
-        cmd  = args.shift().toLowerCase();
-
-    if (cmd in commands) {
-      commands[cmd].execute(client, msg, args);
-    }
-  } else if (Object.prototype.hasOwnProperty.call(guild.responses, msg.content.toLowerCase())) {
-    msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
+  if (msg.content.startsWith(server.prefix)) {
+    commands.run(client, msg, server);
+  } else if (Object.prototype.hasOwnProperty.call(server.responses, msg.content.toLowerCase())) {
+    msg.channel.send(server.responses[msg.content.toLowerCase()].response);
   }
 }
 
