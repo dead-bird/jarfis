@@ -583,13 +583,32 @@ let self = (module.exports = {
   heist: {
     desc:
       'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
-    args: '"str"',
+    args: '"emoji","text"',
     //TODO option to add custom face
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
+      let argsStr = '';
+      args.forEach(arg => {
+        argsStr += arg + ' ';
+      });
 
-      let str = args.join(' ');
-      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${str}  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫<:111:452594414011940874><:222:452594414058078218>`;
+      let text = argsStr.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
+
+      try {
+        var emoji = text[0].replace(/['"]+/g, '').trim(); // Shitty quote removal
+        var speech = text[1].replace(/['"]+/g, '').trim();
+      } catch (e) {
+        console.log(text);
+        console.log('args error: \n' + e);
+        return msg.channel
+          .send('Small **oof** my dude check your quotes')
+          .catch(err => core.err.dead(msg, err));
+      }
+      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${
+        speech ? speech : '...'
+      }  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫${
+        emoji ? emoji : '<:111:452594414011940874><:222:452594414058078218>'
+      }`;
       msg
         .delete()
         .then()
