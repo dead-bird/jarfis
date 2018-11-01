@@ -580,6 +580,24 @@ let self = (module.exports = {
       msg.channel.send(`${user} you ${selectedInsult}`);
     },
   },
+  heist: {
+    desc:
+      'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
+    args: '"str"',
+    //TODO option to add custom face
+    execute: (client, msg, args) => {
+      if (!args.length) return core.err.empty(msg);
+
+      let str = args.join(' ');
+      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${str}  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫<:111:452594414011940874><:222:452594414058078218>`;
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(heistMsg).catch(err => core.err.dead(msg, err));
+    },
+  },
 });
 
 //                                              ____________
