@@ -136,12 +136,34 @@ let self = (module.exports = {
       });
 
       let a = str.split('');
-      let n = a.length;
+      let capTotal = 0;
+      let lowerTotal = 0;
 
-      for (i = n - 1; i >= 0; i--) {
-        let r = Math.floor(Math.random() * n) + 1;
-        a[r] = a[r] ? a[r].toUpperCase() : '';
-      }
+      a.forEach((letter, index, a) => {
+        //Only act on non whitespace chars
+        if (letter) {
+          //Return 1 or 0
+          let rng = Math.floor(Math.random() * 2);
+
+          //Count consecutive letter types
+          if (rng) {
+            capTotal++;
+            lowerTotal = 0;
+          } else {
+            lowerTotal++;
+            capTotal = 0;
+          }
+
+          //Force opposite letter if 3 consecutive types
+          if (capTotal < 3) {
+            rng ? (a[index] = letter.toUpperCase()) : '';
+          }
+          if (lowerTotal >= 3) {
+            a[index] = letter.toUpperCase();
+            lowerTotal = 0;
+          }
+        }
+      });
 
       msg
         .delete()
