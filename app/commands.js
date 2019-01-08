@@ -639,6 +639,37 @@ let self = (module.exports = {
       msg.channel.send(heistMsg).catch(err => core.err.dead(msg, err));
     },
   },
+  oob: {
+    desc: 'oobify yooboobr toobxt',
+    args: '"text"',
+    execute: (client, msg, args) => {
+      if (!args.length) return core.err.empty(msg);
+
+      let str = '';
+      let vowels = ['a', 'e', 'i', 'o', 'u'];
+
+      args.forEach(arg => {
+        str += arg + ' ';
+      });
+
+      let a = str.split('');
+      let capTotal = 0;
+      let lowerTotal = 0;
+
+      a.forEach((letter, index, a) => {
+        if (vowels.includes(letter)) {
+          a[index] = 'oob';
+        }
+      });
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(a.join('')).catch(err => core.err.dead(msg, err));
+    },
+  },
 });
 
 //                                              ____________
