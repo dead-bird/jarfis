@@ -653,8 +653,6 @@ let self = (module.exports = {
       });
 
       let a = str.split('');
-      let capTotal = 0;
-      let lowerTotal = 0;
 
       a.forEach((letter, index, a) => {
         if (vowels.includes(letter)) {
