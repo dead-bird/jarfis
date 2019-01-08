@@ -134,43 +134,23 @@ let self = (module.exports = {
       args.forEach(arg => {
         str += arg + ' ';
       });
+      console.log(str);
 
-      let a = str.split('');
-      let capTotal = 0;
-      let lowerTotal = 0;
+      function tweak(c) {
+        return Math.random() < 0.5 ? c.toLowerCase() : c.toUpperCase();
+      }
 
-      a.forEach((letter, index, a) => {
-        //Only act on non whitespace chars
-        if (letter) {
-          //Return 1 or 0
-          let rng = Math.floor(Math.random() * 2);
-
-          //Count consecutive letter types
-          if (rng) {
-            capTotal++;
-            lowerTotal = 0;
-          } else {
-            lowerTotal++;
-            capTotal = 0;
-          }
-
-          //Force opposite letter if 3 consecutive types
-          if (capTotal < 3) {
-            rng ? (a[index] = letter.toUpperCase()) : '';
-          }
-          if (lowerTotal >= 3) {
-            a[index] = letter.toUpperCase();
-            lowerTotal = 0;
-          }
-        }
-      });
+      str = str
+        .split('')
+        .map(tweak)
+        .join('');
 
       msg
         .delete()
         .then()
         .catch(console.error);
 
-      msg.channel.send(a.join('')).catch(err => core.err.dead(msg, err));
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
   clear: {
