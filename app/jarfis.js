@@ -88,8 +88,11 @@ function listen(client, msg) {
   if (msg.content.startsWith(guild.prefix)) {
     if (user.banned) return msg.channel.send('Nah soz mate!');
 
-    let args = msg.content.slice(guild.prefix.length).trim().split(/ +/g),
-        cmd  = args.shift().toLowerCase();
+    let message = msg.content.split(/^(?:!(\w+))/);
+
+    let cmd = message[1];
+    let args = message[2].split(/\|/);
+    args = args.map(str => (str = str.trim()));
 
     if (cmd in commands) {
       commands[cmd].execute(client, msg, args);
