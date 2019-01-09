@@ -74,13 +74,9 @@ let self = (module.exports = {
   },
   change: {
     desc: 'Changes the name of the bot.',
-    args: '<string: no spaces... for now>',
+    args: '<string>',
     execute: (client, msg, args) => {
-      let name = '';
-
-      args.forEach(arg => {
-        name += arg + ' ';
-      });
+      let name = args[0];
 
       msg.guild
         .member(client.user)
@@ -129,12 +125,7 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
-      console.log(str);
+      let str = args[0];
 
       function tweak(c) {
         return Math.random() < 0.5 ? c.toLowerCase() : c.toUpperCase();
@@ -198,11 +189,7 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
+      let str = args[0];
 
       msg
         .delete()
@@ -256,26 +243,19 @@ let self = (module.exports = {
   // Responses
   add: {
     desc: 'Add a trigger and response to the bot',
-    args: '"Trigger" "Response"',
+    args: 'Trigger | Response',
     execute: (client, msg, args) => {
       if (args.length < 2) return core.err.args(msg);
 
       let server = core.server.get(client, msg.guild);
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
-
-      let text = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
       try {
-        var trigger = text[0].replace(/['"]+/g, ''); // Shitty quote removal
-        var response = text[1].replace(/['"]+/g, '');
+        var trigger = args[0];
+        var response = args[1];
       } catch (e) {
         console.log('args error: \n' + e);
         return msg.channel
-          .send('Small **oof** my dude check your quotes')
+          .send('Small **oof** my dude check your formatting')
           .catch(err => core.err.dead(msg, err));
       }
 
@@ -303,19 +283,12 @@ let self = (module.exports = {
       if (!args.length) return core.err.args(msg, 1);
 
       let server = core.server.get(client, msg.guild);
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
-
-      let text = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
       try {
-        var trigger = text[0].replace(/['"]+/g, ''); // Shitty quote removal
+        var trigger = args[0];
       } catch (e) {
         console.log('args error: \n' + e);
-        return msg.channel.send('Small **oof** my dude check your quotes');
+        return msg.channel.send('Small **oof** my dude check your formatting');
       }
 
       if (!server.responses[trigger])
@@ -341,7 +314,7 @@ let self = (module.exports = {
       let guild = core.server.get(client, msg.guild);
       let reply = `I don't have any responses yet my dude, you can add some using \`${
         guild.prefix
-      }add "trigger" "response"\``;
+      }add trigger | response\``;
 
       msg
         .delete()
@@ -381,18 +354,20 @@ let self = (module.exports = {
   },
   clap: {
     desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
-    args: '<string>(-raw)',
+    args: '<string> | raw (optional)',
     execute: (client, msg, args) => {
       let clap = ':clap:';
 
-      if (args[0] === '-raw') {
+      if (args[1] === 'raw') {
         clap = '\\👏';
-        args.splice(0, 1);
+        args.splice(1, 1);
       }
 
       let str = clap; // Prepend a clap
 
-      args.forEach(arg => {
+      preClap = args[0].split(/ /g);
+
+      preClap.forEach(arg => {
         str += arg + clap;
       });
 
@@ -409,12 +384,6 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
-
       let numStr = [
         ':zero:',
         ':one:',
@@ -427,7 +396,7 @@ let self = (module.exports = {
         ':eight:',
         ':nine:',
       ];
-      let a = str
+      let a = args[0]
         .toLowerCase()
         .replace(/([a-z])/g, ':regional_indicator_$1: ')
         .replace(/([0-9])/g, $1 => numStr[$1]);
@@ -440,37 +409,27 @@ let self = (module.exports = {
     desc: 'spam',
     args: 'spam',
     execute: (client, msg, args) => {
-      let str = '';
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
+      let str = args[0];
+
       msg.delete().catch(console.error);
       for (i = 0; i < 5; i++) {
         msg.channel.send(str).catch(err => core.err.dead(msg, err));
       }
     },
   },
-  edrake: {
+  drake: {
     desc: 'Generate a dank memay with emoji',
-    args: '"Top Text" "Bottom Text"',
+    args: 'Top Text | Bottom Text',
     execute: (client, msg, args) => {
       if (args.length < 2) return core.err.args(msg);
 
-      let str = '';
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
-
-      memeText = str.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
-
       try {
-        var text1 = memeText[0].replace(/['"]+/g, ''); // Shitty quote removal
-        var text2 = memeText[1].replace(/['"]+/g, '');
+        var text1 = args[0];
+        var text2 = args[1];
       } catch (e) {
         console.log('args error: \n' + e);
         return msg.channel
-          .send('Small **oof** my dude check your quotes')
+          .send('Small **oof** my dude check your formatting')
           .catch(err => core.err.dead(msg, err));
       }
 
@@ -502,25 +461,19 @@ let self = (module.exports = {
   heist: {
     desc:
       'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
-    args: '"emoji","text"',
+    args: 'emoji | text',
     //TODO option to add custom face
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
-      let argsStr = '';
-      args.forEach(arg => {
-        argsStr += arg + ' ';
-      });
-
-      let text = argsStr.match(/"([^"]|"")*"/g); // Array of all matches (text in "")
 
       try {
-        var emoji = text[0].replace(/['"]+/g, '').trim(); // Shitty quote removal
-        var speech = text[1].replace(/['"]+/g, '').trim();
+        var emoji = args[0];
+        var speech = args[1];
       } catch (e) {
         console.log(text);
         console.log('args error: \n' + e);
         return msg.channel
-          .send('Small **oof** my dude check your quotes')
+          .send('Small **oof** my dude check your formatting')
           .catch(err => core.err.dead(msg, err));
       }
       let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${
@@ -538,16 +491,12 @@ let self = (module.exports = {
   },
   oob: {
     desc: 'oobify yooboobr toobxt',
-    args: '"text"',
+    args: 'text',
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
-      let str = '';
+      let str = args[0];
       let vowels = ['a', 'e', 'i', 'o', 'u'];
-
-      args.forEach(arg => {
-        str += arg + ' ';
-      });
 
       let a = str.split('');
 
