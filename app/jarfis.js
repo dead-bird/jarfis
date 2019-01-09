@@ -83,15 +83,13 @@ function listen(client, msg) {
   let guild = core.server.get(client, msg.guild),
     user = core.user.get(client, msg.author.id);
 
-  msg.content = msg.content.replace(/[\u201C\u201D]/g, '"'); // fuck off dodgy quotes
-
   if (msg.content.startsWith(guild.prefix)) {
     if (user.banned) return msg.channel.send('Nah soz mate!');
 
     let message = msg.content.split(/^(?:!(\w+))/);
 
     let cmd = message[1];
-    let args = message[2].split(/\|/);
+    let args = message[2].split(/ \| /);
     args = args.map(str => (str = str.trim()));
 
     if (cmd in commands) {
