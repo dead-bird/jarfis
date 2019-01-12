@@ -495,23 +495,14 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
-      let str = args[0];
-      let vowels = ['a', 'e', 'i', 'o', 'u'];
-
-      let a = str.split('');
-
-      a.forEach((letter, index, a) => {
-        if (vowels.includes(letter)) {
-          a[index] = 'oob';
-        }
-      });
+      let str = args[0].replace(/[aeiou]/gi, 'oob');
 
       msg
         .delete()
         .then()
         .catch(console.error);
 
-      msg.channel.send(a.join('')).catch(err => core.err.dead(msg, err));
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
 });
