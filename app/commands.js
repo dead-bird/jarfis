@@ -103,17 +103,44 @@ let self = (module.exports = {
     },
   },
   flip: {
-    desc: 'Flip a coin.',
-    args: '',
-    execute: (client, msg) => {
-      // Should be more modular and less shit
+    desc: 'Flip a coin. Can also use custom emotes the bot can access',
+    args: 'optional( heads | tails )',
+    execute: (client, msg, args) => {
+      //Default flips
       let heads = 'https://i.gyazo.com/e380b49fc9e2b8b86571975f7df01d52.gif';
       let tails = 'https://i.gyazo.com/8697b5c1f85e43ec9580bc59727c5fcc.gif';
+      let headExt = 'png';
+      let tailExt = 'png';
+
+      if (args[0] && args[1]) {
+        let headEmote = args[0].match(/:.+:((\d+){10,})>/); //if 2 args and match emote format
+        let tailEmote = args[1].match(/:.+:((\d+){10,})>/);
+
+        if (args[0].substring(1, 2) === 'a') {
+          headExt = 'gif';
+        }
+        if (args[1].substring(1, 2) === 'a') {
+          tailExt = 'gif';
+        }
+
+        console.log(headEmote);
+        if (headEmote !== null) {
+          heads = `https://cdn.discordapp.com/emojis/${
+            headEmote[1]
+          }.${headExt}`;
+        }
+        if (tailEmote !== null) {
+          tails = `https://cdn.discordapp.com/emojis/${
+            tailEmote[1]
+          }.${tailExt}`;
+        }
+      }
+
       let res = Math.floor(Math.random() * 2) === 0 ? 'heads' : 'tails';
       let embed = new Discord.RichEmbed()
         .setColor(res === 'heads' ? '3232ff' : 'FFD700')
         .setTitle(`it's ${res} motherfucker`)
-        .setThumbnail(res === 'heads' ? heads : tails)
+        .setImage(res === 'heads' ? heads : tails)
         .addBlankField(true);
 
       msg.channel.send({ embed });
