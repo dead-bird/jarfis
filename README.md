@@ -13,3 +13,6 @@ Meme ratings for OG meme bois
 * Run app:  `pm2 start app/jarfis.js`
 * Restart:  `pm2 restart rate`
 * Stop app: `pm2 stop rate`
+
+# Gotchas
+* 404 Not Found: flatmap-stream: https://github.com/dominictarr/event-stream/issues/116
