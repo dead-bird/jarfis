@@ -90,7 +90,7 @@ function listen(client, msg) {
 
     let cmd = message[1];
     if (message[2]) {
-      let args = message[2].split(/ \| /);
+      var args = message[2].split(/ \| /);
       args = args.map(str => (str = str.trim()));
     }
     if (cmd in commands) {
