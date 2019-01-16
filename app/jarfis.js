@@ -89,9 +89,10 @@ function listen(client, msg) {
     let message = msg.content.split(/^(?:!(\w+))/);
 
     let cmd = message[1];
-    let args = message[2].split(/ \| /);
-    args = args.map(str => (str = str.trim()));
-
+    if(message[2]){
+      var args = message[2].split(/ \| /);
+      args = args.map(str => (str = str.trim()));
+    }
     if (cmd in commands) {
       commands[cmd].execute(client, msg, args);
     }
