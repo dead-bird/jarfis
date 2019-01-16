@@ -55,6 +55,7 @@
     "enmap": "^0.6.2",
     "enmap-level": "^1.0.1",
     "event-stream": "^3.3.4",
+    "express": "^4.16.4",
     "leveldown": "^4.0.1",
     "twitter": "^1.7.1"
   }

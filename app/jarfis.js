@@ -6,7 +6,15 @@ const commands = require('./commands.js'),
   client = new Discord.Client({ forceFetchUsers: true }),
   core = require('./core.js'),
   Enmap = require('enmap'),
+  express = require('express'),
+  app = express(),
   env = process.env;
+
+app.get("/", (request, response) => {
+  console.log(getDateTime() + " Ping Received");
+  response.sendStatus(200);
+});
+app.listen(env.PORT);
 
 client.on('ready', () => {
   client.servers = new Enmap({ provider: new Level({ name: 'servers' }) });
@@ -138,6 +146,18 @@ function insult() {
 
   // randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
   // setTimeout(insult, randTime);
+}
+
+function getDateTime() {
+  let date = new Date,
+    dateTime = [ date.getDate(),
+                (date.getMonth()+1),
+                date.getFullYear()].join('/')+
+                ' ' +
+              [ date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()].join(':');
+    return dateTime;
 }
 
 //       _             _
