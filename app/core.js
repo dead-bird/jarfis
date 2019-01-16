@@ -45,7 +45,7 @@ let self = module.exports = {
     default(client, guild) {
       return {
         prefix: "!",
-        insults: true,
+        insults: false,
         active: "",
         default: (guild.channels ? guild.channels.first().id : null),
         announcements: true,
