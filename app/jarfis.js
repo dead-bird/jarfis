@@ -16,6 +16,10 @@ app.get("/", (request, response) => {
 });
 app.listen(env.PORT);
 
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+client.on("debug", (e) => console.info(e));
+
 client.on('ready', () => {
   client.servers = new Enmap({ provider: new Level({ name: 'servers' }) });
   client.losers = new Enmap({ provider: new Level({ name: 'losers' }) });
