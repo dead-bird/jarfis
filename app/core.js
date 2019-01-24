@@ -63,7 +63,7 @@ let self = module.exports = {
 
     channel.fetchPinnedMessages().then((messages, msg) => {
       messages.map(() => { return pins++ });
-      if (pins = 50) {
+      if (pins === 50) {
         channel.send(pins + `/50 pins we've hit maximum bants`);
       } else if (pins >= 45) {
         channel.send(pins + '/50 pins getting a little cramped my dudes');
