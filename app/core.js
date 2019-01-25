@@ -9,7 +9,7 @@ let self = (module.exports = {
 
   user: {
     // Grab ID from message @user
-    findId: id => id.replace(/<@!(\d*)>|<@(\d*)>/g, '$1'),
+    findId: id => id.replace(/<@!?(\d*)>/g, '$1'),
 
     get(client, id) {
       return client.losers.get(id) || self.user.new(client, id);
