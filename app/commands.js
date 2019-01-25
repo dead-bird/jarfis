@@ -436,11 +436,10 @@ let self = (module.exports = {
     desc: 'spam',
     args: 'spam',
     execute: (client, msg, args) => {
-      let str = args[0];
-
       msg.delete().catch(console.error);
+
       for (i = 0; i < 5; i++) {
-        msg.channel.send(str).catch(err => core.err.dead(msg, err));
+        msg.channel.send(args[0]).catch(err => core.err.dead(msg, err));
       }
     },
   },
