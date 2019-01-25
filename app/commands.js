@@ -230,10 +230,15 @@ let self = (module.exports = {
   // Bans
   ban: {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
-    args: '<user>',
+    args: '@user',
     execute: (client, msg, args) => {
       let id = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
         user = core.user.get(client, id);
+
+      if (id === core.csit) return msg.channel.send(`you cannot ban the 👑`);
+
+      if (id === msg.author.id)
+        return msg.channel.send(`you gonna ban yerself dickhead`);
 
       if (user.banned)
         return msg.channel.send(`<@${id}> is already banned my dude`);
@@ -249,7 +254,7 @@ let self = (module.exports = {
   },
   unban: {
     desc: "For when you've had enough :dsd: for one day",
-    args: '<user>',
+    args: '@user',
     execute: (client, msg, args) => {
       let id = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
         user = core.user.get(client, id);
