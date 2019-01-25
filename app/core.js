@@ -1,14 +1,16 @@
-require('dotenv').config({path: '.env'});
+require('dotenv').config({ path: '.env' });
 
-const Discord    = require('discord.js'),
-      fs         = require('fs'),
-      env        = process.env;
+const Discord = require('discord.js'),
+  fs = require('fs'),
+  env = process.env;
 
-let self = module.exports = {
+let self = (module.exports = {
   // need to put init back in
 
-
   user: {
+    // Grab ID from message @user
+    findId: id => id.replace(/<@!(\d*)>|<@(\d*)>/g, '$1'),
+
     get(client, id) {
       return client.losers.get(id) || self.user.new(client, id);
     },
@@ -26,14 +28,16 @@ let self = module.exports = {
 
   server: {
     get(client, guild, callback = false) {
-      let options = client.servers.get(guild.id) || self.server.new(client, guild);
+      let options =
+        client.servers.get(guild.id) || self.server.new(client, guild);
 
       return typeof callback === 'function' ? callback(options) : options;
     },
     set(client, id, options) {
       return client.servers.set(id, options);
     },
-    new(client, guild, callback = false) { //I feel like new() should be in set() if nothing is passed maybe?
+    new(client, guild, callback = false) {
+      //I feel like new() should be in set() if nothing is passed maybe?
       if (!guild) return;
 
       let options = self.server.default(client, guild);
@@ -44,14 +48,14 @@ let self = module.exports = {
     },
     default(client, guild) {
       return {
-        prefix: "!",
+        prefix: '!',
         insults: false,
-        active: "",
-        default: (guild.channels ? guild.channels.first().id : null),
+        active: '',
+        default: guild.channels ? guild.channels.first().id : null,
         announcements: true,
         restart: false,
         responses: {
-          lenny: { response: "( ͡° ͜ʖ ͡°)", author: client.user.id },
+          lenny: { response: '( ͡° ͜ʖ ͡°)', author: client.user.id },
         },
       };
     },
@@ -61,16 +65,21 @@ let self = module.exports = {
   newPin(channel) {
     let pins = 0;
 
-    channel.fetchPinnedMessages().then((messages, msg) => {
-      messages.map(() => { return pins++ });
-      if (pins === 50) {
-        channel.send(pins + `/50 pins we've hit maximum bants`);
-      } else if (pins >= 45) {
-        channel.send(pins + '/50 pins getting a little cramped my dudes');
-      } else {
-        channel.send(pins + '/50 pins my dudes');
-      }
-    }).catch(console.error);
+    channel
+      .fetchPinnedMessages()
+      .then((messages, msg) => {
+        messages.map(() => {
+          return pins++;
+        });
+        if (pins === 50) {
+          channel.send(pins + `/50 pins we've hit maximum bants`);
+        } else if (pins >= 45) {
+          channel.send(pins + '/50 pins getting a little cramped my dudes');
+        } else {
+          channel.send(pins + '/50 pins my dudes');
+        }
+      })
+      .catch(console.error);
   },
 
   // Error Handler
@@ -79,22 +88,34 @@ let self = module.exports = {
       self.err.reply(msg, text);
     },
     args(msg, i = 2) {
-      self.err.reply(msg, `Small **oof** my dude please give me ${i} ${i > 1 ? 'inputs' : 'input'}`);
+      self.err.reply(
+        msg,
+        `Small **oof** my dude please give me ${i} ${
+          i > 1 ? 'inputs' : 'input'
+        }`
+      );
     },
     dead(msg, err) {
       self.err.reply(msg, `Small **oof** my dude ${err}`);
     },
     perms(msg) {
-      self.err.reply(msg, 'that\'s a big 7k **oof** my dude, you don\'t have permission to do that');
+      self.err.reply(
+        msg,
+        "that's a big 7k **oof** my dude, you don't have permission to do that"
+      );
     },
     reply(msg, text) {
       msg.reply(text || `Small **oof** my dude`).catch(error => {
-        console.log(`oh my christ if it's fucked up here lord help us:\n ${error}`)
+        console.log(
+          `oh my christ if it's fucked up here lord help us:\n ${error}`
+        );
       });
-    }
+    },
   },
 
   roles: {
     daddy: id => env.OWNERS.split(', ').includes(id),
-  }
-}
+  },
+
+  csit: '440511380160905217',
+});

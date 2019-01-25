@@ -232,8 +232,8 @@ let self = (module.exports = {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '@user',
     execute: (client, msg, args) => {
-      let id = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
-        user = core.user.get(client, id);
+      let id = core.user.findId(args[0]);
+      let user = core.user.get(client, id);
 
       if (id === core.csit) return msg.channel.send(`you cannot ban the 👑`);
 
@@ -256,8 +256,8 @@ let self = (module.exports = {
     desc: "For when you've had enough :dsd: for one day",
     args: '@user',
     execute: (client, msg, args) => {
-      let id = args[0].replace(/<@!(\d*)>|<@(\d*)>/g, '$1'), // grab ID from <!id> or <id>
-        user = core.user.get(client, id);
+      let id = core.user.findId(args[0]);
+      let user = core.user.get(client, id);
 
       if (!user.banned)
         return msg.channel.send(`<@${id}> isn't even banned you ***idiot***`);
