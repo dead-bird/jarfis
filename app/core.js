@@ -1,8 +1,9 @@
 require('dotenv').config({ path: '.env' });
 
-const Discord = require('discord.js'),
-  fs = require('fs'),
-  env = process.env;
+const Discord = require('discord.js');
+const fs = require('fs');
+const env = process.env;
+const pins = require('./resources/pins');
 
 let self = (module.exports = {
   // need to put init back in
@@ -63,21 +64,12 @@ let self = (module.exports = {
 
   // channels
   newPin(channel) {
-    let pins = 0;
-
     channel
       .fetchPinnedMessages()
-      .then((messages, msg) => {
-        messages.map(() => {
-          return pins++;
-        });
-        if (pins === 50) {
-          channel.send(pins + `/50 pins we've hit maximum bants`);
-        } else if (pins >= 45) {
-          channel.send(pins + '/50 pins getting a little cramped my dudes');
-        } else {
-          channel.send(pins + '/50 pins my dudes');
-        }
+      .then(messages => {
+        const i = messages.array().length;
+
+        channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
       })
       .catch(console.error);
   },
