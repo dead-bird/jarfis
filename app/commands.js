@@ -536,6 +536,11 @@ let self = (module.exports = {
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
+  pins: {
+    desc: "Check that dyl isn't making Jarfis lie again",
+    args: '',
+    execute: (client, msg) => core.newPin(msg.channel),
+  },
 });
 
 //                                              ____________
