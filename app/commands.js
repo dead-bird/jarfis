@@ -541,6 +541,28 @@ let self = (module.exports = {
     args: '',
     execute: (client, msg) => core.newPin(msg.channel),
   },
+  ss: {
+    desc: 'superspoiler your shit',
+    args: 'text | raw',
+    execute: (client, msg, args) => {
+      if (!args.length) return core.err.empty(msg);
+
+      let str = `||${args[0]}||`.replace(/ /gi, '|| ||');
+
+      if (args[1]) {
+        if ((args[1] = 'raw')) {
+          str = `\`\`\`${str}\`\`\``;
+        }
+      }
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
+    },
+  },
 });
 
 //                                              ____________
