@@ -22,11 +22,15 @@ let self = (module.exports = {
         if (cmd)
           embed.addField(
             '\u200B',
-            `**${pf}${cmd} ${module.exports[cmd].args}**\n${
+            `**${pf}${cmd}** *${module.exports[cmd].args}*\n${
               module.exports[cmd].desc
             }`
           );
       }
+
+      embed.setFooter(
+        `Above is a list of our bois commands. Arguments (such as | word) that are in brackets for commands are optional. Make sure to include the space or the bot wont treat | as a seperator :)`
+      );
 
       msg
         .delete()
