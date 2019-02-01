@@ -127,7 +127,6 @@ let self = (module.exports = {
           tailExt = 'gif';
         }
 
-        console.log(headEmote);
         if (headEmote !== null) {
           heads = `https://cdn.discordapp.com/emojis/${
             headEmote[1]
