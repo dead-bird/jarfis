@@ -552,13 +552,12 @@ let self = (module.exports = {
       for (let i = 1; i < args.length; i++) {
         //Not forEach to skip the first arg??
         arg = args[i];
-        console.log(arg);
         switch (arg) {
           case 'raw':
             str = `\`\`\`${str}\`\`\``;
             break;
           case 'letter':
-            str = str.slice(2, -2).replace(/(.)/gi, '||$1||');
+            str = str.slice(2, -2).replace(/([^| ])/gi, '||$1||');
             break;
           default:
             break;
