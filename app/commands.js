@@ -10,7 +10,7 @@ let self = (module.exports = {
   help: {
     // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
-    args: '',
+    args: 'none',
     execute: (client, msg) => {
       let pf = core.server.get(client, msg.guild).prefix;
 
@@ -89,7 +89,7 @@ let self = (module.exports = {
   },
   reset: {
     desc: 'Resets the name of the bot.',
-    args: '',
+    args: 'none',
     execute: (client, msg) => {
       msg.guild
         .member(client.user)
@@ -104,7 +104,7 @@ let self = (module.exports = {
   },
   flip: {
     desc: 'Flip a coin. Can also use custom emotes the bot can access',
-    args: 'optional( heads | tails )',
+    args: 'none ( heads | tails )',
     execute: (client, msg, args) => {
       //Default flips
       let heads = 'https://i.gyazo.com/e380b49fc9e2b8b86571975f7df01d52.gif';
@@ -173,7 +173,7 @@ let self = (module.exports = {
   },
   clear: {
     desc: 'Hide the edge.',
-    args: '',
+    args: 'none',
     execute: (client, msg) => {
       msg
         .delete()
@@ -187,7 +187,7 @@ let self = (module.exports = {
   },
   think: {
     desc: 'Shows a random thinking emoji',
-    args: '',
+    args: 'none',
     execute: (client, msg) => {
       let filePath = './app/resources/responses/think/';
 
@@ -310,7 +310,7 @@ let self = (module.exports = {
   },
   remove: {
     desc: 'Delete a trigger and response from the bot',
-    args: '"Trigger"',
+    args: 'Trigger',
     execute: (client, msg, args) => {
       if (!args.length) return core.err.args(msg, 1);
 
@@ -339,7 +339,7 @@ let self = (module.exports = {
   },
   responses: {
     desc: 'List all the triggers and responses written to the bot',
-    args: '',
+    args: 'none',
     execute: (client, msg) => {
       let chunk = 25;
       let fields = [];
@@ -386,7 +386,7 @@ let self = (module.exports = {
   },
   clap: {
     desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
-    args: '<string> | raw (optional)',
+    args: '<string> ( | raw )',
     execute: (client, msg, args) => {
       let clap = ':clap:';
 
@@ -492,7 +492,7 @@ let self = (module.exports = {
   heist: {
     desc:
       'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
-    args: 'emoji | text',
+    args: '( emoji ) | text',
     //TODO option to add custom face
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
@@ -543,7 +543,7 @@ let self = (module.exports = {
   },
   ss: {
     desc: 'superspoiler your shit',
-    args: 'text | raw',
+    args: 'text ( | raw | letter)',
     execute: (client, msg, args) => {
       if (!args.length) return core.err.empty(msg);
 
