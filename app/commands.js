@@ -43,6 +43,8 @@ let self = (module.exports = {
     desc: 'List/Change current settings for the bot.',
     args: '[change] [settingName] [value]',
     execute: (client, msg, args) => {
+      if (!args)
+        return core.err.reply(msg, 'yo dawg i need a bit more than that');
       settings.execute(client, msg, args);
     },
   },
@@ -59,6 +61,7 @@ let self = (module.exports = {
     args: '<integer between 0 and 5>',
     valid: i => i >= 0 && i <= 5,
     execute: (client, msg, args) => {
+      if (!args) return core.err.args(msg, 1);
       let rate = Math.floor(args[0]);
 
       if (!self.r.valid(rate))
@@ -391,6 +394,8 @@ let self = (module.exports = {
     desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
     args: '<string> ( | raw )',
     execute: (client, msg, args) => {
+      if (!args) return core.err.empty(msg);
+
       let clap = ':clap:';
 
       if (args[1] === 'raw') {
@@ -445,6 +450,7 @@ let self = (module.exports = {
     args: 'spam',
     execute: (client, msg, args) => {
       msg.delete().catch(console.error);
+      if (!args) return core.err.empty(msg);
 
       for (i = 0; i < 5; i++) {
         msg.channel.send(args[0]).catch(err => core.err.dead(msg, err));
