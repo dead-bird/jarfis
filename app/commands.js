@@ -114,13 +114,17 @@ let self = (module.exports = {
     desc: 'Flip a coin. Can also use custom emotes the bot can access',
     args: 'none ( heads | tails )',
     execute: (client, msg, args) => {
+      let useCustom = true;
+      if (!args || args.length < 2) {
+        useCustom = false;
+      }
       //Default flips
       let heads = 'https://i.gyazo.com/e380b49fc9e2b8b86571975f7df01d52.gif';
       let tails = 'https://i.gyazo.com/8697b5c1f85e43ec9580bc59727c5fcc.gif';
       let headExt = 'png';
       let tailExt = 'png';
 
-      if (args[0] && args[1]) {
+      if (useCustom) {
         let headEmote = args[0].match(/:.+:((\d+){10,})>/); //if 2 args and match emote format
         let tailEmote = args[1].match(/:.+:((\d+){10,})>/);
 
