@@ -501,10 +501,13 @@ let self = (module.exports = {
   heist: {
     desc:
       'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
-    args: '( emoji ) | text',
-    //TODO option to add custom face
+    args: '( emoji | emoji ) | text',
     execute: (client, msg, args) => {
-      if (!args) return core.err.empty(msg);
+      if (!args) {
+        var args = [];
+        args[0] = '<:111:452594414011940874><:222:452594414058078218>';
+        args[1] = '...';
+      }
 
       try {
         var emoji = args[0];
@@ -516,11 +519,7 @@ let self = (module.exports = {
           .send('Small **oof** my dude check your formatting')
           .catch(err => core.err.dead(msg, err));
       }
-      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${
-        speech ? speech : '...'
-      }  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫${
-        emoji ? emoji : '<:111:452594414011940874><:222:452594414058078218>'
-      }`;
+      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${speech}  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫${emoji}`;
       msg
         .delete()
         .then()
