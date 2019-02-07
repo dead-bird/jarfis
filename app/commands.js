@@ -153,7 +153,7 @@ let self = (module.exports = {
     desc: 'RaNCApS YOUR TeXt.',
     args: '<string>',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       let str = args[0];
 
@@ -217,7 +217,7 @@ let self = (module.exports = {
     desc: "Speak on Jarfis' behalf.",
     args: '<string>',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       let str = args[0];
 
@@ -280,7 +280,7 @@ let self = (module.exports = {
     desc: 'Add a trigger and response to the bot',
     args: 'Trigger | Response',
     execute: (client, msg, args) => {
-      if (args.length < 2) return core.err.args(msg);
+      if (!args || args.length < 2) return core.err.args(msg);
 
       let server = core.server.get(client, msg.guild);
 
@@ -315,7 +315,7 @@ let self = (module.exports = {
     desc: 'Delete a trigger and response from the bot',
     args: 'Trigger',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.args(msg, 1);
+      if (!args) return core.err.args(msg, 1);
 
       let server = core.server.get(client, msg.guild);
 
@@ -417,7 +417,7 @@ let self = (module.exports = {
     desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
     args: '<string> A-Z and 0-9',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       let numStr = [
         ':zero:',
@@ -455,7 +455,7 @@ let self = (module.exports = {
     desc: 'Generate a dank memay with emoji',
     args: 'Top Text | Bottom Text',
     execute: (client, msg, args) => {
-      if (args.length < 2) return core.err.args(msg);
+      if (!args || args.length < 2) return core.err.args(msg);
 
       try {
         var text1 = args[0];
@@ -477,7 +477,7 @@ let self = (module.exports = {
     desc: '@ me',
     args: '@user',
     execute: (client, msg, args) => {
-      if (!args.length)
+      if (!args)
         return msg.reply(`Small **oof** my dude I need someone to insult`);
       let user = args[0].match(/<@\!?\d*>/g);
 
@@ -498,7 +498,7 @@ let self = (module.exports = {
     args: '( emoji ) | text',
     //TODO option to add custom face
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       try {
         var emoji = args[0];
@@ -527,7 +527,7 @@ let self = (module.exports = {
     desc: 'oobify yooboobr toobxt',
     args: 'text',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       let str = args[0].replace(/[aeiou]/gi, 'oob');
 
@@ -548,7 +548,7 @@ let self = (module.exports = {
     desc: 'superspoiler your shit',
     args: 'text ( | raw | letter)',
     execute: (client, msg, args) => {
-      if (!args.length) return core.err.empty(msg);
+      if (!args) return core.err.empty(msg);
 
       let str = `||${args[0]}||`.replace(/ /gi, '|| ||');
 
