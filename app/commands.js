@@ -83,6 +83,7 @@ let self = (module.exports = {
     desc: 'Changes the name of the bot.',
     args: '<string>',
     execute: (client, msg, args) => {
+      if (!args) return core.err.empty(msg);
       let name = args[0];
 
       msg.guild
@@ -238,6 +239,7 @@ let self = (module.exports = {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
     args: '@user',
     execute: (client, msg, args) => {
+      if (!args) return core.err.empty(msg);
       let id = core.user.findId(args[0]);
       let user = core.user.get(client, id);
 
@@ -262,6 +264,7 @@ let self = (module.exports = {
     desc: "For when you've had enough :dsd: for one day",
     args: '@user',
     execute: (client, msg, args) => {
+      if (!args) return core.err.empty(msg);
       let id = core.user.findId(args[0]);
       let user = core.user.get(client, id);
 
