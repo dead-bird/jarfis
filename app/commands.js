@@ -587,6 +587,45 @@ let self = (module.exports = {
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
+  naynay: {
+    desc: 'naynay',
+    args: 'text | text',
+    execute: (client, msg, args) => {
+      if (args.length < 2) return core.err.args(msg);
+
+      try {
+        var text1 = args[0];
+        var text2 = args[1];
+      } catch (e) {
+        console.log('args error: \n' + e);
+        return msg.channel
+          .send('Small **oof** my dude check your formatting')
+          .catch(err => core.err.dead(msg, err));
+      }
+
+      str = `
+      ${text1}
+
+          😜
+   👊/\\|\\|\\\\\\_
+       \\_/¯ ¯\\\\\\_
+
+${text2}
+
+👋
+    \\ 😳
+         \\|\\| \\\\\\_
+   \\_/¯ ¯\\\\\\_
+      `;
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
+    },
+  },
 });
 
 //                                              ____________
