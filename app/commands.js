@@ -10,7 +10,6 @@ let self = (module.exports = {
   help: {
     // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
-    args: 'none',
     execute: (client, msg) => {
       // array to split long message into batches
       let splitMsgs = [];
@@ -68,7 +67,6 @@ let self = (module.exports = {
   },
   loc: {
     desc: "Returns the bot's environment.",
-    args: '',
     execute: (client, msg) => {
       msg.channel.send(`chillin' at ${env.LOC}`);
       client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
@@ -115,7 +113,6 @@ let self = (module.exports = {
   },
   reset: {
     desc: 'Resets the name of the bot.',
-    args: 'none',
     execute: (client, msg) => {
       msg.guild
         .member(client.user)
@@ -202,7 +199,6 @@ let self = (module.exports = {
   },
   clear: {
     desc: 'Hide the edge.',
-    args: 'none',
     execute: (client, msg) => {
       msg
         .delete()
@@ -216,7 +212,6 @@ let self = (module.exports = {
   },
   think: {
     desc: 'Shows a random thinking emoji',
-    args: 'none',
     execute: (client, msg) => {
       let filePath = './app/resources/responses/think/';
 
@@ -370,7 +365,6 @@ let self = (module.exports = {
   },
   responses: {
     desc: 'List all the triggers and responses written to the bot',
-    args: 'none',
     execute: (client, msg) => {
       let guild = core.server.get(client, msg.guild);
 
@@ -501,7 +495,7 @@ let self = (module.exports = {
   },
   spam: {
     desc: 'spam',
-    args: 'spam',
+    args: '<string>',
     execute: (client, msg, args) => {
       msg.delete().catch(console.error);
       if (!args) return core.err.empty(msg);
@@ -599,7 +593,6 @@ let self = (module.exports = {
   },
   pins: {
     desc: "Check that dyl isn't making Jarfis lie again",
-    args: 'none',
     execute: (client, msg) => core.newPin(msg.channel),
   },
   ss: {
