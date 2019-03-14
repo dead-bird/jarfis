@@ -392,10 +392,13 @@ let self = (module.exports = {
 
         let emoteRegex = /(?:<)(:\w{1,50}:)(?:\d{10,100}>)/gi;
         let newlineRegex = /\r?\n|\r/g;
+        let fuckyChars = /\*|_|`|\||~/g;
         // strip discords emote bs from response
         let formatResponse = trigger.response.replace(emoteRegex, '$1');
         // strip nls
         formatResponse = formatResponse.replace(newlineRegex, ' ');
+        // replace md breaking things
+        formatResponse = formatResponse.replace(fuckyChars, '');
         // get first 30 chars
         formatResponse = formatResponse.substring(0, 30);
         if (trigger.response.length > 30) {
