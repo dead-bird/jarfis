@@ -373,7 +373,7 @@ let self = (module.exports = {
       let guild = core.server.get(client, msg.guild);
 
       // markup to look pretty
-      let muStart = '```diff\n';
+      let muStart = '```asciidoc\n';
       let muEnd = '```';
 
       let responses = [];
@@ -391,8 +391,11 @@ let self = (module.exports = {
           author = client.users.get(trigger.author).username || ''; // fallback for old style responses without author
 
         let emoteRegex = /<(:.+:)((\d+){10,})>/gi;
+        let newlineRegex = /\r?\n|\r/g;
         // strip discords emote bs from response
         let formatResponse = trigger.response.replace(emoteRegex, '$1');
+        // strip nls
+        formatResponse = formatResponse.replace(newlineRegex, ' ');
         // get first 30 chars
         formatResponse = formatResponse.substring(0, 30);
         if (trigger.response.length > 30) {
@@ -406,18 +409,23 @@ let self = (module.exports = {
         });
       }
 
-      responses.forEach(response => {
-        if (generatedMsg.length > 1800) {
+      responses.forEach(res => {
+        msgLength =
+          generatedMsg.length +
+          res.trigger.length +
+          res.author.length +
+          res.response.length;
+
+        if (msgLength > 1950) {
           splitMsgs.push(generatedMsg);
           generatedMsg = '';
           cmdstr = '';
         }
 
-        cmdstr = `+ ${response.trigger}\n--- ${response.response} - ${
-          response.author
-        }\n\n`;
+        cmdstr = `${res.trigger} :: ${res.response} - ${res.author}\n`;
         generatedMsg += cmdstr;
       });
+
       splitMsgs.push(generatedMsg);
 
       msg
