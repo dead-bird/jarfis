@@ -390,10 +390,10 @@ let self = (module.exports = {
         if (trigger.author)
           author = client.users.get(trigger.author).username || ''; // fallback for old style responses without author
 
-        let emoteRegex = /(?:<)(?<emote>:\w{1,50}:)(?:\d{10,100}>)/gi;
+        let emoteRegex = /(?:<)(:\w{1,50}:)(?:\d{10,100}>)/gi;
         let newlineRegex = /\r?\n|\r/g;
         // strip discords emote bs from response
-        let formatResponse = trigger.response.replace(emoteRegex, '$<emote>');
+        let formatResponse = trigger.response.replace(emoteRegex, '$1');
         // strip nls
         formatResponse = formatResponse.replace(newlineRegex, ' ');
         // get first 30 chars
