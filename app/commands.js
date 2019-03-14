@@ -398,7 +398,7 @@ let self = (module.exports = {
     },
   },
   clap: {
-    desc: ':clap:get:clap:your:clap:point:clap:across:clap:',
+    desc: '👏get👏your👏point👏across👏',
     args: '<string> ( | raw )',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
@@ -506,8 +506,7 @@ let self = (module.exports = {
     },
   },
   heist: {
-    desc:
-      'This is a frickin stickup :gun:<:111:452594414011940874><:222:452594414058078218>',
+    desc: 'This is a frickin stickup 🔫',
     args: '( emoji | emoji ) | text',
     execute: (client, msg, args) => {
       if (!args) {
@@ -553,7 +552,7 @@ let self = (module.exports = {
   },
   pins: {
     desc: "Check that dyl isn't making Jarfis lie again",
-    args: '',
+    args: 'none',
     execute: (client, msg) => core.newPin(msg.channel),
   },
   ss: {
