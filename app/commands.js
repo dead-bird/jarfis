@@ -17,7 +17,7 @@ let self = (module.exports = {
       let generatedMsg = '';
 
       // markup to look pretty
-      let muStart = '```diff\n';
+      let muStart = '```asciidoc\n';
       let muEnd = '```';
 
       for (var cmd in module.exports) {
@@ -29,10 +29,12 @@ let self = (module.exports = {
         }
 
         if (cmd) {
+          let args = '';
+          if (module.exports[cmd].args) {
+            args = `= ${module.exports[cmd].args}\n`;
+          }
           // build message content with markup
-          cmdstr = `!${cmd}\n--- ${module.exports[cmd].desc}\n- ${
-            module.exports[cmd].args
-          }\n\n`;
+          cmdstr = `!${cmd} :: ${module.exports[cmd].desc}\n${args}\n`;
           generatedMsg += cmdstr;
         }
       }
