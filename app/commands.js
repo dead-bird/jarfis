@@ -381,6 +381,7 @@ let self = (module.exports = {
       let generatedMsg = '';
 
       for (let res in guild.responses) {
+        let dots = '';
         if (!guild.responses.hasOwnProperty(res)) break;
 
         let trigger = guild.responses[res],
@@ -389,9 +390,18 @@ let self = (module.exports = {
         if (trigger.author)
           author = client.users.get(trigger.author).username || ''; // fallback for old style responses without author
 
+        let emoteRegex = /<(:.+:)((\d+){10,})>/gi;
+        // strip discords emote bs from response
+        let formatResponse = trigger.response.replace(emoteRegex, '$1');
+        // get first 30 chars
+        formatResponse = formatResponse.substring(0, 30);
+        if (trigger.response.length > 30) {
+          formatResponse += '...';
+        }
+
         responses.push({
           trigger: res,
-          response: trigger.response || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
+          response: `${formatResponse}` || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
           author: author,
         });
       }
