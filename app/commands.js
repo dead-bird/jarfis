@@ -13,12 +13,12 @@ let self = (module.exports = {
     args: 'none',
     execute: (client, msg) => {
       // array to split long message into batches
-      splitMsgs = [];
-      generatedMsg = '';
+      let splitMsgs = [];
+      let generatedMsg = '';
 
       // markup to look pretty
-      muStart = '```diff\n';
-      muEnd = '```';
+      let muStart = '```diff\n';
+      let muEnd = '```';
 
       for (var cmd in module.exports) {
         // If length close to char limit split message and reset
@@ -370,17 +370,15 @@ let self = (module.exports = {
     desc: 'List all the triggers and responses written to the bot',
     args: 'none',
     execute: (client, msg) => {
-      let chunk = 25;
-      let fields = [];
       let guild = core.server.get(client, msg.guild);
-      let reply = `I don't have any responses yet my dude, you can add some using \`${
-        guild.prefix
-      }add trigger | response\``;
 
-      msg
-        .delete()
-        .then()
-        .catch(console.error);
+      // markup to look pretty
+      let muStart = '```diff\n';
+      let muEnd = '```';
+
+      let responses = [];
+      let splitMsgs = [];
+      let generatedMsg = '';
 
       for (let res in guild.responses) {
         if (!guild.responses.hasOwnProperty(res)) break;
@@ -389,28 +387,38 @@ let self = (module.exports = {
           author = '';
 
         if (trigger.author)
-          author = `\n*(added by ${client.users.get(trigger.author)})*` || ''; // fallback for old style responses without author
+          author = client.users.get(trigger.author).username || ''; // fallback for old style responses without author
 
-        fields.push({
-          name: '\u200B',
-          value: `**${res}**\n${trigger.response || trigger}${author}`,
+        responses.push({
+          trigger: res,
+          response: trigger.response || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
+          author: author,
         });
       }
 
-      for (let i = 0; i < fields.length; i += chunk) {
-        let embed = new Discord.RichEmbed()
-          .setAuthor(
-            `${client.user.username}'s Responses`,
-            client.user.avatarURL
-          )
-          .setColor(3447003);
+      responses.forEach(response => {
+        if (generatedMsg.length > 1800) {
+          splitMsgs.push(generatedMsg);
+          generatedMsg = '';
+          cmdstr = '';
+        }
 
-        embed.fields = fields.slice(i, i + chunk);
+        cmdstr = `+ ${response.trigger}\n--- ${response.response} - ${
+          response.author
+        }\n\n`;
+        generatedMsg += cmdstr;
+      });
+      splitMsgs.push(generatedMsg);
 
-        if (embed.fields.length) reply = { embed };
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
 
-        msg.channel.send(reply).catch(err => core.err.dead(msg, err));
-      }
+      splitMsgs.forEach(generatedMsg => {
+        str = muStart + generatedMsg + muEnd;
+        msg.channel.send(str);
+      });
     },
   },
   clap: {
