@@ -12,31 +12,47 @@ let self = (module.exports = {
     desc: 'Lists all available commands.',
     args: 'none',
     execute: (client, msg) => {
-      let pf = core.server.get(client, msg.guild).prefix;
+      // array to split long message into batches
+      splitMsgs = [];
+      generatedMsg = '';
 
-      let embed = new Discord.RichEmbed()
-        .setAuthor('command me daddy', client.user.avatarURL)
-        .setColor(3447003);
+      // markup to look pretty
+      muStart = '```diff\n';
+      muEnd = '```';
 
       for (var cmd in module.exports) {
-        if (cmd)
-          embed.addField(
-            '\u200B',
-            `**${pf}${cmd}** *${module.exports[cmd].args}*\n${
-              module.exports[cmd].desc
-            }`
-          );
-      }
+        // If length close to char limit split message and reset
+        if (generatedMsg.length > 1800) {
+          splitMsgs.push(generatedMsg);
+          generatedMsg = '';
+          cmdstr = '';
+        }
 
-      embed.setFooter(
-        `Above is a list of our bois commands. Arguments (such as | word) that are in brackets for commands are optional. Make sure to include the space or the bot wont treat | as a seperator :)`
-      );
+        if (cmd) {
+          // build message content with markup
+          cmdstr = `!${cmd}\n--- ${module.exports[cmd].desc}\n- ${
+            module.exports[cmd].args
+          }\n\n`;
+          generatedMsg += cmdstr;
+        }
+      }
+      // push final message to array post splitting
+      splitMsgs.push(generatedMsg);
+
+      helpOutro =
+        "`Above is a list of our bois commands. Arguments (such as '| word') that are in brackets for commands are optional. Make sure to include the space or the bot wont treat | as a seperator\n`";
 
       msg
         .delete()
         .then()
         .catch(console.error);
-      msg.channel.send({ embed });
+
+      // new issue when this array gets to 4 as api limiting :)
+      splitMsgs.forEach(generatedMsg => {
+        str = muStart + generatedMsg + muEnd;
+        msg.channel.send(str);
+      });
+      msg.channel.send(helpOutro);
     },
   },
   settings: {
