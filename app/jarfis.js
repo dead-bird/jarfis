@@ -32,7 +32,7 @@ client.on('ready', () => {
 
   console.log('meme machine is online');
 
-  // if (env.ENV === 'dev') return;
+  if (env.ENV === 'dev') return;
 
   client.jarfis.defer.then(() => {
     let { version } = client.jarfis.get('jarfis');
