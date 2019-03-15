@@ -17,7 +17,7 @@ let self = (module.exports = {
       .setDescription(
         `:joystick:  Run \`${
           options.prefix
-        }settings change [setting name] [value]\` to edit`
+        }settings change | [setting name] | [value]\` to edit`
       );
 
     for (let setting in self.config) {
