@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '.env' });
 
 const changelog = require('changelog-parser');
-const pkg = require('print-pkg-version');
+const pkg = require('../package.json');
 
 const commands = require('./commands.js'),
   Level = require('enmap-level'),
@@ -76,7 +76,7 @@ client.on('ready', () => {
           });
         });
 
-        client.jarfis.set('jarfis', { version: pkg });
+        client.jarfis.set('jarfis', { version: pkg.version });
       })
       .catch(console.error);
   });
