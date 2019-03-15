@@ -1,17 +1,16 @@
 require('dotenv').config({ path: '.env' });
 
 const changelog = require('changelog-parser');
+const commands = require('./commands.js');
 const pkg = require('../package.json');
-
-const commands = require('./commands.js'),
-  Level = require('enmap-level'),
-  Discord = require('discord.js'),
-  client = new Discord.Client({ forceFetchUsers: true }),
-  core = require('./core.js'),
-  Enmap = require('enmap'),
-  express = require('express'),
-  app = express(),
-  env = process.env;
+const Discord = require('discord.js');
+const Level = require('enmap-level');
+const client = new Discord.Client({ forceFetchUsers: true });
+const express = require('express');
+const core = require('./core.js');
+const Enmap = require('enmap');
+const env = process.env;
+const app = express();
 
 app.get('/', (request, response) => {
   console.log(getDateTime() + ' Ping Received');
