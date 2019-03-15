@@ -60,8 +60,6 @@ let self = (module.exports = {
     desc: 'List/Change current settings for the bot.',
     args: '[change] [settingName] [value]',
     execute: (client, msg, args) => {
-      if (!args)
-        return core.err.reply(msg, 'yo dawg i need a bit more than that');
       settings.execute(client, msg, args);
     },
   },

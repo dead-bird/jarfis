@@ -2,7 +2,7 @@ const Discord = require('discord.js'),
   core = require('./core.js');
 
 let self = (module.exports = {
-  execute(client, msg, args) {
+  execute(client, msg, args = []) {
     if (!args.length) return self.list(client, msg);
 
     if (self[args[0]]) return self[args[0]](client, msg, args[1], args[2]); // surely this shouldn't work lmao - ghetto as fuck for running function from argument
