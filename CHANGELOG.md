@@ -1,3 +1,12 @@
+## [0.9.84](https://github.com/dead-bird/jarfis/compare/v0.9.83...v0.9.84) (2019-03-15)
+
+
+### Bug Fixes
+
+* Actually use package version for package version :^) ([2812cc9](https://github.com/dead-bird/jarfis/commit/2812cc9))
+
+
+
 ## [0.9.83](https://github.com/dead-bird/jarfis/compare/v0.9.82...v0.9.83) (2019-03-15)
 
 
