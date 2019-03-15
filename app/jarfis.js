@@ -70,7 +70,7 @@ client.on('ready', () => {
               client.channels
                 .get(s.default)
                 .send(whattup + dab + markdown)
-                .catch(console.error); // Maybe add in latest commit here?
+                .catch(console.error);
             });
           });
         });
