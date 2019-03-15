@@ -1,3 +1,12 @@
+## [0.9.83](https://github.com/dead-bird/jarfis/compare/v0.9.82...v0.9.83) (2019-03-15)
+
+
+### Features
+
+* Jarfis now tells his bois about his shiny new toys ([51cfe69](https://github.com/dead-bird/jarfis/commit/51cfe69))
+
+
+
 ## [0.9.82](https://github.com/dead-bird/jarfis/compare/v0.9.81...v0.9.82) (2019-03-15)
 
 
