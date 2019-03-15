@@ -628,18 +628,14 @@ let self = (module.exports = {
   },
   naynay: {
     desc: 'naynay',
-    args: 'text | text',
+    args: '(text | text)',
     execute: (client, msg, args) => {
-      if (args.length < 2) return core.err.args(msg);
-
-      try {
+      if (!args || args.length < 2) {
+        var text1 = '<:space:499933777749868546>';
+        var text2 = '<:space:499933777749868546>';
+      } else {
         var text1 = args[0];
         var text2 = args[1];
-      } catch (e) {
-        console.log('args error: \n' + e);
-        return msg.channel
-          .send('Small **oof** my dude check your formatting')
-          .catch(err => core.err.dead(msg, err));
       }
 
       str = `
