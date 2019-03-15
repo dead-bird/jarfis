@@ -32,7 +32,7 @@ client.on('ready', () => {
 
   console.log('meme machine is online');
 
-  // if (env.ENV === 'dev') return;
+  if (env.ENV === 'dev') return;
 
   client.jarfis.defer.then(() => {
     let { version } = client.jarfis.get('jarfis');
@@ -46,11 +46,13 @@ client.on('ready', () => {
           .forEach(change => {
             if (change.body.length) {
               changes =
-                changes + `## Version ${change.version}\n\n${change.body}\n`;
+                changes +
+                `\n## Version ${change.version}\n\n${change.body.replace(
+                  /\(\[.*\]\(.*\)\)/gm,
+                  ''
+                )}\n`;
             }
           });
-
-        console.log(changes);
 
         client.servers.defer.then(() => {
           // all data is loaded now.
@@ -59,18 +61,22 @@ client.on('ready', () => {
               console.log(s.restart);
               if (!s.restart) return;
 
+              const markdown = changes.length
+                ? '\n\n' + '```markdown' + changes + '```'
+                : '';
+
+              const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance`;
               const dab = '<:dab:355643174628229120>';
-              const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance ${dab}`;
 
               client.channels
                 .get(s.default)
-                .send(whattup + changes.length ? `\n\n${changes}` : '')
+                .send(whattup + dab + markdown)
                 .catch(console.error); // Maybe add in latest commit here?
             });
           });
         });
 
-        // client.jarfis.set('jarfis', { version: pkg });
+        client.jarfis.set('jarfis', { version: pkg });
       })
       .catch(console.error);
   });
