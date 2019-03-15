@@ -1,3 +1,12 @@
+## [0.9.842](https://github.com/dead-bird/jarfis/compare/v0.9.841...v0.9.842) (2019-03-15)
+
+
+### Bug Fixes
+
+* not a fix :^) ([81b4ee7](https://github.com/dead-bird/jarfis/commit/81b4ee7))
+
+
+
 ## [0.9.841](https://github.com/dead-bird/jarfis/compare/v0.9.84...v0.9.841) (2019-03-15)
 
 
