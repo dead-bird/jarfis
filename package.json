@@ -36,6 +36,7 @@
   },
   "scripts": {
     "prestart": "mocha app/test/env.js",
+    "dev": "npm start",
     "start": "nodemon",
     "pretest": "eslint .",
     "test": "mocha app/**/test.js",
