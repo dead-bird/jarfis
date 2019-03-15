@@ -1,6 +1,6 @@
 {
   "name": "jarfis",
-  "version": "0.9.8",
+  "version": "0.9.81",
   "description": "a Discord bot that does some things",
   "homepage": "https://github.com/dead-bird/jarfis",
   "contributors": [
@@ -39,7 +39,7 @@
     "start": "nodemon",
     "pretest": "eslint .",
     "test": "mocha app/**/test.js",
-    "release": "standard-changelog && git commit -a -m \"chore: release `./node_modules/.bin/print-pkg-version`\" && git tag `./node_modules/.bin/print-pkg-version` && git push origin master --tags"
+    "release": "standard-changelog && git commit -a -m \"chore: release v`./node_modules/.bin/print-pkg-version`\" && git tag v`./node_modules/.bin/print-pkg-version` && git push origin master --tags"
   },
   "eslintConfig": {
     "extends": "xo-space",
