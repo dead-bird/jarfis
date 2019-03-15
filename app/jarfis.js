@@ -1,5 +1,8 @@
 require('dotenv').config({ path: '.env' });
 
+const changelog = require('changelog-parser');
+const pkg = require('print-pkg-version');
+
 const commands = require('./commands.js'),
   Level = require('enmap-level'),
   Discord = require('discord.js'),
@@ -10,40 +13,66 @@ const commands = require('./commands.js'),
   app = express(),
   env = process.env;
 
-app.get("/", (request, response) => {
-  console.log(getDateTime() + " Ping Received");
+app.get('/', (request, response) => {
+  console.log(getDateTime() + ' Ping Received');
   response.sendStatus(200);
 });
 app.listen(env.PORT);
 
-client.on("error", (e) => console.error(e));
-client.on("warn", (e) => console.warn(e));
-client.on("debug", (e) => console.info(e));
+client.on('error', e => console.error(e));
+client.on('warn', e => console.warn(e));
+client.on('debug', e => console.info(e));
 
 client.on('ready', () => {
   client.servers = new Enmap({ provider: new Level({ name: 'servers' }) });
   client.losers = new Enmap({ provider: new Level({ name: 'losers' }) });
+  client.jarfis = new Enmap({ provider: new Level({ name: 'jarfis' }) });
 
   client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
 
   console.log('meme machine is online');
 
-  if (env.ENV === 'dev') return;
+  // if (env.ENV === 'dev') return;
 
-  client.servers.defer.then(() => {
-    // all data is loaded now.
-    client.guilds.map(guild => {
-      core.server.get(client, guild, s => {
-        if (!s.restart) return;
+  client.jarfis.defer.then(() => {
+    let { version } = client.jarfis.get('jarfis');
 
-        client.channels
-          .get(s.default)
-          .send(
-            "What up pimps! It's me, ya boy, coming at you with a fresh new instance <:dab:355643174628229120>"
-          )
-          .catch(console.error); // Maybe add in latest commit here?
-      });
-    });
+    changelog('./CHANGELOG.md')
+      .then(log => {
+        let changes = '';
+
+        log.versions
+          .filter(entry => entry.version > version)
+          .forEach(change => {
+            if (change.body.length) {
+              changes =
+                changes + `## Version ${change.version}\n\n${change.body}\n`;
+            }
+          });
+
+        console.log(changes);
+
+        client.servers.defer.then(() => {
+          // all data is loaded now.
+          client.guilds.map(guild => {
+            core.server.get(client, guild, s => {
+              console.log(s.restart);
+              if (!s.restart) return;
+
+              const dab = '<:dab:355643174628229120>';
+              const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance ${dab}`;
+
+              client.channels
+                .get(s.default)
+                .send(whattup + changes.length ? `\n\n${changes}` : '')
+                .catch(console.error); // Maybe add in latest commit here?
+            });
+          });
+        });
+
+        // client.jarfis.set('jarfis', { version: pkg });
+      })
+      .catch(console.error);
   });
 
   // setTimeout(self.insult, 600000);
@@ -153,15 +182,12 @@ function insult() {
 }
 
 function getDateTime() {
-  let date = new Date,
-    dateTime = [ date.getDate(),
-                (date.getMonth()+1),
-                date.getFullYear()].join('/')+
-                ' ' +
-              [ date.getHours(),
-                date.getMinutes(),
-                date.getSeconds()].join(':');
-    return dateTime;
+  let date = new Date(),
+    dateTime =
+      [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') +
+      ' ' +
+      [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+  return dateTime;
 }
 
 //       _             _
