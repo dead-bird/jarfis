@@ -1,3 +1,12 @@
+## [0.9.843](https://github.com/dead-bird/jarfis/compare/v0.9.842...v0.9.843) (2019-03-18)
+
+
+### Bug Fixes
+
+* delete initial message for !add and !remove ([6347318](https://github.com/dead-bird/jarfis/commit/6347318))
+
+
+
 ## [0.9.842](https://github.com/dead-bird/jarfis/compare/v0.9.841...v0.9.842) (2019-03-15)
 
 
