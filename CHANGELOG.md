@@ -1,3 +1,12 @@
+## [0.9.844](https://github.com/dead-bird/jarfis/compare/v0.9.843...v0.9.844) (2019-03-18)
+
+
+### Bug Fixes
+
+* welcome message tweak ([b7a1f5a](https://github.com/dead-bird/jarfis/commit/b7a1f5a))
+
+
+
 ## [0.9.843](https://github.com/dead-bird/jarfis/compare/v0.9.842...v0.9.843) (2019-03-18)
 
 
