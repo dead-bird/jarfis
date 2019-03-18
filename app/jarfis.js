@@ -64,7 +64,7 @@ client.on('ready', () => {
                 ? '\n\n' + '```markdown' + changes + '```'
                 : '';
 
-              const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance`;
+              const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance `;
               const dab = '<:dab:355643174628229120>';
 
               client.channels
