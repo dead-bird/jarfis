@@ -327,6 +327,11 @@ let self = (module.exports = {
 
       core.server.set(client, msg.guild.id, server);
 
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
       msg.channel
         .send("*I'll remember that*")
         .catch(err => core.err.dead(msg, err));
@@ -355,6 +360,11 @@ let self = (module.exports = {
       delete server.responses[trigger];
 
       core.server.set(client, msg.guild.id, server);
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
 
       msg.channel
         .send(`I've removed \`${trigger}\` from your responses`)
