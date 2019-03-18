@@ -23,6 +23,9 @@ Meme ratings for OG meme bois
 
 # Changelog
 
+Changelog ignores any commit whose message starts with chore. It also ignores any commit message that doesn't have a type
+
+
 > Reference: http://thecodebarbarian.com/keeping-a-changelog-in-nodejs
 
 > Prefix commits like so:
@@ -36,6 +39,7 @@ Meme ratings for OG meme bois
 - refactor: A code change that neither fixes a bug nor adds a feature
 - style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - test: Adding missing tests or correcting existing tests
+- chore: ignored 
 
 > Workflow
 
