@@ -708,6 +708,21 @@ ${text2}
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
+  swap: {
+    desc: 'substitute text',
+    args: 'string | find | replace )',
+    execute: (client, msg, args) => {
+      if (!args || args.length < 3) return core.err.empty(msg);
+
+      reply = args[0].replace(args[1], args[2]);
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+      msg.channel.send(reply).catch(err => core.err.dead(msg, err));
+    },
+  },
 });
 
 //                                              ____________
