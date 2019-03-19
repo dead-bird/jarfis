@@ -1,3 +1,12 @@
+## [0.9.851](https://github.com/dead-bird/jarfis/compare/v0.9.85...v0.9.851) (2019-03-19)
+
+
+### Bug Fixes
+
+* make swap greedy ([a05fe92](https://github.com/dead-bird/jarfis/commit/a05fe92))
+
+
+
 ## [0.9.85](https://github.com/dead-bird/jarfis/compare/v0.9.845...v0.9.85) (2019-03-19)
 
 
