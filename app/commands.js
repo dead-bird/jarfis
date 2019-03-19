@@ -713,8 +713,11 @@ ${text2}
     args: 'string | find | replace )',
     execute: (client, msg, args) => {
       if (!args || args.length < 3) return core.err.empty(msg);
+      // escape regex chars
+      args[1] = args[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      let re = new RegExp(args[1], 'g');
 
-      reply = args[0].replace(args[1], args[2]);
+      reply = args[0].replace(re, args[2]);
 
       msg
         .delete()
