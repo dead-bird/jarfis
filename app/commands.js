@@ -710,7 +710,7 @@ ${text2}
   },
   swap: {
     desc: 'substitute text',
-    args: 'string | find | replace )',
+    args: 'string | find | replace',
     execute: (client, msg, args) => {
       if (!args || args.length < 3) return core.err.empty(msg);
       // escape regex chars
