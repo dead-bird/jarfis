@@ -1,3 +1,12 @@
+## [0.9.845](https://github.com/dead-bird/jarfis/compare/v0.9.844...v0.9.845) (2019-03-19)
+
+
+### Bug Fixes
+
+* reorder heist args and fix fallbacks ([5fdbac0](https://github.com/dead-bird/jarfis/commit/5fdbac0))
+
+
+
 ## [0.9.844](https://github.com/dead-bird/jarfis/compare/v0.9.843...v0.9.844) (2019-03-18)
 
 
