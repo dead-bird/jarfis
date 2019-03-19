@@ -556,17 +556,19 @@ let self = (module.exports = {
   },
   heist: {
     desc: 'This is a frickin stickup 🔫',
-    args: '( emoji | emoji ) | text',
-    execute: (client, msg, args) => {
-      if (!args) {
-        var args = [];
-        args[0] = '<:111:452594414011940874><:222:452594414058078218>';
-        args[1] = '...';
+    args: 'text ( | emoji )',
+    execute: (client, msg, args = []) => {
+      console.log(args);
+
+      if (!args || args.length < 2) {
+        args[0] = args[0] || '...';
+        args[1] =
+          args[1] || '<:111:452594414011940874><:222:452594414058078218>';
       }
 
       try {
-        var emoji = args[0];
-        var speech = args[1];
+        var speech = args[0];
+        var emoji = args[1];
       } catch (e) {
         console.log(text);
         console.log('args error: \n' + e);
