@@ -1,3 +1,17 @@
+## [0.9.85](https://github.com/dead-bird/jarfis/compare/v0.9.845...v0.9.85) (2019-03-19)
+
+
+### Bug Fixes
+
+* banner uses unicode over :emotes: + |raw option ([ce106ea](https://github.com/dead-bird/jarfis/commit/ce106ea))
+
+
+### Features
+
+* !swap command ([4aa96fd](https://github.com/dead-bird/jarfis/commit/4aa96fd))
+
+
+
 ## [0.9.845](https://github.com/dead-bird/jarfis/compare/v0.9.844...v0.9.845) (2019-03-19)
 
 
