@@ -476,29 +476,66 @@ let self = (module.exports = {
   },
   banner: {
     desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
-    args: '<string> A-Z and 0-9',
+    args: 'string (| raw)',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      let numStr = [
-        ':zero:',
-        ':one:',
-        ':two:',
-        ':three:',
-        ':four:',
-        ':five:',
-        ':six:',
-        ':seven:',
-        ':eight:',
-        ':nine:',
-      ];
-      let a = args[0]
-        .toLowerCase()
-        .replace(/([a-z])/g, ':regional_indicator_$1: ')
-        .replace(/([0-9])/g, $1 => numStr[$1]);
+      let rawTxt = args[0].split('');
+      let escape = '';
+      let reply = '';
+      let chars = {
+        a: '🇦',
+        b: '🇧',
+        c: '🇨',
+        d: '🇩',
+        e: '🇪',
+        f: '🇫',
+        g: '🇬',
+        h: '🇭',
+        i: '🇮',
+        j: '🇯',
+        k: '🇰',
+        l: '🇱',
+        m: '🇲',
+        n: '🇳',
+        o: '🇴',
+        p: '🇵',
+        q: '🇶',
+        r: '🇷',
+        s: '🇸',
+        t: '🇹',
+        u: '🇺',
+        v: '🇻',
+        w: '🇼',
+        x: '🇽',
+        y: '🇾',
+        z: '🇿',
+        '1': '1⃣',
+        '2': '2⃣',
+        '3': '3⃣',
+        '4': '4⃣',
+        '5': '5⃣',
+        '6': '6⃣',
+        '7': '7⃣',
+        '8': '8⃣',
+        '9': '9⃣',
+        '0': '0⃣',
+      };
+
+      if (args[1]) {
+        escape = '\\';
+      }
+
+      rawTxt.forEach(letter => {
+        if (chars[letter]) {
+          reply += `${escape + chars[letter]} `;
+        } else {
+          reply += ' '; // idk how to not get undefined putting this as char || ''
+        }
+      });
 
       msg.delete().catch(console.error);
-      msg.channel.send(a).catch(err => core.err.dead(msg, err));
+      msg.channel.send(reply).catch(err => core.err.dead(msg, err));
     },
   },
   spam: {
