@@ -448,23 +448,33 @@ let self = (module.exports = {
   },
   clap: {
     desc: '👏get👏your👏point👏across👏',
-    args: '<string> ( | raw )',
+    args: '<string> ( | emoji | raw )',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      let clap = ':clap:';
+      let spacer = '👏';
+      let escape = false;
 
-      if (args[1] === 'raw') {
-        clap = '\\👏';
-        args.splice(1, 1);
+      // start at fucky loop index to ignore message arg
+      for (let i = 1; i < args.length; i++) {
+        // not sure best way to do this logic D:
+        if (args[i] === 'raw') {
+          escape = true;
+        } else {
+          spacer = args[i];
+        }
       }
 
-      let str = clap; // Prepend a clap
+      if (escape) {
+        spacer = '\\' + spacer;
+      }
+
+      let str = spacer; // Prepend a ting
 
       preClap = args[0].split(/ /g);
 
       preClap.forEach(arg => {
-        str += arg + clap;
+        str += arg + spacer;
       });
 
       msg
