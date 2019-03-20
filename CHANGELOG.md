@@ -1,3 +1,18 @@
+## [0.9.852](https://github.com/dead-bird/jarfis/compare/v0.9.851...v0.9.852) (2019-03-20)
+
+
+### Bug Fixes
+
+* !help typo ([d901546](https://github.com/dead-bird/jarfis/commit/d901546))
+* caps bug on triggering responses ([285ff8b](https://github.com/dead-bird/jarfis/commit/285ff8b))
+
+
+### Features
+
+* custom spacer in clap command  ([4816d22](https://github.com/dead-bird/jarfis/commit/4816d22))
+
+
+
 ## [0.9.851](https://github.com/dead-bird/jarfis/compare/v0.9.85...v0.9.851) (2019-03-19)
 
 
