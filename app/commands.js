@@ -306,7 +306,7 @@ let self = (module.exports = {
       let server = core.server.get(client, msg.guild);
 
       try {
-        var trigger = args[0];
+        var trigger = args[0].toLowerCase();
         var response = args[1];
       } catch (e) {
         console.log('args error: \n' + e);
