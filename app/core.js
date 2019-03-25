@@ -117,7 +117,7 @@ let self = (module.exports = {
 
   regex: {
     emote: /(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi,
-    userId: /<@!?(\d*)>/gi,
+    userId: /<@!?(\d*)>/g,
   },
 
   csit: '440511380160905217',

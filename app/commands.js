@@ -402,7 +402,12 @@ let self = (module.exports = {
           .emotes(trigger.response)
           .replace(newlineRegex, ' ')
           .replace(fuckyChars, '')
+          .replace(core.regex.userId, '$1')
           .substring(0, 30);
+
+        // console.log(core.regex.userId);
+
+        // console.log(msg.channel.members.get('217939761027874816').displayName);
 
         if (response > 30) response += '...';
 
