@@ -406,9 +406,7 @@ let self = (module.exports = {
           .replace(fuckyChars, '')
           .substring(0, 30);
 
-        if (trigger.response.length > 30) {
-          response += '...';
-        }
+        if (response > 30) response += '...';
 
         responses.push({
           trigger: core.msg.replace.emotes(res),
