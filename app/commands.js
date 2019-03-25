@@ -410,11 +410,7 @@ let self = (module.exports = {
           response += '...';
         }
 
-        responses.push({
-          trigger: res,
-          response: `${response}` || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
-          author,
-        });
+        responses.push({ trigger: res, response, author });
       }
 
       responses.forEach(res => {
