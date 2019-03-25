@@ -10,7 +10,7 @@ let self = (module.exports = {
 
   user: {
     // Grab ID from message @user
-    findId: id => id.replace(/<@!?(\d*)>/g, '$1'),
+    findId: id => id.replace(self.regex.userId, '$1'),
 
     get(client, id) {
       return client.losers.get(id) || self.user.new(client, id);
@@ -111,8 +111,13 @@ let self = (module.exports = {
 
   msg: {
     replace: {
-      emotes: m => m.replace(/(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi, '$1'),
+      emotes: (m = '') => m.replace(self.regex.emote, '$1'),
     },
+  },
+
+  regex: {
+    emote: /(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi,
+    userId: /<@!?(\d*)>/gi,
   },
 
   csit: '440511380160905217',
