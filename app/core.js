@@ -111,7 +111,7 @@ let self = (module.exports = {
 
   msg: {
     replace: {
-      emotes: m => m.replace(/(?:<|:<a)(:\w{1,50}:)(?:\d{10,100}>)/gi, '$1'),
+      emotes: m => m.replace(/(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi, '$1'),
     },
   },
 
