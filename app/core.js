@@ -109,5 +109,11 @@ let self = (module.exports = {
     daddy: id => env.OWNERS.split(', ').includes(id),
   },
 
+  msg: {
+    replace: {
+      emotes: m => m.replace(/(?:<|:<a)(:\w{1,50}:)(?:\d{10,100}>)/gi, '$1'),
+    },
+  },
+
   csit: '440511380160905217',
 });
