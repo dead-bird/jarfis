@@ -385,8 +385,6 @@ let self = (module.exports = {
       let generatedMsg = '';
 
       for (let res in guild.responses) {
-        let dots = '';
-
         if (!guild.responses.hasOwnProperty(res)) break;
 
         let trigger = guild.responses[res];
