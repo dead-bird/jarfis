@@ -410,7 +410,11 @@ let self = (module.exports = {
           response += '...';
         }
 
-        responses.push({ trigger: res, response, author });
+        responses.push({
+          trigger: core.msg.replace.emotes(res),
+          response,
+          author,
+        });
       }
 
       responses.forEach(res => {
