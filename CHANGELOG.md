@@ -1,3 +1,13 @@
+## [0.9.853](https://github.com/dead-bird/jarfis/compare/v0.9.852...v0.9.853) (2019-03-25)
+
+
+### Bug Fixes
+
+* (toby) fixed emote regex ([f775507](https://github.com/dead-bird/jarfis/commit/f775507))
+* check length of formatted response before truncating ([b2e858f](https://github.com/dead-bird/jarfis/commit/b2e858f))
+
+
+
 ## [0.9.852](https://github.com/dead-bird/jarfis/compare/v0.9.851...v0.9.852) (2019-03-20)
 
 
