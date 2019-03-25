@@ -386,33 +386,34 @@ let self = (module.exports = {
 
       for (let res in guild.responses) {
         let dots = '';
+
         if (!guild.responses.hasOwnProperty(res)) break;
 
-        let trigger = guild.responses[res],
-          author = '';
+        let trigger = guild.responses[res];
+        let author = '';
 
-        if (trigger.author)
-          author = client.users.get(trigger.author).username || ''; // fallback for old style responses without author
+        // fallback for old style responses without author
+        if (trigger.author) {
+          author = client.users.get(trigger.author).username || '';
+        }
 
-        let emoteRegex = /(?:<)(:\w{1,50}:)(?:\d{10,100}>)/gi;
         let newlineRegex = /\r?\n|\r/g;
         let fuckyChars = /\*|_|`|\||~/g;
-        // strip discords emote bs from response
-        let formatResponse = trigger.response.replace(emoteRegex, '$1');
-        // strip nls
-        formatResponse = formatResponse.replace(newlineRegex, ' ');
-        // replace md breaking things
-        formatResponse = formatResponse.replace(fuckyChars, '');
-        // get first 30 chars
-        formatResponse = formatResponse.substring(0, 30);
+
+        let response = core.msg.replace
+          .emotes(trigger.response)
+          .replace(newlineRegex, ' ')
+          .replace(fuckyChars, '')
+          .substring(0, 30);
+
         if (trigger.response.length > 30) {
-          formatResponse += '...';
+          response += '...';
         }
 
         responses.push({
           trigger: res,
-          response: `${formatResponse}` || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
-          author: author,
+          response: `${response}` || trigger, //not sure why || trigger is in but scared to remove :wehehehe:
+          author,
         });
       }
 
