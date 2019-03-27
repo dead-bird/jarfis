@@ -16,11 +16,14 @@ app.get('/', (request, response) => {
   console.log(getDateTime() + ' Ping Received');
   response.sendStatus(200);
 });
+
 app.listen(env.PORT);
 
 client.on('error', e => console.error(e));
 client.on('warn', e => console.warn(e));
-client.on('debug', e => console.info(e));
+client.on('debug', e => {
+  // logging this just fucking fills the console so maybe don't 🙃
+});
 
 client.on('ready', () => {
   client.servers = new Enmap({ provider: new Level({ name: 'servers' }) });
