@@ -112,6 +112,12 @@ let self = (module.exports = {
   msg: {
     replace: {
       emotes: (m = '') => m.replace(self.regex.emote, '$1'),
+
+      userId: (m = '', client) => {
+        return m.replace(self.regex.userId, (match, capture) => {
+          return `@${client.users.get(capture.toString()).username || ''}`;
+        });
+      },
     },
   },
 
