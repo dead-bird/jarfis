@@ -398,18 +398,17 @@ let self = (module.exports = {
         let newlineRegex = /\r?\n|\r/g;
         let fuckyChars = /\*|_|`|\||~/g;
 
-        let response = core.msg.replace
-          .emotes(trigger.response)
+        let response = core.msg.replace.userId(trigger.response, client);
+
+        response = core.msg.replace
+          .emotes(response)
           .replace(newlineRegex, ' ')
           .replace(fuckyChars, '')
-          .replace(core.regex.userId, '$1')
           .substring(0, 30);
 
-        // console.log(core.regex.userId);
-
-        // console.log(msg.channel.members.get('217939761027874816').displayName);
-
         if (response > 30) response += '...';
+
+        res = core.msg.replace.userId(res, client);
 
         responses.push({
           trigger: core.msg.replace.emotes(res),
