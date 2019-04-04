@@ -380,7 +380,7 @@ let self = (module.exports = {
       let guild = core.server.get(client, msg.guild);
 
       // markup to look pretty
-      let muStart = '```asciidoc\n';
+      let muStart = '```diff\n';
       let muEnd = '```';
 
       let responses = [];
@@ -392,6 +392,7 @@ let self = (module.exports = {
 
         let trigger = guild.responses[res];
         let author = '';
+        let destruct = guild.responses[res].destruct;
 
         // fallback for old style responses without author
         if (trigger.author) {
@@ -417,6 +418,7 @@ let self = (module.exports = {
           trigger: core.msg.replace.emotes(res),
           response,
           author,
+          destruct,
         });
       }
 
@@ -433,7 +435,12 @@ let self = (module.exports = {
           cmdstr = '';
         }
 
-        cmdstr = `${res.trigger} :: ${res.response} - ${res.author}\n`;
+        if (res.destruct === true || undefined) {
+          cmdstr = `- ${res.trigger} - ${res.response} - ${res.author}\n`;
+        } else {
+          cmdstr = `+ ${res.trigger} - ${res.response} - ${res.author}\n`;
+        }
+
         generatedMsg += cmdstr;
       });
 
@@ -446,8 +453,22 @@ let self = (module.exports = {
 
       splitMsgs.forEach(generatedMsg => {
         str = muStart + generatedMsg + muEnd;
-        msg.channel.send(str);
+        msg.author.send(str);
       });
+
+      msg.author.send(
+        `\`Above are all of the responses I have for ${
+          msg.guild.name
+        } :) red ones delete the trigger when invoked whilst green ones persist. \``
+      );
+
+      msg.channel
+        .send(
+          `${msg.author.username}, I've slid in your dms with my responses 😛`
+        )
+        .then(msg => {
+          msg.delete(3000);
+        });
     },
   },
   clap: {
