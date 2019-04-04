@@ -299,11 +299,13 @@ let self = (module.exports = {
   // Responses
   add: {
     desc: 'Add a trigger and response to the bot',
-    args: 'Trigger | Response',
+    args: 'Trigger | Response (| delete)',
     execute: (client, msg, args) => {
       if (!args || args.length < 2) return core.err.args(msg);
 
       let server = core.server.get(client, msg.guild);
+
+      let selfDestruct = typeof args[2] !== 'undefined';
 
       try {
         var trigger = args[0].toLowerCase();
@@ -323,6 +325,7 @@ let self = (module.exports = {
       server.responses[trigger] = {
         response: response,
         author: msg.author.id,
+        destruct: selfDestruct,
       };
 
       core.server.set(client, msg.guild.id, server);

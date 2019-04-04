@@ -56,7 +56,11 @@ let self = (module.exports = {
         announcements: true,
         restart: false,
         responses: {
-          lenny: { response: '( ͡° ͜ʖ ͡°)', author: client.user.id },
+          lenny: {
+            response: '( ͡° ͜ʖ ͡°)',
+            author: client.user.id,
+            destruct: false,
+          },
         },
       };
     },

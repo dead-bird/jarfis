@@ -146,11 +146,21 @@ function listen(client, msg) {
       commands[cmd].execute(client, msg, args);
     }
   } else if (
+    // Response logic
     Object.prototype.hasOwnProperty.call(
       guild.responses,
       msg.content.toLowerCase()
     )
   ) {
+    if (
+      guild.responses[msg.content.toLowerCase()].destruct === true ||
+      undefined
+    ) {
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+    }
     msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
   }
 }
