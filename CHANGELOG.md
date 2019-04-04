@@ -1,3 +1,12 @@
+## [0.9.86](https://github.com/dead-bird/jarfis/compare/v0.9.854...v0.9.86) (2019-04-04)
+
+
+### Features
+
+* !add now lets flag response as self deleting ([74392e3](https://github.com/dead-bird/jarfis/commit/74392e3))
+
+
+
 ## [0.9.854](https://github.com/dead-bird/jarfis/compare/v0.9.853...v0.9.854) (2019-03-27)
 
 
