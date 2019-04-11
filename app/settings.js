@@ -87,10 +87,13 @@ let self = (module.exports = {
 
   config: {
     prefix: {
-      name: ':exclamation: Prefix',
-      desc: 'Set the prefix that Jarfis responds to. (defaults to !)',
-      change: (value, callback) => callback(value),
-      list: option => option,
+      //   name: ':exclamation: Prefix',
+      //   desc: 'Set the prefix that Jarfis responds to. (defaults to !)',
+      // change: (value, callback) => callback(value),
+      change: () => {
+        return false; //temp killed because changing prefix breaks the bot :jiy:
+      },
+      //   list: option => option,
     },
     insults: {
       name: ':broken_heart:  Random Insults',
