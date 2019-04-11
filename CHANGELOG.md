@@ -1,3 +1,12 @@
+## [0.9.9](https://github.com/dead-bird/jarfis/compare/v0.9.875...v0.9.9) (2019-04-11)
+
+
+### Features
+
+* List banned members using `!ban list` ([5d0db3a](https://github.com/dead-bird/jarfis/commit/5d0db3a))
+
+
+
 ## [0.9.875](https://github.com/dead-bird/jarfis/compare/v0.9.873...v0.9.875) (2019-04-11)
 
 
