@@ -6,18 +6,18 @@ const pkg = require('../package.json');
 const Discord = require('discord.js');
 const Level = require('enmap-level');
 const client = new Discord.Client({ forceFetchUsers: true });
-const express = require('express');
+// const express = require('express');
 const core = require('./core.js');
 const Enmap = require('enmap');
 const env = process.env;
-const app = express();
+// const app = express();
 
-app.get('/', (request, response) => {
-  console.log(getDateTime() + ' Ping Received');
-  response.sendStatus(200);
-});
+// app.get('/', (request, response) => {
+//   console.log(getDateTime() + ' Ping Received');
+//   response.sendStatus(200);
+// });
 
-app.listen(env.PORT);
+// app.listen(env.PORT);
 
 client.on('error', e => console.error(e));
 client.on('warn', e => console.warn(e));
@@ -199,7 +199,7 @@ function insult() {
   // setTimeout(insult, randTime);
 }
 
-function getDateTime() {
+// function getDateTime() {
   let date = new Date(),
     dateTime =
       [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') +
