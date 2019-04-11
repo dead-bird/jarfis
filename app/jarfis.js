@@ -88,15 +88,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (msg.author.bot || !msg.guild) return;
-
-  let id = msg.guild.id || 0;
-
-  if (
-    (env.ENV === 'dev' && id === env.DEV_ID) ||
-    (env.ENV !== 'dev' && id !== env.DEV_ID)
-  ) {
-    listen(client, msg);
-  }
+  listen(client, msg);
 });
 
 // Create server shit when Jarfis joins a server
@@ -115,14 +107,7 @@ client.on('guildCreate', guild => {
 
 // Pin Announcements
 client.on('channelPinsUpdate', (channel, time) => {
-  let id = channel.guild.id || 0;
-
-  if (
-    (env.ENV === 'dev' && id === env.DEV_ID) ||
-    (env.ENV !== 'dev' && id !== env.DEV_ID)
-  ) {
-    core.newPin(channel);
-  }
+  core.newPin(channel);
 });
 
 client.login(env.TOKEN);
@@ -200,13 +185,13 @@ function insult() {
 }
 
 // function getDateTime() {
-  let date = new Date(),
-    dateTime =
-      [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') +
-      ' ' +
-      [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
-  return dateTime;
-}
+//   let date = new Date(),
+//     dateTime =
+//       [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') +
+//       ' ' +
+//       [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+//   return dateTime;
+// }
 
 //       _             _
 //      //             \\
