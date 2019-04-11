@@ -106,8 +106,8 @@ client.on('guildCreate', guild => {
 });
 
 // Pin Announcements
-client.on('channelPinsUpdate', (channel, time) => {
-  core.newPin(channel);
+client.on('channelPinsUpdate', channel => {
+  core.newPin(channel, client);
 });
 
 client.login(env.TOKEN);

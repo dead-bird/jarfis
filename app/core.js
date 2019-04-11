@@ -67,15 +67,23 @@ let self = (module.exports = {
   },
 
   // channels
-  newPin(channel) {
-    channel
-      .fetchPinnedMessages()
-      .then(messages => {
-        const i = messages.array().length;
+  newPin(channel, client) {
+    let announce = true;
 
-        channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
-      })
-      .catch(console.error);
+    if (channel.type !== 'dm') {
+      announce = self.server.get(client, channel.guild).announcements;
+    }
+
+    if (announce) {
+      channel
+        .fetchPinnedMessages()
+        .then(messages => {
+          const i = messages.array().length;
+
+          channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
+        })
+        .catch(console.error);
+    }
   },
 
   // Error Handler
