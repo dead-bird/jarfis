@@ -61,7 +61,7 @@ let self = (module.exports = {
           }, peep your dm's chief. I've told you how you can use me uwu 😛`
         )
         .then(msg => {
-          msg.delete(3000);
+          msg.delete(5000);
         })
         .catch(err => core.err.dead(msg, err));
     },
