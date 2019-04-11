@@ -1,3 +1,12 @@
+## [0.9.87](https://github.com/dead-bird/jarfis/compare/v0.9.86...v0.9.87) (2019-04-11)
+
+
+### Features
+
+* !help dm's users instead of clogging the channel ([8fe00d8](https://github.com/dead-bird/jarfis/commit/8fe00d8))
+
+
+
 ## [0.9.86](https://github.com/dead-bird/jarfis/compare/v0.9.854...v0.9.86) (2019-04-04)
 
 
