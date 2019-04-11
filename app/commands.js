@@ -628,8 +628,6 @@ let self = (module.exports = {
     desc: 'This is a frickin stickup 🔫',
     args: 'text ( | emoji )',
     execute: (client, msg, args = []) => {
-      console.log(args);
-
       if (!args || args.length < 2) {
         args[0] = args[0] || '...';
         args[1] =
