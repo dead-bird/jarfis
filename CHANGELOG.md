@@ -1,3 +1,12 @@
+## [0.9.871](https://github.com/dead-bird/jarfis/compare/v0.9.87...v0.9.871) (2019-04-11)
+
+
+### Bug Fixes
+
+* increased help message timeout ([8ab9a8a](https://github.com/dead-bird/jarfis/commit/8ab9a8a))
+
+
+
 ## [0.9.87](https://github.com/dead-bird/jarfis/compare/v0.9.86...v0.9.87) (2019-04-11)
 
 
