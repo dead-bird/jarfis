@@ -1,3 +1,12 @@
+## [0.9.872](https://github.com/dead-bird/jarfis/compare/v0.9.871...v0.9.872) (2019-04-11)
+
+
+### Bug Fixes
+
+* crashing when using !settings ([497e4ad](https://github.com/dead-bird/jarfis/commit/497e4ad))
+
+
+
 ## [0.9.871](https://github.com/dead-bird/jarfis/compare/v0.9.87...v0.9.871) (2019-04-11)
 
 
