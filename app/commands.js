@@ -265,6 +265,9 @@ let self = (module.exports = {
     args: '@user',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
+      if (!args[0].match(core.regex.userId))
+        return msg.channel.send(`Look fam thats not even a real person`);
+
       let id = core.user.findId(args[0]);
       let user = core.user.get(client, id);
 
