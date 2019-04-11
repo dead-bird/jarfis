@@ -718,41 +718,6 @@ let self = (module.exports = {
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
-  naynay: {
-    desc: 'naynay',
-    args: '(text | text)',
-    execute: (client, msg, args) => {
-      if (!args || args.length < 2) {
-        var text1 = '<:space:499933777749868546>';
-        var text2 = '<:space:499933777749868546>';
-      } else {
-        var text1 = args[0];
-        var text2 = args[1];
-      }
-
-      str = `
-      ${text1}
-
-          😜
-   👊/\\|\\|\\\\\\_
-       \\_/¯ ¯\\\\\\_
-
-${text2}
-
-👋
-    \\ 😳
-         \\|\\| \\\\\\_
-   \\_/¯ ¯\\\\\\_
-      `;
-
-      msg
-        .delete()
-        .then()
-        .catch(console.error);
-
-      msg.channel.send(str).catch(err => core.err.dead(msg, err));
-    },
-  },
   swap: {
     desc: 'substitute text',
     args: 'string | find | replace',
