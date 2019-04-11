@@ -1,3 +1,12 @@
+## [0.9.875](https://github.com/dead-bird/jarfis/compare/v0.9.873...v0.9.875) (2019-04-11)
+
+
+### Bug Fixes
+
+* I'll now actually respect my settings & only announces pins when told ([8c76875](https://github.com/dead-bird/jarfis/commit/8c76875))
+
+
+
 ## [0.9.872](https://github.com/dead-bird/jarfis/compare/v0.9.871...v0.9.872) (2019-04-11)
 
 
