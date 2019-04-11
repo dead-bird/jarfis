@@ -103,22 +103,6 @@ let self = (module.exports = {
         .catch(err => core.err.dead(msg, err));
     },
   },
-  change: {
-    desc: 'Changes the name of the bot.',
-    args: '<string>',
-    execute: (client, msg, args) => {
-      if (!args) return core.err.empty(msg);
-      let name = args[0];
-
-      msg.guild
-        .member(client.user)
-        .setNickname(name)
-        .then(() => {
-          msg.channel.send(`just call me ${name}`);
-        })
-        .catch(err => core.err.dead(msg, err));
-    },
-  },
   reset: {
     desc: 'Resets the name of the bot.',
     execute: (client, msg) => {
