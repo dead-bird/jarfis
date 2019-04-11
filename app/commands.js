@@ -239,9 +239,28 @@ let self = (module.exports = {
   // Bans
   ban: {
     desc: 'Stop people *cough* Ramon *cough* from issuing commands',
-    args: '@user',
+    args: '(@user) or (list)',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
+
+      if (args[0] === 'list') {
+        let reply = '**Nuaghty Bois 🤪**\n\n';
+
+        msg.guild.members
+          .reduce((carry, member) => {
+            if (!member.user.bot && core.user.get(client, member.id).banned) {
+              carry.push(member.nickname || member.username);
+            }
+
+            return carry;
+          }, [])
+          .forEach(ban => {
+            reply = reply + `- ${ban}\n`;
+          });
+
+        return msg.channel.send(reply);
+      }
+
       if (!args[0].match(core.regex.userId))
         return msg.channel.send(`Look fam thats not even a real person`);
 
