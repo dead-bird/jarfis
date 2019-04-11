@@ -73,13 +73,6 @@ let self = (module.exports = {
       settings.execute(client, msg, args);
     },
   },
-  loc: {
-    desc: "Returns the bot's environment.",
-    execute: (client, msg) => {
-      msg.channel.send(`chillin' at ${env.LOC}`);
-      client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
-    },
-  },
   r: {
     desc: 'Rates a meme.',
     args: '<integer between 0 and 5>',
