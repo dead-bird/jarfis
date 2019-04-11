@@ -51,9 +51,19 @@ let self = (module.exports = {
       // new issue when this array gets to 4 as api limiting :)
       splitMsgs.forEach(generatedMsg => {
         str = muStart + generatedMsg + muEnd;
-        msg.channel.send(str);
+        msg.author.send(str);
       });
-      msg.channel.send(helpOutro);
+      msg.author.send(helpOutro);
+      msg.channel
+        .send(
+          `${
+            msg.author.username
+          }, peep your dm's chief. I've told you how you can use me uwu 😛`
+        )
+        .then(msg => {
+          msg.delete(3000);
+        })
+        .catch(err => core.err.dead(msg, err));
     },
   },
   settings: {
