@@ -345,9 +345,9 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
 
-      msg.channel
-        .send("*I'll remember that*")
-        .catch(err => core.err.dead(msg, err));
+      msg.channel.send("*I'll remember that*").then(msg => {
+        msg.delete(3000).catch(err => core.err.dead(msg, err));
+      });
     },
   },
   remove: {
@@ -478,7 +478,8 @@ let self = (module.exports = {
         )
         .then(msg => {
           msg.delete(3000);
-        });
+        })
+        .catch(err => core.err.dead(msg, err));
     },
   },
   clap: {
