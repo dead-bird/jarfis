@@ -244,33 +244,37 @@ let self = (module.exports = {
       if (!args) return core.err.empty(msg);
 
       if (args[0] === 'list') {
-        let reply = '**Nuaghty Bois 🤪**\n\n';
+        let reply = 'only good bois around these parts :cowboy:';
 
-        msg.guild.members
-          .reduce((carry, member) => {
-            if (!member.user.bot && core.user.get(client, member.id).banned) {
-              carry.push(member.nickname || member.username);
-            }
+        let banned = msg.guild.members.reduce((carry, member) => {
+          if (!member.user.bot && core.user.get(client, member.id).banned) {
+            carry.push(member.nickname || member.username);
+          }
 
-            return carry;
-          }, [])
-          .forEach(ban => {
+          return carry;
+        }, []);
+
+        if (banned.length) {
+          reply = '**Nuaghty Bois 🤪**\n\n';
+
+          banned.forEach(ban => {
             reply = reply + `- ${ban}\n`;
           });
+        }
 
         return msg.channel.send(reply);
       }
 
       if (!args[0].match(core.regex.userId))
-        return msg.channel.send(`Look fam thats not even a real person`);
+        return msg.channel.send(`Look fam that's not even a real person`);
 
       let id = core.user.findId(args[0]);
-      let user = core.user.get(client, id);
 
       if (id === core.csit) return msg.channel.send(`you cannot ban the 👑`);
-
       if (id === msg.author.id)
         return msg.channel.send(`you gonna ban yerself dickhead`);
+
+      let user = core.user.get(client, id);
 
       if (user.banned)
         return msg.channel.send(`<@${id}> is already banned my dude`);
