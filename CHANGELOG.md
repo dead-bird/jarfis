@@ -1,3 +1,12 @@
+## [0.9.91](https://github.com/dead-bird/jarfis/compare/v0.9.9...v0.9.91) (2019-04-12)
+
+
+### Bug Fixes
+
+* Only list banned users if there are banned users :^) ([199861f](https://github.com/dead-bird/jarfis/commit/199861f))
+
+
+
 ## [0.9.9](https://github.com/dead-bird/jarfis/compare/v0.9.875...v0.9.9) (2019-04-11)
 
 
