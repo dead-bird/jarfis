@@ -1,3 +1,17 @@
+## [0.9.92](https://github.com/dead-bird/jarfis/compare/v0.9.91...v0.9.92) (2019-04-24)
+
+
+### Bug Fixes
+
+* Stop Jarfis from dying on `!pins` ([841219b](https://github.com/dead-bird/jarfis/commit/841219b))
+
+
+### Features
+
+* start typing on pin announcement ([d9ee3c7](https://github.com/dead-bird/jarfis/commit/d9ee3c7))
+
+
+
 ## [0.9.91](https://github.com/dead-bird/jarfis/compare/v0.9.9...v0.9.91) (2019-04-12)
 
 
