@@ -78,14 +78,20 @@ let self = (module.exports = {
   },
 
   announcePins(channel) {
+    channel.startTyping();
+
     channel
       .fetchPinnedMessages()
       .then(messages => {
         const i = messages.array().length;
 
         channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
+        channel.stopTyping();
       })
-      .catch(console.error);
+      .catch(err => {
+        console.error(err);
+        channel.stopTyping();
+      });
   },
 
   // Error Handler
