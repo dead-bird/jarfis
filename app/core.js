@@ -74,16 +74,18 @@ let self = (module.exports = {
       announce = self.server.get(client, channel.guild).announcements;
     }
 
-    if (announce) {
-      channel
-        .fetchPinnedMessages()
-        .then(messages => {
-          const i = messages.array().length;
+    if (announce) self.announcePins(channel);
+  },
 
-          channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
-        })
-        .catch(console.error);
-    }
+  announcePins(channel) {
+    channel
+      .fetchPinnedMessages()
+      .then(messages => {
+        const i = messages.array().length;
+
+        channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
+      })
+      .catch(console.error);
   },
 
   // Error Handler

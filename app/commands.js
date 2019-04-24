@@ -687,7 +687,7 @@ let self = (module.exports = {
   },
   pins: {
     desc: "Check that dyl isn't making Jarfis lie again",
-    execute: (client, msg) => core.newPin(msg.channel),
+    execute: (client, msg) => core.announcePins(msg.channel),
   },
   ss: {
     desc: 'superspoiler your shit',
