@@ -1,10 +1,12 @@
 require('dotenv').config({ path: '.env' });
 
-const settings = require('./settings.js'),
-  Discord = require('discord.js'),
-  core = require('./core.js'),
-  request = require('request');
-(fs = require('fs')), (env = process.env);
+const settings = require('./settings.js');
+const Discord = require('discord.js');
+const core = require('./core.js');
+const axios = require('axios');
+const fs = require('fs');
+
+env = process.env;
 
 let self = (module.exports = {
   help: {
@@ -622,22 +624,21 @@ let self = (module.exports = {
     },
   },
   insult: {
-    desc: '@ me',
+    desc: 'Make someone cry',
     args: '@user',
     execute: (client, msg, args) => {
-      if (!args)
-        return msg.reply(`Small **oof** my dude I need someone to insult`);
-      let user = args[0].match(/<@\!?\d*>/g);
+      const prefix = 'Small **oof** my dude';
 
-      if (!user)
-        return msg.reply(`Small **oof** my dude *${args[0]}* isnt a user`);
-      let insults = fs
-        .readFileSync(`${__dirname}/data/insults.txt`)
-        .toString()
-        .split('\n');
-      let selectedInsult = insults[Math.floor(Math.random() * insults.length)];
+      if (!args) return msg.reply(`${prefix} I need someone to insult`);
 
-      msg.channel.send(`${user} you ${selectedInsult}`);
+      let user = args[0].match(core.regex.userId);
+
+      if (!user) return msg.reply(`${prefix} *${args[0]}* isnt a user`);
+
+      axios
+        .get('https://api.antagonize.deadbird.dev/insult')
+        .then(res => msg.channel.send(`${user} you ${res.data.text}`))
+        .catch(e => console.error(e));
     },
   },
   heist: {
