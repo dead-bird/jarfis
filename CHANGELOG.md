@@ -1,3 +1,12 @@
+## [0.9.93](https://github.com/dead-bird/jarfis/compare/v0.9.92...v0.9.93) (2019-04-25)
+
+
+### Features
+
+* Use antagonize API  for `!insult` ([8782183](https://github.com/dead-bird/jarfis/commit/8782183))
+
+
+
 ## [0.9.92](https://github.com/dead-bird/jarfis/compare/v0.9.91...v0.9.92) (2019-04-24)
 
 
