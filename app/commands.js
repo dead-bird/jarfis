@@ -165,7 +165,7 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      let str = args[0];
+      let str = args.join(' ');
 
       function tweak(c) {
         return Math.random() < 0.5 ? c.toLowerCase() : c.toUpperCase();
@@ -227,14 +227,12 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      let str = args[0];
-
       msg
         .delete()
         .then()
         .catch(console.error);
 
-      msg.channel.send(str).catch(err => core.err.dead(msg, err));
+      msg.channel.send(args.join(' ')).catch(err => core.err.dead(msg, err));
     },
   },
 
@@ -597,7 +595,7 @@ let self = (module.exports = {
       if (!args) return core.err.empty(msg);
 
       for (i = 0; i < 5; i++) {
-        msg.channel.send(args[0]).catch(err => core.err.dead(msg, err));
+        msg.channel.send(args.join(' ')).catch(err => core.err.dead(msg, err));
       }
     },
   },
@@ -676,7 +674,7 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      let str = args[0].replace(/[aeiou]/gi, 'oob');
+      let str = args.join(' ').replace(/[aeiou]/gi, 'oob');
 
       msg
         .delete()
