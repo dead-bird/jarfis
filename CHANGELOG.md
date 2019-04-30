@@ -1,3 +1,12 @@
+## [0.9.94](https://github.com/dead-bird/jarfis/compare/v0.9.93...v0.9.94) (2019-04-30)
+
+
+### Bug Fixes
+
+* fix arg logic breaking single arg commands ([6d02799](https://github.com/dead-bird/jarfis/commit/6d02799))
+
+
+
 ## [0.9.93](https://github.com/dead-bird/jarfis/compare/v0.9.92...v0.9.93) (2019-04-25)
 
 
