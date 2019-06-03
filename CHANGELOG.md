@@ -1,3 +1,18 @@
+# [0.10.0](https://github.com/dead-bird/jarfis/compare/v0.9.94...v0.10.0) (2019-06-03)
+
+
+### Bug Fixes
+
+* add default threshold value for bot pins ([a72302d](https://github.com/dead-bird/jarfis/commit/a72302d))
+
+
+### Features
+
+* new setting for setting pin react threshold needed for bot pins ([1e1449f](https://github.com/dead-bird/jarfis/commit/1e1449f))
+* pin messages with :pushpin: reacts ([f865726](https://github.com/dead-bird/jarfis/commit/f865726))
+
+
+
 ## [0.9.94](https://github.com/dead-bird/jarfis/compare/v0.9.93...v0.9.94) (2019-04-30)
 
 
