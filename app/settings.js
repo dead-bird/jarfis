@@ -121,7 +121,7 @@ let self = (module.exports = {
       list: id => `<#${id}>`,
     },
     announcements: {
-      name: ':pushpin:  Pin Announcements',
+      name: ':round_pushpin:  Pin Announcements',
       desc: 'Announce how many pins are left in a channel',
       change(value, callback) {
         let option = false;
@@ -143,6 +143,23 @@ let self = (module.exports = {
         return callback(option);
       },
       list: option => (option ? 'On' : 'Off'),
+    },
+    pins: {
+      name: ':pushpin:  Bot Pinning Limit',
+      desc: 'React count threshold for bot pinning (set to 0 to disable)',
+      change(value, callback) {
+        let option = 0;
+        value = parseInt(value);
+
+        if (value && Number.isInteger(value)) {
+          option = parseInt(value);
+        } else {
+          option = 0;
+        }
+
+        return callback(option);
+      },
+      list: option => (option ? option : '0'),
     },
   },
 });
