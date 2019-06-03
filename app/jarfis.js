@@ -8,8 +8,10 @@ const Level = require('enmap-level');
 const client = new Discord.Client({ forceFetchUsers: true });
 // const express = require('express');
 const core = require('./core.js');
+const semver = require('semver');
 const Enmap = require('enmap');
 const env = process.env;
+
 // const app = express();
 
 // app.get('/', (request, response) => {
@@ -44,7 +46,7 @@ client.on('ready', () => {
         let changes = '';
 
         log.versions
-          .filter(entry => entry.version > version)
+          .filter(entry => semver.gt(entry.version, version))
           .forEach(change => {
             if (change.body.length) {
               changes =
