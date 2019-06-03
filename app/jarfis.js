@@ -91,6 +91,45 @@ client.on('message', msg => {
   listen(client, msg);
 });
 
+// Listen for all emoji react events and emit a custom event
+// This bypasses caching and emits for all messages regardless of post time
+// https://github.com/discordjs/guide/blob/master/guide/popular-topics/reactions.md
+client.on('raw', async event => {
+  if (event.t !== 'MESSAGE_REACTION_ADD') return false;
+
+  // Build data needed for react event event
+  let { d: data } = event;
+  let user = client.users.get(data.user_id);
+  let channel = client.channels.get(data.channel_id) || (await user.createDM());
+
+  // Get emoji whether unicode or custom
+  let emojiKey = data.emoji.id
+    ? `${data.emoji.name}:${data.emoji.id}`
+    : data.emoji.name;
+
+  // Skip emitting if message is cached and bot can target (prevents double execution)
+  if (channel.messages.has(data.message_id)) return;
+
+  let message = await channel.fetchMessage(data.message_id);
+  let reaction = message.reactions.get(emojiKey);
+
+  client.emit('messageReactionAdd', reaction, user);
+});
+
+// Bot pinning logic
+client.on('messageReactionAdd', (reaction, user) => {
+  if (reaction.emoji.name !== '📌') return false;
+
+  let guild = reaction.message.channel.guild;
+  let limit = core.server.get(client, guild).pins;
+
+  if (reaction.count >= limit) {
+    if (!reaction.message.pinned) {
+      reaction.message.pin();
+    }
+  }
+});
+
 // Create server shit when Jarfis joins a server
 client.on('guildCreate', guild => {
   core.server.new(client, guild, options => {
