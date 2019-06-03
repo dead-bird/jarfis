@@ -55,6 +55,7 @@ let self = (module.exports = {
         default: guild.channels ? guild.channels.first().id : null,
         announcements: true,
         restart: false,
+        pins: 2,
         responses: {
           lenny: {
             response: '( ͡° ͜ʖ ͡°)',
