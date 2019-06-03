@@ -1,3 +1,13 @@
+## [0.10.1](https://github.com/dead-bird/jarfis/compare/v0.10.0...v0.10.1) (2019-06-03)
+
+
+### Bug Fixes
+
+* Stop migrate from just fucking breaking everything  ([153c83e](https://github.com/dead-bird/jarfis/commit/153c83e))
+* Stop very old responses from dying ([4f36119](https://github.com/dead-bird/jarfis/commit/4f36119))
+
+
+
 # [0.10.0](https://github.com/dead-bird/jarfis/compare/v0.9.94...v0.10.0) (2019-06-03)
 
 
