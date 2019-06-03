@@ -1,3 +1,12 @@
+## [0.10.11](https://github.com/dead-bird/jarfis/compare/v0.10.1...v0.10.11) (2019-06-03)
+
+
+### Bug Fixes
+
+* Compare versions using `semver` and hopefully fix broken changelog ([163428b](https://github.com/dead-bird/jarfis/commit/163428b))
+
+
+
 ## [0.10.1](https://github.com/dead-bird/jarfis/compare/v0.10.0...v0.10.1) (2019-06-03)
 
 
