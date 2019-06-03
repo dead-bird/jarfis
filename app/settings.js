@@ -23,9 +23,9 @@ let self = (module.exports = {
     for (let setting in self.config) {
       embed.addField(
         '\u200B',
-        `**${self.config[setting].name}** - ${self.config[setting].list(
-          options[setting]
-        )}`
+        `**${self.config[setting].name}** - [${setting}] - ${self.config[
+          setting
+        ].list(options[setting])}`
       );
     }
 
