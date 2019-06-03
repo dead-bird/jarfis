@@ -409,7 +409,8 @@ let self = (module.exports = {
 
         // fallback for old style responses without author
         if (trigger.author) {
-          author = client.users.get(trigger.author).username || '';
+          const user = client.users.get(trigger.author) || {};
+          author = user.username || '';
         }
 
         let newlineRegex = /\r?\n|\r/g;
