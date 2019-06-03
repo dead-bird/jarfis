@@ -52,7 +52,7 @@ let self = (module.exports = {
         core.server.set(client, msg.guild.id, options);
 
         msg
-          .reply(`I've set \`${setting}\` to ${value}`)
+          .reply(`I've set \`${setting}\` to ${option}`)
           .catch(err => core.err.dead(msg, err));
       });
     });
