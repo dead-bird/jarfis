@@ -77,7 +77,7 @@ let self = (module.exports = {
         if (!(option in server)) server[option] = settings[option];
       }
 
-      core.server.set(client, msg.guild.id, server);
+      core.server.set(client, guild.id, server);
     });
 
     msg
