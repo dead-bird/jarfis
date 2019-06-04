@@ -126,6 +126,7 @@ client.on('messageReactionAdd', (reaction, user) => {
   let limit = core.server.get(client, guild).pins;
 
   if (reaction.count >= limit) {
+  if (reaction.count >= limit && limit !== 0) {
     if (!reaction.message.pinned) {
       reaction.message.pin();
     }
