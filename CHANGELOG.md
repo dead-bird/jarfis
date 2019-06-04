@@ -1,3 +1,13 @@
+## [0.10.12](https://github.com/dead-bird/jarfis/compare/v0.10.11...v0.10.12) (2019-06-04)
+
+
+### Bug Fixes
+
+* dont pin if threshold is set to 0 ([4bc03cd](https://github.com/dead-bird/jarfis/commit/4bc03cd))
+* stop crashing when reacting to dms ([6941fa2](https://github.com/dead-bird/jarfis/commit/6941fa2))
+
+
+
 ## [0.10.11](https://github.com/dead-bird/jarfis/compare/v0.10.1...v0.10.11) (2019-06-03)
 
 
