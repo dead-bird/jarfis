@@ -120,12 +120,12 @@ client.on('raw', async event => {
 
 // Bot pinning logic
 client.on('messageReactionAdd', (reaction, user) => {
-  if (reaction.emoji.name !== '📌') return false;
-
   let guild = reaction.message.channel.guild;
+  if (reaction.emoji.name !== '📌') return false;
+  if (!guild) return;
+
   let limit = core.server.get(client, guild).pins;
 
-  if (reaction.count >= limit) {
   if (reaction.count >= limit && limit !== 0) {
     if (!reaction.message.pinned) {
       reaction.message.pin();
