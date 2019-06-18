@@ -10,6 +10,7 @@ const client = new Discord.Client({ forceFetchUsers: true });
 const core = require('./core.js');
 const semver = require('semver');
 const Enmap = require('enmap');
+const twitter = require('./twitter.js')
 const env = process.env;
 
 // const app = express();
@@ -189,6 +190,11 @@ function listen(client, msg) {
         .catch(console.error);
     }
     msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
+  } else if (msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm)) {
+    let regEx = /\/status\/(\d+)/gm;
+    let result = regEx.exec(msg.content);
+    let tweetId = result[1];
+    processTweet(msg, tweetId);
   }
 }
 
@@ -234,6 +240,29 @@ function insult() {
 //       [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
 //   return dateTime;
 // }
+
+function processTweet (msg, tweetId) {
+    twitter.get.getTweet(tweetId).then((res) => {
+        if (res && res.extended_entities && res.extended_entities.media) {
+            //Remove any text that might be surronding the twitter link before reposting
+            let message = msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm);
+            let index = 0;
+            res.extended_entities.media.forEach((image, key) => {
+                if (key !== 0) {
+                    message += ' ' + image.media_url_https 
+                    index++
+                }
+            })
+            if (index !== 0) {
+                msg.delete();
+                msg.channel.send(message);
+                console.log(msg.content)
+                let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} - ${(msg.content ? '"' + msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '') + '"' : '')}`;
+                msg.channel.send(additionalMessage);
+            }
+        }
+    });
+}
 
 //       _             _
 //      //             \\
