@@ -162,7 +162,7 @@ let self = (module.exports = {
       list: option => (option ? option : '0'),
     },
     twitter: {
-        name: ':bird:  Twitter Link Intagration',
+        name: ':bird:  Twitter Link Integration',
         desc: 'Choose if jarfis expands tweet links posted that have more than 2 images',
         change(value, callback) {
             let option = false;
