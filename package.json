@@ -1,6 +1,6 @@
 {
   "name": "jarfis",
-  "version": "0.10.12",
+  "version": "0.11.0",
   "description": "a Discord bot that does some things",
   "homepage": "https://github.com/dead-bird/jarfis",
   "contributors": [
@@ -63,7 +63,7 @@
     "leveldown": "^4.0.1",
     "print-pkg-version": "^0.2.1",
     "semver": "^6.1.1",
-    "standard-changelog": "^2.0.7",
+    "standard-changelog": "^2.0.11",
     "twitter": "^1.7.1"
   }
 }
