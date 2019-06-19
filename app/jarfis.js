@@ -256,7 +256,8 @@ function processTweet (msg, tweetId) {
             if (index !== 0) {
                 msg.delete();
                 msg.channel.send(message);
-                let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} - ${(msg.content ? '"' + msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '') + '"' : '')}`;
+                let messageText = msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '')
+                let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} ${(messageText ? ' - "' + messageText + '"' : '')}`;
                 msg.channel.send(additionalMessage);
             }
         }
