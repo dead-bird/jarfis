@@ -56,6 +56,7 @@ let self = (module.exports = {
         announcements: true,
         restart: false,
         pins: 2,
+        twitter: false,
         responses: {
           lenny: {
             response: '( ͡° ͜ʖ ͡°)',

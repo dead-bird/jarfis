@@ -190,7 +190,7 @@ function listen(client, msg) {
         .catch(console.error);
     }
     msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
-  } else if (msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm)) {
+  } else if (msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm) && core.server.get(client, msg.guild).twitter) {
     let regEx = /\/status\/(\d+)/gm;
     let result = regEx.exec(msg.content);
     let tweetId = result[1];
@@ -256,7 +256,6 @@ function processTweet (msg, tweetId) {
             if (index !== 0) {
                 msg.delete();
                 msg.channel.send(message);
-                console.log(msg.content)
                 let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} - ${(msg.content ? '"' + msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '') + '"' : '')}`;
                 msg.channel.send(additionalMessage);
             }
