@@ -102,7 +102,7 @@ let self = (module.exports = {
       change(value, callback) {
         let option = false;
 
-        if (value === true || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
 
         return callback(option);
       },
@@ -126,7 +126,7 @@ let self = (module.exports = {
       change(value, callback) {
         let option = false;
 
-        if (value === true || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
 
         return callback(option);
       },
@@ -138,7 +138,7 @@ let self = (module.exports = {
       change(value, callback) {
         let option = false;
 
-        if (value === true || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
 
         return callback(option);
       },
@@ -161,5 +161,17 @@ let self = (module.exports = {
       },
       list: option => (option ? option : '0'),
     },
+    twitter: {
+        name: ':bird:  Twitter Link Intagration',
+        desc: 'Choose if jarfis expands tweet links posted that have more than 2 images',
+        change(value, callback) {
+            let option = false;
+
+            if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+    
+            return callback(option);
+        },
+        list: option => (option ? 'On' : 'Off'),
+    }
   },
 });
