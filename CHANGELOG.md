@@ -1,3 +1,21 @@
+## [0.11.2](https://github.com/dead-bird/jarfis/compare/v0.11.0...v0.11.2) (2019-07-05)
+
+
+### Features
+
+* embed addtional images from tweets ([7cfa296](https://github.com/dead-bird/jarfis/commit/7cfa296))
+
+
+
+## [0.11.1](https://github.com/dead-bird/jarfis/compare/v0.11.0...v0.11.1) (2019-07-05)
+
+
+### Features
+
+* embed addtional images from tweets ([7cfa296](https://github.com/dead-bird/jarfis/commit/7cfa296))
+
+
+
 # [0.11.0](https://github.com/dead-bird/jarfis/compare/v0.10.12...v0.11.0) (2019-06-19)
 
 
