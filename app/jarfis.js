@@ -247,9 +247,11 @@ function processTweet (msg, tweetId) {
             //Remove any text that might be surronding the twitter link before reposting
             let message = msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm);
             let index = 0;
+            let embed = new Discord.RichEmbed()
             res.extended_entities.media.forEach((image, key) => {
                 if (key !== 0) {
-                    message += ' ' + image.media_url_https 
+                    embed.setImage(image.media_url_https)
+                    msg.channel.send({ embed })
                     index++
                 }
             })
@@ -258,7 +260,9 @@ function processTweet (msg, tweetId) {
                 msg.channel.send(message);
                 let messageText = msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '')
                 let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} ${(messageText ? ' - "' + messageText + '"' : '')}`;
-                msg.channel.send(additionalMessage);
+                setTimeout(() => {
+                    msg.channel.send(additionalMessage);
+                }, 500); 
             }
         }
     });
