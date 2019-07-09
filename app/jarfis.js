@@ -36,6 +36,7 @@ client.on('ready', () => {
   client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
 
   console.log('meme machine is online');
+  insult(true);
 
   if (env.ENV === 'dev') return;
 
@@ -198,48 +199,47 @@ function listen(client, msg) {
   }
 }
 
-function insult() {
-  // haha dead code
-  console.log('insult time :wehehehe:');
-  // let users = client.users.array();
-  // let losers = [];
-  // let minTrig = 10800000; // Triggers between 3 and 6 hours
-  // let maxTrig = 21600000;
-  // let randTime = 0;
-  // let date = new Date();
-  // let insults = fs
-  //   .readFileSync(`${__dirname}/data/insults.txt`)
-  //   .toString()
-  //   .split('\n');
+async function insult(startup) {
+    let dateTime = getDateTime()
+    let minTrig = 10800000; // Triggers between 3 and 6 hours
+    let maxTrig = 21600000;
 
-  // if (date.getDay() > 0 && date.getDay() < 6 && date.getHours() >= 9) {
-  //   for (var i = users.length - 1; i >= 0; i--) {
-  //     if (!users[i].bot && users[i] instanceof Discord.User) {
-  //       losers.push(users[i]);
-  //     }
-  //   }
+    if(!startup){
+        console.log('ello im about to smack a bitch up at ' + dateTime);
+        let res = await core.api.antagonize.get();
+        let insult = res.data.text; 
 
-  //   client.channels
-  //     .get('415900255691866122')
-  //     .send(
-  //       `<@${losers[Math.floor(Math.random() * losers.length)].id}> you ${
-  //         insults[Math.floor(Math.random() * insults.length)]
-  //       }`
-  //     );
-  // }
+        client.guilds.map((guild) => {
+            let currentServer = core.server.get(client, guild);
+            let losers = [];
+            if (currentServer.insults) {
+                guild.members.map((memeber) => {
+                    if (!memeber.user.bot) {
+                        losers.push(memeber.user);
+                    }
+                });
 
-  // randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
-  // setTimeout(insult, randTime);
+                client.channels
+                  .get(currentServer.default)
+                  .send(`${losers[Math.floor(Math.random() * losers.length)]} you ${insult}`);
+            }
+        });
+    }
+
+    let randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig
+    setTimeout(() => {
+        insult(false);
+    }, randTime);
 }
 
-// function getDateTime() {
-//   let date = new Date(),
-//     dateTime =
-//       [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') +
-//       ' ' +
-//       [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
-//   return dateTime;
-// }
+function getDateTime() {
+  let date = new Date(),
+    dateTime =
+      [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') +
+      ' ' +
+      [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+  return dateTime;
+}
 
 function processTweet (msg, tweetId) {
     twitter.get.getTweet(tweetId).then((res) => {
