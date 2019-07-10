@@ -36,9 +36,8 @@ client.on('ready', () => {
   client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
 
   console.log('meme machine is online');
-  insult(true);
 
-  if (env.ENV === 'dev') return;
+//   if (env.ENV === 'dev') return;
 
   client.jarfis.defer.then(() => {
     let { version } = client.jarfis.get('jarfis');
@@ -86,8 +85,8 @@ client.on('ready', () => {
       })
       .catch(console.error);
   });
-
-  // setTimeout(self.insult, 600000);
+  
+  insult(true);
 });
 
 client.on('message', msg => {
@@ -203,7 +202,7 @@ async function insult(startup) {
     let dateTime = getDateTime()
     let minTrig = 10800000; // Triggers between 3 and 6 hours
     let maxTrig = 21600000;
-
+    console.log('thinking up an insult');
     if(!startup){
         console.log('ello im about to smack a bitch up at ' + dateTime);
         
