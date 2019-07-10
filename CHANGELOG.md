@@ -1,3 +1,12 @@
+## [0.11.3](https://github.com/dead-bird/jarfis/compare/v0.11.2...v0.11.3) (2019-07-10)
+
+
+### Features
+
+* jarf about to smack a bitch up ([6c5e28d](https://github.com/dead-bird/jarfis/commit/6c5e28d))
+
+
+
 ## [0.11.2](https://github.com/dead-bird/jarfis/compare/v0.11.0...v0.11.2) (2019-07-05)
 
 
