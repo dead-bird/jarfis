@@ -1,3 +1,14 @@
+## [0.11.4](https://github.com/dead-bird/jarfis/compare/v0.11.2...v0.11.4) (2019-07-10)
+
+
+### Bug Fixes
+
+* one day i'll stop being dumb ([1d59dde](https://github.com/dead-bird/jarfis/commit/1d59dde))
+* remove some logging ([e628793](https://github.com/dead-bird/jarfis/commit/e628793))
+
+
+
+
 ## [0.11.3](https://github.com/dead-bird/jarfis/compare/v0.11.2...v0.11.3) (2019-07-10)
 
 
