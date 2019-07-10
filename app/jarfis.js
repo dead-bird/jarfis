@@ -206,6 +206,7 @@ async function insult(startup) {
 
     if(!startup){
         console.log('ello im about to smack a bitch up at ' + dateTime);
+        
         let res = await core.api.antagonize.get();
         let insult = res.data.text; 
 
