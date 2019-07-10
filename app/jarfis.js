@@ -202,7 +202,7 @@ async function insult(startup) {
     let dateTime = getDateTime()
     let minTrig = 10800000; // Triggers between 3 and 6 hours
     let maxTrig = 21600000;
-    console.log('thinking up an insult');
+
     if(!startup){
         console.log('ello im about to smack a bitch up at ' + dateTime);
         
