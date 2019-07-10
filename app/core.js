@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const env = process.env;
 const pins = require('./resources/pins');
+const axios = require('axios');
 
 let self = (module.exports = {
   // need to put init back in
@@ -149,4 +150,17 @@ let self = (module.exports = {
   },
 
   csit: '440511380160905217',
+
+  api: {
+    antagonize: {
+        get: async () => {
+            return new Promise((resolve, reject) => {
+              axios
+                .get('https://api.antagonize.deadbird.dev/insult')
+                .then(res => resolve(res))
+                .catch(err => reject(err));    
+            });
+        }, 
+    } 
+  }
 });
