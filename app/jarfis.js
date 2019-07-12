@@ -10,7 +10,7 @@ const client = new Discord.Client({ forceFetchUsers: true });
 const core = require('./core.js');
 const semver = require('semver');
 const Enmap = require('enmap');
-const twitter = require('./twitter.js')
+const twitter = require('./twitter.js');
 const env = process.env;
 
 // const app = express();
@@ -35,7 +35,7 @@ client.on('ready', () => {
 
   client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
 
-  console.log('meme machine is online');
+  console.log(`meme machine is online at version ${pkg.version}`);
 
   if (env.ENV === 'dev') return;
 
@@ -85,7 +85,7 @@ client.on('ready', () => {
       })
       .catch(console.error);
   });
-  
+
   insult(true);
 });
 
