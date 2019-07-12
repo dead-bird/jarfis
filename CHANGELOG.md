@@ -1,3 +1,12 @@
+## [0.12.2](https://github.com/dead-bird/jarfis/compare/v0.12.0...v0.12.2) (2019-07-12)
+
+
+### Bug Fixes
+
+* unicode emoji should now work with !cry ([3bfd096](https://github.com/dead-bird/jarfis/commit/3bfd096))
+
+
+
 ## [0.12.1](https://github.com/dead-bird/jarfis/compare/v0.12.0...v0.12.1) (2019-07-12)
 
 
