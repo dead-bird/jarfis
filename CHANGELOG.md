@@ -1,3 +1,13 @@
+## [0.12.21](https://github.com/dead-bird/jarfis/compare/v0.12.0...v0.12.21) (2019-07-12)
+
+
+### Bug Fixes
+
+* Stop global rate limiting (temp change apcry to use subdomain) ([1b6f350](https://github.com/dead-bird/jarfis/commit/1b6f350))
+* unicode emoji should now work with !cry ([3bfd096](https://github.com/dead-bird/jarfis/commit/3bfd096))
+
+
+
 ## [0.12.2](https://github.com/dead-bird/jarfis/compare/v0.12.0...v0.12.2) (2019-07-12)
 
 
