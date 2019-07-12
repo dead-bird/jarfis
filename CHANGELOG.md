@@ -1,3 +1,20 @@
+# [0.12.0](https://github.com/dead-bird/jarfis/compare/v0.11.2...v0.12.0) (2019-07-12)
+
+
+### Bug Fixes
+
+* one day i'll stop being dumb ([1d59dde](https://github.com/dead-bird/jarfis/commit/1d59dde))
+* remove some logging ([e628793](https://github.com/dead-bird/jarfis/commit/e628793))
+
+
+### Features
+
+* add core func + regex to escape MD chars ([602ab26](https://github.com/dead-bird/jarfis/commit/602ab26))
+* cry command using APCry ([3e7c16c](https://github.com/dead-bird/jarfis/commit/3e7c16c))
+* jarf about to smack a bitch up ([6c5e28d](https://github.com/dead-bird/jarfis/commit/6c5e28d))
+
+
+
 ## [0.11.4](https://github.com/dead-bird/jarfis/compare/v0.11.2...v0.11.4) (2019-07-10)
 
 
