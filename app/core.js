@@ -153,14 +153,14 @@ let self = (module.exports = {
 
   api: {
     antagonize: {
-        get: async () => {
-            return new Promise((resolve, reject) => {
-              axios
-                .get('https://api.antagonize.deadbird.dev/insult')
-                .then(res => resolve(res))
-                .catch(err => reject(err));    
-            });
-        }, 
-    } 
-  }
+      get: async () => {
+        return new Promise((resolve, reject) => {
+          axios
+            .get('https://api.antagonize.deadbird.dev/insult')
+            .then(res => resolve(res))
+            .catch(err => reject(err));
+        });
+      },
+    },
+  },
 });
