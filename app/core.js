@@ -142,11 +142,15 @@ let self = (module.exports = {
         });
       },
     },
+    escape: (m = '') => {
+      return m.replace(self.regex.mdChars, '\\$1');
+    },
   },
 
   regex: {
     emote: /(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi,
     userId: /<@!?(\d*)>/g,
+    mdChars: /([`\|~_\*])/g,
   },
 
   csit: '440511380160905217',
