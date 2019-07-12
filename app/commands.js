@@ -753,7 +753,7 @@ let self = (module.exports = {
         .catch(console.error);
 
       axios
-        .get(`https://apcry.deadbird.dev/api/${encodeURI(str)}`)
+        .get(`https://api.apcry.deadbird.dev/${encodeURI(str)}`)
         .then(res => {
           if (res.data.status === 200) {
             msg.channel
