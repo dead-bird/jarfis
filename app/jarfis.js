@@ -33,8 +33,11 @@ client.on('ready', () => {
   client.losers = new Enmap({ provider: new Level({ name: 'losers' }) });
   client.jarfis = new Enmap({ provider: new Level({ name: 'jarfis' }) });
 
-  client.user.setPresence({ game: { name: `in ${env.LOC}`, type: 0 } });
-  if(!semver.valid(pkg.version)) throw `Listen here pal ${pkg.version} isnt a valid version number`;
+  client.user.setPresence({
+    game: { name: `in ${env.LOC} @ ${pkg.version}`, type: 0 },
+  });
+  if (!semver.valid(pkg.version))
+    throw `Listen here pal ${pkg.version} isnt a valid version number`;
 
   console.log(`meme machine is online at version ${pkg.version}`);
 
