@@ -76,10 +76,11 @@ client.on('ready', () => {
 
               const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance `;
               const dab = '<:dab:355643174628229120>';
+              const vers = `\n \`${pkg.version}\``;
 
               client.channels
                 .get(s.default)
-                .send(whattup + dab + markdown)
+                .send(whattup + dab + vers + markdown)
                 .catch(console.error);
             });
           });
