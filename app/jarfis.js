@@ -195,7 +195,10 @@ function listen(client, msg) {
         .catch(console.error);
     }
     msg.channel.send(guild.responses[msg.content.toLowerCase()].response);
-  } else if (msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm) && core.server.get(client, msg.guild).twitter) {
+  } else if (
+    msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm) &&
+    core.server.get(client, msg.guild).twitter
+  ) {
     let regEx = /\/status\/(\d+)/gm;
     let result = regEx.exec(msg.content);
     let tweetId = result[1];
@@ -204,37 +207,39 @@ function listen(client, msg) {
 }
 
 async function insult(startup) {
-    let dateTime = getDateTime()
-    let minTrig = 10800000; // Triggers between 3 and 6 hours
-    let maxTrig = 21600000;
+  let dateTime = getDateTime();
+  let minTrig = 10800000; // Triggers between 3 and 6 hours
+  let maxTrig = 21600000;
 
-    if(!startup){
-        console.log('ello im about to smack a bitch up at ' + dateTime);
-        
-        let res = await core.api.antagonize.get();
-        let insult = res.data.text; 
+  if (!startup) {
+    console.log('ello im about to smack a bitch up at ' + dateTime);
 
-        client.guilds.map((guild) => {
-            let currentServer = core.server.get(client, guild);
-            let losers = [];
-            if (currentServer.insults) {
-                guild.members.map((memeber) => {
-                    if (!memeber.user.bot) {
-                        losers.push(memeber.user);
-                    }
-                });
+    let res = await core.api.antagonize.get();
+    let insult = res.data.text;
 
-                client.channels
-                  .get(currentServer.default)
-                  .send(`${losers[Math.floor(Math.random() * losers.length)]} you ${insult}`);
-            }
+    client.guilds.map(guild => {
+      let currentServer = core.server.get(client, guild);
+      let losers = [];
+      if (currentServer.insults) {
+        guild.members.map(memeber => {
+          if (!memeber.user.bot) {
+            losers.push(memeber.user);
+          }
         });
-    }
 
-    let randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig
-    setTimeout(() => {
-        insult(false);
-    }, randTime);
+        client.channels
+          .get(currentServer.default)
+          .send(
+            `${losers[Math.floor(Math.random() * losers.length)]} you ${insult}`
+          );
+      }
+    });
+  }
+
+  let randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
+  setTimeout(() => {
+    insult(false);
+  }, randTime);
 }
 
 function getDateTime() {
@@ -246,31 +251,36 @@ function getDateTime() {
   return dateTime;
 }
 
-function processTweet (msg, tweetId) {
-    twitter.get.getTweet(tweetId).then((res) => {
-        if (res && res.extended_entities && res.extended_entities.media) {
-            //Remove any text that might be surronding the twitter link before reposting
-            let message = msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm);
-            let index = 0;
-            let embed = new Discord.RichEmbed()
-            res.extended_entities.media.forEach((image, key) => {
-                if (key !== 0) {
-                    embed.setImage(image.media_url_https)
-                    msg.channel.send({ embed })
-                    index++
-                }
-            })
-            if (index !== 0) {
-                msg.delete();
-                msg.channel.send(message);
-                let messageText = msg.content.replace(/https:\/\/twitter.com.+\/status\/\d+/gmi, '')
-                let additionalMessage = `${index} additional image${index > 1 ? 's' : ''} ⚠ ${msg.author} ${(messageText ? ' - "' + messageText + '"' : '')}`;
-                setTimeout(() => {
-                    msg.channel.send(additionalMessage);
-                }, 500); 
-            }
+function processTweet(msg, tweetId) {
+  twitter.get.getTweet(tweetId).then(res => {
+    if (res && res.extended_entities && res.extended_entities.media) {
+      //Remove any text that might be surronding the twitter link before reposting
+      let message = msg.content.match(/https:\/\/twitter.com.+\/status\/\d+/gm);
+      let index = 0;
+      let embed = new Discord.RichEmbed();
+      res.extended_entities.media.forEach((image, key) => {
+        if (key !== 0) {
+          embed.setImage(image.media_url_https);
+          msg.channel.send({ embed });
+          index++;
         }
-    });
+      });
+      if (index !== 0) {
+        msg.delete();
+        msg.channel.send(message);
+        let messageText = msg.content.replace(
+          /https:\/\/twitter.com.+\/status\/\d+/gim,
+          ''
+        );
+        let additionalMessage = `${index} additional image${
+          index > 1 ? 's' : ''
+        } ⚠ ${msg.author} ${messageText ? ' - "' + messageText + '"' : ''}`;
+        setTimeout(() => {
+          msg.channel.send(additionalMessage);
+        }, 500);
+      }
+    }
+  });
 }
 
 //       _             _
