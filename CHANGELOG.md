@@ -1,3 +1,13 @@
+## [0.12.4](https://github.com/dead-bird/jarfis/compare/v0.12.3...v0.12.4) (2019-07-19)
+
+
+### Features
+
+* add current version to presence ([2279187](https://github.com/dead-bird/jarfis/commit/2279187))
+* add version to boot message ([59391a1](https://github.com/dead-bird/jarfis/commit/59391a1))
+
+
+
 ## [0.12.3](https://github.com/dead-bird/jarfis/compare/v0.12.21...v0.12.3) (2019-07-19)
 
 
