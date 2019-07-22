@@ -1,3 +1,12 @@
+## [0.12.5](https://github.com/dead-bird/jarfis/compare/v0.12.4...v0.12.5) (2019-07-22)
+
+
+### Bug Fixes
+
+* trim query string from being reposted from the twitter integration ([6de53dc](https://github.com/dead-bird/jarfis/commit/6de53dc))
+
+
+
 ## [0.12.4](https://github.com/dead-bird/jarfis/compare/v0.12.3...v0.12.4) (2019-07-19)
 
 
