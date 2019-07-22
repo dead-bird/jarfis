@@ -269,7 +269,7 @@ function processTweet(msg, tweetId) {
         msg.delete();
         msg.channel.send(message);
         let messageText = msg.content.replace(
-          /https:\/\/twitter.com.+\/status\/\d+/gim,
+          /https:\/\/twitter.com.+\/status\/\d+(\?\S+|)/gim,
           ''
         );
         let additionalMessage = `${index} additional image${
