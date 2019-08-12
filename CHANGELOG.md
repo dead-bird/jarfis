@@ -1,3 +1,12 @@
+## [0.12.6](https://github.com/dead-bird/jarfis/compare/v0.12.5...v0.12.6) (2019-08-12)
+
+
+### Bug Fixes
+
+* changelog hopefully 🤞 ([20963a6](https://github.com/dead-bird/jarfis/commit/20963a6))
+
+
+
 ## [0.12.5](https://github.com/dead-bird/jarfis/compare/v0.12.4...v0.12.5) (2019-07-22)
 
 
