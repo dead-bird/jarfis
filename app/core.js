@@ -1,13 +1,11 @@
-require('dotenv').config({ path: '.env' });
+require('dotenv').config({path: '.env'});
 
-const Discord = require('discord.js');
-const fs = require('fs');
 const env = process.env;
 const pins = require('./resources/pins');
 const axios = require('axios');
 
 let self = (module.exports = {
-  // need to put init back in
+  // Need to put init back in
 
   user: {
     // Grab ID from message @user
@@ -17,15 +15,15 @@ let self = (module.exports = {
       return client.losers.get(id) || self.user.new(client, id);
     },
     set() {
-      // will probably use
+      // Will probably use
     },
     new(client, id) {
-      let user = { banned: false };
+      let user = {banned: false};
 
       client.losers.set(id, user);
 
       return user;
-    },
+    }
   },
 
   server: {
@@ -39,7 +37,7 @@ let self = (module.exports = {
       return client.servers.set(id, options);
     },
     new(client, guild, callback = false) {
-      //I feel like new() should be in set() if nothing is passed maybe?
+      // I feel like new() should be in set() if nothing is passed maybe?
       if (!guild) return;
 
       let options = self.server.default(client, guild);
@@ -62,14 +60,14 @@ let self = (module.exports = {
           lenny: {
             response: '( ͡° ͜ʖ ͡°)',
             author: client.user.id,
-            destruct: false,
-          },
-        },
+            destruct: false
+          }
+        }
       };
-    },
+    }
   },
 
-  // channels
+  // Channels
   newPin(channel, client) {
     let announce = true;
 
@@ -116,7 +114,7 @@ let self = (module.exports = {
     perms(msg) {
       self.err.reply(
         msg,
-        "that's a big 7k **oof** my dude, you don't have permission to do that"
+        `that's a big 7k **oof** my dude, you don't have permission to do that`
       );
     },
     reply(msg, text) {
@@ -125,11 +123,11 @@ let self = (module.exports = {
           `oh my christ if it's fucked up here lord help us:\n ${error}`
         );
       });
-    },
+    }
   },
 
   roles: {
-    daddy: id => env.OWNERS.split(', ').includes(id),
+    daddy: id => env.OWNERS.split(', ').includes(id)
   },
 
   msg: {
@@ -140,17 +138,17 @@ let self = (module.exports = {
         return m.replace(self.regex.userId, (match, capture) => {
           return `@${client.users.get(capture.toString()).username || ''}`;
         });
-      },
+      }
     },
     escape: (m = '') => {
       return m.replace(self.regex.mdChars, '\\$1');
-    },
+    }
   },
 
   regex: {
     emote: /(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi,
     userId: /<@!?(\d*)>/g,
-    mdChars: /([`\|~_\*])/g,
+    mdChars: /([`\|~_\*])/g
   },
 
   csit: '440511380160905217',
@@ -164,7 +162,7 @@ let self = (module.exports = {
             .then(res => resolve(res))
             .catch(err => reject(err));
         });
-      },
-    },
-  },
+      }
+    }
+  }
 });

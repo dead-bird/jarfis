@@ -21,19 +21,21 @@ let self = (module.exports = {
       );
 
     for (let setting in self.config) {
-      embed.addField(
-        '\u200B',
-        `**${self.config[setting].name}** - [${setting}] - ${self.config[
-          setting
-        ].list(options[setting])}`
-      );
+      if (setting) {
+        embed.addField(
+          '\u200B',
+          `**${self.config[setting].name}** - [${setting}] - ${self.config[
+            setting
+          ].list(options[setting])}`
+        );
+      }
     }
 
     msg
       .delete()
       .then()
       .catch(console.error);
-    msg.channel.send({ embed });
+    msg.channel.send({embed});
   },
 
   change(client, msg, setting, value) {
@@ -61,7 +63,7 @@ let self = (module.exports = {
   reset(client, msg) {
     if (!core.roles.daddy(msg.author.id)) return core.err.perms(msg);
 
-    core.server.new(client, msg.guild, server => {
+    core.server.new(client, msg.guild, () => {
       msg.reply(`I've reset your shit`).catch(err => core.err.dead(msg, err));
     });
   },
@@ -88,13 +90,12 @@ let self = (module.exports = {
   config: {
     prefix: {
       name: ':exclamation: Prefix (currently disabled)',
-      //   desc: 'Set the prefix that Jarfis responds to. (defaults to !)',
+      // desc: 'Set the prefix that Jarfis responds to. (defaults to !)',
       // change: (value, callback) => callback(value),
       change: () => {
-        //temp killed because changing prefix breaks the bot :jiy:
+        // Temp killed because changing prefix breaks the bot :jiy:
       },
-      list: option => option,
-      //   list: option => option,
+      list: option => option
     },
     insults: {
       name: ':broken_heart:  Random Insults',
@@ -106,19 +107,19 @@ let self = (module.exports = {
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off'),
+      list: option => (option ? 'On' : 'Off')
     },
     active: {
       name: ':clock4:  Active Hours',
       desc: 'Set the active hours for random insults',
       change: (value, callback) => callback(value),
-      list: option => option,
+      list: option => option
     },
     default: {
       name: ':speech_balloon:  Default Channel',
       desc: 'Set the default channel that Jarfis responds in',
       change: (id, callback) => callback(id.replace(/<#(\d*)>/g, '$1')), // <#id> -> id
-      list: id => `<#${id}>`,
+      list: id => `<#${id}>`
     },
     announcements: {
       name: ':round_pushpin:  Pin Announcements',
@@ -130,7 +131,7 @@ let self = (module.exports = {
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off'),
+      list: option => (option ? 'On' : 'Off')
     },
     restart: {
       name: ':construction:  Restart Message',
@@ -142,7 +143,7 @@ let self = (module.exports = {
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off'),
+      list: option => (option ? 'On' : 'Off')
     },
     pins: {
       name: ':pushpin:  Bot Pinning Limit',
@@ -159,19 +160,19 @@ let self = (module.exports = {
 
         return callback(option);
       },
-      list: option => (option ? option : '0'),
+      list: option => (option ? option : '0')
     },
     twitter: {
-        name: ':bird:  Twitter Link Integration',
-        desc: 'Choose if jarfis expands tweet links posted that have more than 2 images',
-        change(value, callback) {
-            let option = false;
+      name: ':bird:  Twitter Link Integration',
+      desc: 'Choose if jarfis expands tweet links posted that have more than 2 images',
+      change(value, callback) {
+        let option = false;
 
-            if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
-    
-            return callback(option);
-        },
-        list: option => (option ? 'On' : 'Off'),
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+
+        return callback(option);
+      },
+      list: option => (option ? 'On' : 'Off')
     }
-  },
+  }
 });

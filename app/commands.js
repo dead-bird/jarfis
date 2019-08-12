@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env' });
+require('dotenv').config({path: '.env'});
 
 const settings = require('./settings.js');
 const Discord = require('discord.js');
@@ -13,11 +13,11 @@ let self = (module.exports = {
     // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     execute: (client, msg) => {
-      // array to split long message into batches
+      // Array to split long message into batches
       let splitMsgs = [];
       let generatedMsg = '';
 
-      // markup to look pretty
+      // Markup to look pretty
       let muStart = '```asciidoc\n';
       let muEnd = '```';
 
@@ -34,12 +34,12 @@ let self = (module.exports = {
           if (module.exports[cmd].args) {
             args = `= ${module.exports[cmd].args}\n`;
           }
-          // build message content with markup
+          // Build message content with markup
           cmdstr = `!${cmd} :: ${module.exports[cmd].desc}\n${args}\n`;
           generatedMsg += cmdstr;
         }
       }
-      // push final message to array post splitting
+      // Push final message to array post splitting
       splitMsgs.push(generatedMsg);
 
       helpOutro =
@@ -50,7 +50,7 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
 
-      // new issue when this array gets to 4 as api limiting :)
+      // New issue when this array gets to 4 as api limiting :)
       splitMsgs.forEach(generatedMsg => {
         str = muStart + generatedMsg + muEnd;
         msg.author.send(str);
@@ -66,14 +66,14 @@ let self = (module.exports = {
           msg.delete(5000);
         })
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   settings: {
     desc: 'List/Change current settings for the bot.',
     args: '[change] [settingName] [value]',
     execute: (client, msg, args) => {
       settings.execute(client, msg, args);
-    },
+    }
   },
   r: {
     desc: 'Rates a meme.',
@@ -84,7 +84,7 @@ let self = (module.exports = {
       let rate = Math.floor(args[0]);
 
       if (!self.r.valid(rate))
-        return msg.reply("gimme dat fatty number between 0-5 ya'dig"); // add to error handler
+        return msg.reply(`gimme dat fatty number between 0-5 ya'dig`); // Add to error handler
 
       msg
         .delete()
@@ -93,10 +93,10 @@ let self = (module.exports = {
 
       msg.channel
         .send(msg.member.nickname || msg.author.username, {
-          file: `app/resources/responses/rate/${rate}.png`,
+          file: `app/resources/responses/rate/${rate}.png`
         })
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   reset: {
     desc: 'Resets the name of the bot.',
@@ -110,7 +110,7 @@ let self = (module.exports = {
           );
         })
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   flip: {
     desc: 'Flip a coin. Can also use custom emotes the bot can access',
@@ -120,14 +120,14 @@ let self = (module.exports = {
       if (!args || args.length < 2) {
         useCustom = false;
       }
-      //Default flips
+      // Default flips
       let heads = 'https://i.gyazo.com/e380b49fc9e2b8b86571975f7df01d52.gif';
       let tails = 'https://i.gyazo.com/8697b5c1f85e43ec9580bc59727c5fcc.gif';
       let headExt = 'png';
       let tailExt = 'png';
 
       if (useCustom) {
-        let headEmote = args[0].match(/:.+:((\d+){10,})>/); //if 2 args and match emote format
+        let headEmote = args[0].match(/:.+:((\d+){10,})>/); // If 2 args and match emote format
         let tailEmote = args[1].match(/:.+:((\d+){10,})>/);
 
         if (args[0].substring(1, 2) === 'a') {
@@ -156,8 +156,8 @@ let self = (module.exports = {
         .setImage(res === 'heads' ? heads : tails)
         .addBlankField(true);
 
-      msg.channel.send({ embed });
-    },
+      msg.channel.send({embed});
+    }
   },
   rc: {
     desc: 'RaNCApS YOUR TeXt.',
@@ -182,7 +182,7 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   clear: {
     desc: 'Hide the edge.',
@@ -195,7 +195,7 @@ let self = (module.exports = {
       msg.channel.send(
         '.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n+--------+\n+**CLEAR**+\n+--------+'
       );
-    },
+    }
   },
   think: {
     desc: 'Shows a random thinking emoji',
@@ -215,14 +215,14 @@ let self = (module.exports = {
             .catch(console.error);
 
           msg.channel
-            .send({ file: selection })
+            .send({file: selection})
             .catch(err => core.err.dead(msg, err));
         }
       });
-    },
+    }
   },
   echo: {
-    desc: "Speak on Jarfis' behalf.",
+    desc: `Speak on Jarfis' behalf.`,
     args: '<string>',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
@@ -233,7 +233,7 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(args.join(' ')).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
 
   // Bans
@@ -258,7 +258,7 @@ let self = (module.exports = {
           reply = '**Nuaghty Bois 🤪**\n\n';
 
           banned.forEach(ban => {
-            reply = reply + `- ${ban}\n`;
+            reply += `- ${ban}\n`;
           });
         }
 
@@ -289,7 +289,7 @@ let self = (module.exports = {
     },
   },
   unban: {
-    desc: "For when you've had enough :dsd: for one day",
+    desc: `For when you've had enough :dsd: for one day`,
     args: '@user',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
@@ -306,7 +306,7 @@ let self = (module.exports = {
       msg.channel
         .send(`<@${id}> is now unbanned`)
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
 
   // Responses
@@ -338,7 +338,7 @@ let self = (module.exports = {
       server.responses[trigger] = {
         response: response,
         author: msg.author.id,
-        destruct: selfDestruct,
+        destruct: selfDestruct
       };
 
       core.server.set(client, msg.guild.id, server);
@@ -351,7 +351,7 @@ let self = (module.exports = {
       msg.channel.send("*I'll remember that*").then(msg => {
         msg.delete(3000).catch(err => core.err.dead(msg, err));
       });
-    },
+    }
   },
   remove: {
     desc: 'Delete a trigger and response from the bot',
@@ -370,7 +370,7 @@ let self = (module.exports = {
 
       if (!server.responses[trigger])
         return msg.channel
-          .send("couldn't find that trigger, maybe learn to spell?")
+          .send(`couldn't find that trigger, maybe learn to spell?`)
           .catch(err => core.err.dead(msg, err));
 
       delete server.responses[trigger];
@@ -385,14 +385,14 @@ let self = (module.exports = {
       msg.channel
         .send(`I've removed \`${trigger}\` from your responses`)
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   responses: {
     desc: 'List all the triggers and responses written to the bot',
     execute: (client, msg) => {
       let guild = core.server.get(client, msg.guild);
 
-      // markup to look pretty
+      // Markup to look pretty
       let muStart = '```diff\n';
       let muEnd = '```';
 
@@ -401,13 +401,13 @@ let self = (module.exports = {
       let generatedMsg = '';
 
       for (let res in guild.responses) {
-        if (!guild.responses.hasOwnProperty(res)) break;
+        if (res && !guild.responses.hasOwnProperty(res)) break;
 
         let trigger = guild.responses[res];
         let author = '';
         let destruct = guild.responses[res].destruct;
 
-        // fallback for old style responses without author
+        // Fallback for old style responses without author
         if (trigger.author) {
           const user = client.users.get(trigger.author) || {};
           author = user.username || '';
@@ -432,7 +432,7 @@ let self = (module.exports = {
           trigger: core.msg.replace.emotes(res),
           response,
           author,
-          destruct,
+          destruct
         });
       }
 
@@ -484,7 +484,7 @@ let self = (module.exports = {
           msg.delete(3000);
         })
         .catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   clap: {
     desc: '👏get👏your👏point👏across👏',
@@ -495,9 +495,9 @@ let self = (module.exports = {
       let spacer = '👏';
       let escape = false;
 
-      // start at fucky loop index to ignore message arg
+      // Start at fucky loop index to ignore message arg
       for (let i = 1; i < args.length; i++) {
-        // not sure best way to do this logic D:
+        // Not sure best way to do this logic D:
         if (args[i] === 'raw') {
           escape = true;
         } else {
@@ -522,7 +522,7 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   banner: {
     desc: 'Turn your text into 🇪 🇲 🇴 🇯 🇮',
@@ -560,16 +560,16 @@ let self = (module.exports = {
         x: '🇽',
         y: '🇾',
         z: '🇿',
-        '1': '1⃣',
-        '2': '2⃣',
-        '3': '3⃣',
-        '4': '4⃣',
-        '5': '5⃣',
-        '6': '6⃣',
-        '7': '7⃣',
-        '8': '8⃣',
-        '9': '9⃣',
-        '0': '0⃣',
+        1: '1⃣',
+        2: '2⃣',
+        3: '3⃣',
+        4: '4⃣',
+        5: '5⃣',
+        6: '6⃣',
+        7: '7⃣',
+        8: '8⃣',
+        9: '9⃣',
+        0: '0⃣'
       };
 
       if (args[1]) {
@@ -580,13 +580,13 @@ let self = (module.exports = {
         if (chars[letter]) {
           reply += `${escape + chars[letter]} `;
         } else {
-          reply += ' '; // idk how to not get undefined putting this as char || ''
+          reply += ' '; // Idk how to not get undefined putting this as char || ''
         }
       });
 
       msg.delete().catch(console.error);
       msg.channel.send(reply).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   spam: {
     desc: 'spam',
@@ -598,7 +598,7 @@ let self = (module.exports = {
       for (i = 0; i < 5; i++) {
         msg.channel.send(args.join(' ')).catch(err => core.err.dead(msg, err));
       }
-    },
+    }
   },
   drake: {
     desc: 'Generate a dank memay with emoji',
@@ -616,11 +616,11 @@ let self = (module.exports = {
           .catch(err => core.err.dead(msg, err));
       }
 
-      let meme = `<:drakeno:420253513239494657> ${text1} \n<:drakeyes:420253514116104198> ${text2}`; // ids need to change if emoji deleted from csit++
+      let meme = `<:drakeno:420253513239494657> ${text1} \n<:drakeyes:420253514116104198> ${text2}`; // Ids need to change if emoji deleted from csit++
 
       msg.channel.send(meme).catch(err => core.err.dead(msg, err));
       msg.delete().catch(console.error);
-    },
+    }
   },
   insult: {
     desc: 'Make someone cry',
@@ -638,7 +638,7 @@ let self = (module.exports = {
         .get('https://api.antagonize.deadbird.dev/insult')
         .then(res => msg.channel.send(`${user} you ${res.data.text}`))
         .catch(e => console.error(e));
-    },
+    }
   },
   heist: {
     desc: 'This is a frickin stickup 🔫',
@@ -667,7 +667,7 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(heistMsg).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   oob: {
     desc: 'oobify yooboobr toobxt',
@@ -683,11 +683,11 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   pins: {
-    desc: "Check that dyl isn't making Jarfis lie again",
-    execute: (client, msg) => core.announcePins(msg.channel),
+    desc: `Check that dyl isn't making Jarfis lie again`,
+    execute: (client, msg) => core.announcePins(msg.channel)
   },
   ss: {
     desc: 'superspoiler your shit',
@@ -698,7 +698,7 @@ let self = (module.exports = {
       let str = `||${args[0]}||`.replace(/ /gi, '|| ||');
 
       for (let i = 1; i < args.length; i++) {
-        //Not forEach to skip the first arg??
+        // Not forEach to skip the first arg??
         arg = args[i];
         switch (arg) {
           case 'raw':
@@ -718,14 +718,14 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(str).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   swap: {
     desc: 'substitute text',
     args: 'string | find | replace',
     execute: (client, msg, args) => {
       if (!args || args.length < 3) return core.err.empty(msg);
-      // escape regex chars
+      // Escape regex chars
       args[1] = args[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       let re = new RegExp(args[1], 'g');
 
@@ -736,7 +736,7 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
       msg.channel.send(reply).catch(err => core.err.dead(msg, err));
-    },
+    }
   },
   cry: {
     desc: 'cry-ify you,,r texxytt withh a.,pcry',
@@ -744,7 +744,7 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
-      // strip emote spam for now until we have better func in place
+      // Strip emote spam for now until we have better func in place
       str = core.msg.replace.emotes(args[0]);
 
       msg
@@ -757,14 +757,14 @@ let self = (module.exports = {
         .then(res => {
           if (res.data.status === 200) {
             msg.channel
-              // escape MD chars
+              // Escape MD chars
               .send(core.msg.escape(res.data.tears))
               .catch(err => core.err.dead(msg, err));
           }
         })
         .catch(e => console.error(e));
-    },
-  },
+    }
+  }
 });
 
 //                                              ____________

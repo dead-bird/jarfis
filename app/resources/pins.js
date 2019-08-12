@@ -48,5 +48,5 @@ module.exports = [
   'getting a little cramped my dudes',
   'getting a little cramped my dudes',
   'getting a little cramped my dudes',
-  "we've hit maximum bants",
+  `we've hit maximum bants`
 ];
