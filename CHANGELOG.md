@@ -1,3 +1,7 @@
+## [0.12.8](https://github.com/dead-bird/jarfis/compare/v0.12.7...v0.12.8) (2019-08-19)
+
+
+
 ## [0.12.7](https://github.com/dead-bird/jarfis/compare/v0.12.6...v0.12.7) (2019-08-12)
 
 
