@@ -207,27 +207,35 @@ async function insult(startup) {
 
   if (!startup) {
     console.log('ello im about to smack a bitch up at ' + dateTime);
+    try {
+      let res = await core.api.antagonize.get();
+      let insult = res.data.text;
 
-    let res = await core.api.antagonize.get();
-    let insult = res.data.text;
-
-    client.guilds.map(guild => {
-      let currentServer = core.server.get(client, guild);
-      let losers = [];
-      if (currentServer.insults) {
-        guild.members.map(memeber => {
-          if (!memeber.user.bot) {
-            losers.push(memeber.user);
-          }
-        });
+      client.guilds.map(guild => {
+        let currentServer = core.server.get(client, guild);
+        let losers = [];
+        if (currentServer.insults) {
+          guild.members.map(memeber => {
+            if (!memeber.user.bot) {
+              losers.push(memeber.user);
+            }
+          });
 
         client.channels
           .get(currentServer.default)
           .send(
             `${losers[Math.floor(Math.random() * losers.length)]} you ${insult}`
-          );
+          )
+          .catch((err) => {
+            console.log(err);
+          });
       }
+    }).catch((err) => {
+      console.log(err);
     });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   let randTime = Math.floor(Math.random() * (maxTrig - minTrig)) + minTrig;
