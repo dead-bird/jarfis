@@ -1,3 +1,17 @@
+# [0.13.0](https://github.com/dead-bird/jarfis/compare/v0.12.5...v0.13.0) (2019-08-21)
+
+
+### Bug Fixes
+
+* changelog hopefully 🤞 ([20963a6](https://github.com/dead-bird/jarfis/commit/20963a6))
+
+
+### Features
+
+* Added `penis` command to fully rip off [@emoji](https://github.com/emoji)_penis on the fly ([b2b56a0](https://github.com/dead-bird/jarfis/commit/b2b56a0))
+
+
+
 ## [0.12.8](https://github.com/dead-bird/jarfis/compare/v0.12.7...v0.12.8) (2019-08-19)
 
 
