@@ -772,6 +772,11 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
 
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
       msg.channel
         .send(penis.replace(/\<penis\>/gm, args[0]))
         .catch(err => core.err.dead(msg, err));
