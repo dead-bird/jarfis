@@ -1,3 +1,12 @@
+## [0.13.1](https://github.com/dead-bird/jarfis/compare/v0.13.0...v0.13.1) (2019-08-21)
+
+
+### Bug Fixes
+
+* auto delete user input when using penis command ([d3768d2](https://github.com/dead-bird/jarfis/commit/d3768d2))
+
+
+
 # [0.13.0](https://github.com/dead-bird/jarfis/compare/v0.12.5...v0.13.0) (2019-08-21)
 
 ### Bug Fixes
