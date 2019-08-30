@@ -1,6 +1,7 @@
 require('dotenv').config({ path: '.env' });
 
 const penis = require('./resources/penis');
+const space = require('./resources/space');
 const settings = require('./settings.js');
 const Discord = require('discord.js');
 const core = require('./core.js');
@@ -193,9 +194,7 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
 
-      msg.channel.send(
-        '.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n+--------+\n+**CLEAR**+\n+--------+'
-      );
+      msg.channel.send(space);
     },
   },
   think: {
