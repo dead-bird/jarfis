@@ -1,3 +1,12 @@
+## [0.13.2](https://github.com/dead-bird/jarfis/compare/v0.13.1...v0.13.2) (2019-08-30)
+
+
+### Features
+
+* prettier !clear command ([c56dab6](https://github.com/dead-bird/jarfis/commit/c56dab6))
+
+
+
 ## [0.13.1](https://github.com/dead-bird/jarfis/compare/v0.13.0...v0.13.1) (2019-08-21)
 
 

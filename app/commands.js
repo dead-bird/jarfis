@@ -60,9 +60,7 @@ let self = (module.exports = {
       msg.author.send(helpOutro);
       msg.channel
         .send(
-          `${
-            msg.author.username
-          }, peep your dm's chief. I've told you how you can use me uwu 😛`
+          `${msg.author.username}, peep your dm's chief. I've told you how you can use me uwu 😛`
         )
         .then(msg => {
           msg.delete(5000);
@@ -471,9 +469,7 @@ let self = (module.exports = {
       });
 
       msg.author.send(
-        `\`Above are all of the responses I have for ${
-          msg.guild.name
-        } :) red ones delete the trigger when invoked whilst green ones persist. \``
+        `\`Above are all of the responses I have for ${msg.guild.name} :) red ones delete the trigger when invoked whilst green ones persist. \``
       );
 
       msg.channel
@@ -594,10 +590,19 @@ let self = (module.exports = {
     execute: (client, msg, args) => {
       msg.delete().catch(console.error);
       if (!args) return core.err.empty(msg);
+      let reps = 5;
 
-      for (i = 0; i < 5; i++) {
-        msg.channel.send(args.join(' ')).catch(err => core.err.dead(msg, err));
+      str = args.join(' ') + '\n';
+      str = str.repeat(reps);
+
+      if (str.length > 2000 / reps) {
+        return msg.channel
+          .send('***yoinkz*** thats a bit *too* much text to spam there pal')
+          .catch(err => core.err.dead(msg, err));
       }
+
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
+      msg.channel.send(str).catch(err => core.err.dead(msg, err));
     },
   },
   drake: {
