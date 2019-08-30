@@ -52,7 +52,7 @@
   "repository": "https://github.com/dead-bird/jarfis.git",
   "license": "unlicense",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "changelog-parser": "^2.7.0",
     "discord.js": "^11.4.2",
     "dotenv": "^4.0.0",
