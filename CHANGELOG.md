@@ -1,3 +1,17 @@
+## [0.14.2](https://github.com/dead-bird/jarfis/compare/v0.14.1...v0.14.2) (2019-09-11)
+
+
+### Bug Fixes
+
+* !np error handling ([52aa0a1](https://github.com/dead-bird/jarfis/commit/52aa0a1))
+
+
+### Features
+
+* !np now supports passing a user into it ([2068421](https://github.com/dead-bird/jarfis/commit/2068421))
+
+
+
 ## [0.14.1](https://github.com/dead-bird/jarfis/compare/v0.14.0...v0.14.1) (2019-09-11)
 
 
