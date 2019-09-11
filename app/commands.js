@@ -788,9 +788,16 @@ let self = (module.exports = {
   },
   np: {
     desc: 'Shows your now playing if available',
-    execute: (client, msg) => {
-      let presence = msg.author.presence.game || '',
-        user = msg.member.nickname || msg.author.username;
+    execute: async (client, msg, args) => {
+      let author = msg.author;
+      if (args && args[0]) {
+        author = await client.fetchUser(
+          args[0].replace(core.regex.userId, '$1')
+        );
+      }
+
+      let presence = author.presence ? author.presence.game : '',
+        user = author.username;
 
       msg
         .delete()
@@ -803,7 +810,7 @@ let self = (module.exports = {
       } else {
         msg.channel
           .send(
-            '<a:fortnite:491257645823688714> sorry bro i cant tell if youre jamming or not :('
+            `<a:fortnite:491257645823688714> ${user}, sorry bro I can't tell if you're jamming or not :(`
           )
           .catch(err => core.err.dead(msg, err));
       }
