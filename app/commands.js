@@ -786,6 +786,29 @@ let self = (module.exports = {
         .catch(err => core.err.dead(msg, err));
     },
   },
+  np: {
+    desc: 'Shows your now playing if available',
+    execute: (client, msg) => {
+      let presence = msg.author.presence.game || '',
+        user = msg.member.nickname || msg.author.username;
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      if (presence && presence.game === 'spotify') {
+        str = `🎵 - ${user} is now listening to \n https://open.spotify.com/track/${presence.syncID}`;
+        msg.channel.send(str).catch(err => core.err.dead(msg, err));
+      } else {
+        msg.channel
+          .send(
+            '<a:fortnite:491257645823688714> sorry bro i cant tell if youre jamming or not :('
+          )
+          .catch(err => core.err.dead(msg, err));
+      }
+    },
+  },
 });
 
 //                                              ____________
