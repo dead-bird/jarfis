@@ -1,3 +1,12 @@
+# [0.14.0](https://github.com/dead-bird/jarfis/compare/v0.13.2...v0.14.0) (2019-09-11)
+
+
+### Features
+
+* new !np command to link your now playing ([b48255a](https://github.com/dead-bird/jarfis/commit/b48255a))
+
+
+
 ## [0.13.2](https://github.com/dead-bird/jarfis/compare/v0.13.1...v0.13.2) (2019-08-30)
 
 
