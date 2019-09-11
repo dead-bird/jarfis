@@ -791,9 +791,16 @@ let self = (module.exports = {
     execute: async (client, msg, args) => {
       let author = msg.author;
       if (args && args[0]) {
-        author = await client.fetchUser(
-          args[0].replace(core.regex.userId, '$1')
-        );
+        try {
+          author = await client.fetchUser(
+            args[0].replace(core.regex.userId, '$1')
+          );
+        } catch (e) {
+          console.log('args error: \n' + e);
+          return msg.channel.send(
+            'Small **oof** my dude check your formatting'
+          );
+        }
       }
 
       let presence = author.presence ? author.presence.game : '',
