@@ -1,3 +1,12 @@
+## [0.14.1](https://github.com/dead-bird/jarfis/compare/v0.14.0...v0.14.1) (2019-09-11)
+
+
+### Bug Fixes
+
+* fix fucking typo  ([dc0f535](https://github.com/dead-bird/jarfis/commit/dc0f535))
+
+
+
 # [0.14.0](https://github.com/dead-bird/jarfis/compare/v0.13.2...v0.14.0) (2019-09-11)
 
 
