@@ -797,7 +797,7 @@ let self = (module.exports = {
         .then()
         .catch(console.error);
 
-      if (presence && presence.game === 'spotify') {
+      if (presence && presence.name === 'Spotify') {
         str = `🎵 - ${user} is now listening to \n https://open.spotify.com/track/${presence.syncID}`;
         msg.channel.send(str).catch(err => core.err.dead(msg, err));
       } else {
