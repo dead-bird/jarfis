@@ -1,11 +1,11 @@
-require('dotenv').config({path: '.env'});
+require('dotenv').config({ path: '.env' });
 
 const changelog = require('changelog-parser');
 const commands = require('./commands.js');
 const pkg = require('../package.json');
 const Discord = require('discord.js');
 const Level = require('enmap-level');
-const client = new Discord.Client({forceFetchUsers: true});
+const client = new Discord.Client({ forceFetchUsers: true });
 // const express = require('express');
 const core = require('./core.js');
 const semver = require('semver');
@@ -27,12 +27,12 @@ client.on('warn', e => console.warn(e));
 // Logging this just fucking fills the console so maybe don't 🙃 client.on('debug', e => {});
 
 client.on('ready', () => {
-  client.servers = new Enmap({provider: new Level({name: 'servers'})});
-  client.losers = new Enmap({provider: new Level({name: 'losers'})});
-  client.jarfis = new Enmap({provider: new Level({name: 'jarfis'})});
+  client.servers = new Enmap({ provider: new Level({ name: 'servers' }) });
+  client.losers = new Enmap({ provider: new Level({ name: 'losers' }) });
+  client.jarfis = new Enmap({ provider: new Level({ name: 'jarfis' }) });
 
   client.user.setPresence({
-    game: {name: `in ${env.LOC} @ ${pkg.version}`, type: 0},
+    game: { name: `in ${env.LOC} @ ${pkg.version}`, type: 0 },
   });
   if (!semver.valid(pkg.version))
     throw `Listen here pal ${pkg.version} isnt a valid version number`;
@@ -42,7 +42,7 @@ client.on('ready', () => {
   if (env.ENV === 'dev') return;
 
   client.jarfis.defer.then(() => {
-    let {version} = client.jarfis.get('jarfis');
+    let { version } = client.jarfis.get('jarfis');
 
     changelog('./CHANGELOG.md')
       .then(log => {
@@ -68,7 +68,9 @@ client.on('ready', () => {
               console.log(s.restart);
               if (!s.restart) return;
 
-              const markdown = changes.length ? '\n\n' + '```markdown' + changes + '```' : '';
+              const markdown = changes.length
+                ? '\n\n' + '```markdown' + changes + '```'
+                : '';
 
               const whattup = `What up pimps! It's me, ya boy, coming at you with a fresh new instance `;
               const dab = '<:dab:355643174628229120>';
@@ -82,7 +84,7 @@ client.on('ready', () => {
           });
         });
 
-        client.jarfis.set('jarfis', {version: pkg.version});
+        client.jarfis.set('jarfis', { version: pkg.version });
       })
       .catch(console.error);
   });
@@ -102,12 +104,14 @@ client.on('raw', async event => {
   if (event.t !== 'MESSAGE_REACTION_ADD') return false;
 
   // Build data needed for react event event
-  let {d: data} = event;
+  let { d: data } = event;
   let user = client.users.get(data.user_id);
   let channel = client.channels.get(data.channel_id) || (await user.createDM());
 
   // Get emoji whether unicode or custom
-  let emojiKey = data.emoji.id ? `${data.emoji.name}:${data.emoji.id}`: data.emoji.name;
+  let emojiKey = data.emoji.id
+    ? `${data.emoji.name}:${data.emoji.id}`
+    : data.emoji.name;
 
   // Skip emitting if message is cached and bot can target (prevents double execution)
   if (channel.messages.has(data.message_id)) return;
@@ -119,7 +123,7 @@ client.on('raw', async event => {
 });
 
 // Bot pinning logic
-client.on('messageReactionAdd', (reaction) => {
+client.on('messageReactionAdd', reaction => {
   let guild = reaction.message.channel.guild;
   if (reaction.emoji.name !== '📌') return false;
   if (!guild) return;
@@ -211,28 +215,32 @@ async function insult(startup) {
       let res = await core.api.antagonize.get();
       let insult = res.data.text;
 
-      client.guilds.map(guild => {
-        let currentServer = core.server.get(client, guild);
-        let losers = [];
-        if (currentServer.insults) {
-          guild.members.map(memeber => {
-            if (!memeber.user.bot) {
-              losers.push(memeber.user);
-            }
-          });
+      client.guilds
+        .map(guild => {
+          let currentServer = core.server.get(client, guild);
+          let losers = [];
+          if (currentServer.insults) {
+            guild.members.map(memeber => {
+              if (!memeber.user.bot) {
+                losers.push(memeber.user);
+              }
+            });
 
-        client.channels
-          .get(currentServer.default)
-          .send(
-            `${losers[Math.floor(Math.random() * losers.length)]} you ${insult}`
-          )
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+            client.channels
+              .get(currentServer.default)
+              .send(
+                `${
+                  losers[Math.floor(Math.random() * losers.length)]
+                } you ${insult}`
+              )
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -263,7 +271,7 @@ function processTweet(msg, tweetId) {
       res.extended_entities.media.forEach((image, key) => {
         if (key !== 0) {
           embed.setImage(image.media_url_https);
-          msg.channel.send({embed});
+          msg.channel.send({ embed });
           index++;
         }
       });

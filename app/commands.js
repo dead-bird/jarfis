@@ -12,7 +12,6 @@ env = process.env;
 
 let self = (module.exports = {
   help: {
-    // When we get above 25 commands will need to add pagination or some other method as embed limit is 25 fields
     desc: 'Lists all available commands.',
     execute: (client, msg) => {
       // Array to split long message into batches
