@@ -162,7 +162,7 @@ function listen(client, msg) {
   if (msg.content.startsWith(guild.prefix)) {
     if (user.banned) return msg.channel.send('Nah soz mate!');
 
-    let message = msg.content.split(/^(?:!(\w+))/);
+    let message = msg.content.split(/^(?:!(\S+))/);
 
     let cmd = message[1];
     if (message[2]) {
