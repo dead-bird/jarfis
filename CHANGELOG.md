@@ -1,3 +1,12 @@
+## [0.14.3](https://github.com/dead-bird/jarfis/compare/v0.14.2...v0.14.3) (2019-10-09)
+
+
+### Bug Fixes
+
+* stop special chars being ignored in cmd names ([ffef371](https://github.com/dead-bird/jarfis/commit/ffef371))
+
+
+
 ## [0.14.2](https://github.com/dead-bird/jarfis/compare/v0.14.1...v0.14.2) (2019-09-11)
 
 
