@@ -1,4 +1,4 @@
-require('dotenv').config({path: '.env'});
+require('dotenv').config({ path: '.env' });
 
 const env = process.env;
 const pins = require('./resources/pins');
@@ -18,12 +18,12 @@ let self = (module.exports = {
       // Will probably use
     },
     new(client, id) {
-      let user = {banned: false};
+      let user = { banned: false };
 
       client.losers.set(id, user);
 
       return user;
-    }
+    },
   },
 
   server: {
@@ -60,11 +60,11 @@ let self = (module.exports = {
           lenny: {
             response: '( ͡° ͜ʖ ͡°)',
             author: client.user.id,
-            destruct: false
-          }
-        }
+            destruct: false,
+          },
+        },
       };
-    }
+    },
   },
 
   // Channels
@@ -105,7 +105,7 @@ let self = (module.exports = {
         msg,
         `Small **oof** my dude please give me ${i} ${
           i > 1 ? 'inputs' : 'input'
-        }`
+        } (seperated by ' | ')`
       );
     },
     dead(msg, err) {
@@ -123,11 +123,11 @@ let self = (module.exports = {
           `oh my christ if it's fucked up here lord help us:\n ${error}`
         );
       });
-    }
+    },
   },
 
   roles: {
-    daddy: id => env.OWNERS.split(', ').includes(id)
+    daddy: id => env.OWNERS.split(', ').includes(id),
   },
 
   msg: {
@@ -138,17 +138,17 @@ let self = (module.exports = {
         return m.replace(self.regex.userId, (match, capture) => {
           return `@${client.users.get(capture.toString()).username || ''}`;
         });
-      }
+      },
     },
     escape: (m = '') => {
       return m.replace(self.regex.mdChars, '\\$1');
-    }
+    },
   },
 
   regex: {
     emote: /(?:<|<a)(:\w{1,50}:)(?:\d{10,100}>)/gi,
     userId: /<@!?(\d*)>/g,
-    mdChars: /([`\|~_\*])/g
+    mdChars: /([`\|~_\*])/g,
   },
 
   csit: '440511380160905217',
@@ -162,7 +162,7 @@ let self = (module.exports = {
             .then(res => resolve(res))
             .catch(err => reject(err));
         });
-      }
-    }
-  }
+      },
+    },
+  },
 });
