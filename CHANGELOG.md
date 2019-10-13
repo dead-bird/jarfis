@@ -1,3 +1,21 @@
+## [0.15.0](https://github.com/dead-bird/jarfis/compare/v0.14.5...v0.15.0) (2019-10-13)
+
+
+### Bug Fixes
+
+* 'fixed' some repo fuckery due to windows
+
+
+
+## [0.14.5](https://github.com/dead-bird/jarfis/compare/v0.14.4...v0.14.5) (2019-10-13)
+
+
+### Features
+
+* added !tf command
+
+
+
 ## [0.14.4](https://github.com/dead-bird/jarfis/compare/v0.14.3...v0.14.4) (2019-10-13)
 
 
