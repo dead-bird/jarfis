@@ -834,7 +834,11 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(
-        `:hand: ${args[0]} :dnah:\n:space::toem:\n:palm: ${args[1]} :mlap:`
+        `<:hand:627925844555202580> ${
+          args[0]
+        } <:dnah:627925737478946826>\n<:space:499933777749868546><:toem:633033736711176266>\n<:palm:633033632382058506> ${
+          args[1]
+        } <:mlap:633033685096202240>`
       );
     },
   },
