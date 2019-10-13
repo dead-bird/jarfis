@@ -822,6 +822,22 @@ let self = (module.exports = {
       }
     },
   },
+  tf: {
+    desc: 'transform arg 1 into arg 2',
+    args: 'arg1 | arg2',
+    execute: (client, msg, args) => {
+      if (!args || args.length < 2) return core.err.args(msg);
+
+      msg
+        .delete()
+        .then()
+        .catch(console.error);
+
+      msg.channel.send(
+        `:hand: ${args[0]} :dnah:\n:space::toem:\n:palm: ${args[1]} :mlap:`
+      );
+    },
+  },
 });
 
 //                                              ____________
