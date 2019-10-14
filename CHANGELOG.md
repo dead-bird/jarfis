@@ -1,3 +1,12 @@
+## [0.15.1](https://github.com/dead-bird/jarfis/compare/v0.14.3...v0.15.1) (2019-10-14)
+
+
+### Bug Fixes
+
+* !tf emote change and layout tweak ([98206f2](https://github.com/dead-bird/jarfis/commit/98206f2))
+
+
+
 ## [0.15.0](https://github.com/dead-bird/jarfis/compare/v0.14.5...v0.15.0) (2019-10-13)
 
 
