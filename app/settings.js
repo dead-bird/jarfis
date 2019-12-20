@@ -95,26 +95,26 @@ let self = (module.exports = {
       change: () => {
         // Temp killed because changing prefix breaks the bot :jiy:
       },
-      list: option => option
+      list: option => option,
     },
-    insults: {
-      name: ':broken_heart:  Random Insults',
-      desc: 'Random Insults On/Off',
-      change(value, callback) {
-        let option = false;
+    // insults: {
+    //   name: ':broken_heart:  Random Insults',
+    //   desc: 'Random Insults On/Off',
+    //   change(value, callback) {
+    //     let option = false;
 
-        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+    //     if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
 
-        return callback(option);
-      },
-      list: option => (option ? 'On' : 'Off')
-    },
-    active: {
-      name: ':clock4:  Active Hours',
-      desc: 'Set the active hours for random insults',
-      change: (value, callback) => callback(value),
-      list: option => option
-    },
+    //     return callback(option);
+    //   },
+    //   list: option => (option ? 'On' : 'Off')
+    // },
+    // active: {
+    //   name: ':clock4:  Active Hours',
+    //   desc: 'Set the active hours for random insults',
+    //   change: (value, callback) => callback(value),
+    //   list: option => option,
+    // },
     default: {
       name: ':speech_balloon:  Default Channel',
       desc: 'Set the default channel that Jarfis responds in',
