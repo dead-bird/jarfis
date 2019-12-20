@@ -641,7 +641,10 @@ let self = (module.exports = {
       axios
         .get('https://api.antagonize.deadbird.dev/insult')
         .then(res => msg.channel.send(`${user} you ${res.data.text}`))
-        .catch(e => console.error(e));
+        .catch(e => {
+          console.error(e);
+          return core.err.dead(msg, e);
+        });
     },
   },
   heist: {
@@ -751,22 +754,25 @@ let self = (module.exports = {
       // Strip emote spam for now until we have better func in place
       str = core.msg.replace.emotes(args[0]);
 
-      msg
-        .delete()
-        .then()
-        .catch(console.error);
-
       axios
         .get(`${env.APCRY + encodeURI(str)}`)
         .then(res => {
           if (res.data.status === 200) {
+            msg
+              .delete()
+              .then()
+              .catch(console.error);
+
             msg.channel
               // Escape MD chars
               .send(core.msg.escape(res.data.tears))
               .catch(err => core.err.dead(msg, err));
           }
         })
-        .catch(e => console.error(e));
+        .catch(e => {
+          console.error(e);
+          return core.err.dead(msg, e);
+        });
     },
   },
   penis: {
