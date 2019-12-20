@@ -667,13 +667,15 @@ let self = (module.exports = {
           .send('Small **oof** my dude check your formatting')
           .catch(err => core.err.dead(msg, err));
       }
-      let heistMsg = `<:space:499933777749868546><:space:499933777749868546>( ${speech}  )\n<:space:499933777749868546><:space:499933777749868546>◞\n🔫${emoji}`;
+      let heistMsg = `<:space:499933777749868546><:space:499933777749868546><:space:499933777749868546><:space:499933777749868546>( ${speech}  )\n<:space:499933777749868546><:space:499933777749868546><:space:499933777749868546><:space:499933777749868546>◞\n`;
+      let cowboy = `🔫${emoji}`;
       msg
         .delete()
         .then()
         .catch(console.error);
 
       msg.channel.send(heistMsg).catch(err => core.err.dead(msg, err));
+      msg.channel.send(cowboy).catch(err => core.err.dead(msg, err));
     },
   },
   oob: {
