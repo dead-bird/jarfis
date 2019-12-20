@@ -89,7 +89,7 @@ client.on('ready', () => {
       .catch(console.error);
   });
 
-  insult(true);
+  // insult(true);
 });
 
 client.on('message', msg => {
@@ -231,7 +231,7 @@ async function insult(startup) {
               .send(
                 `${
                   losers[Math.floor(Math.random() * losers.length)]
-                } you ${insult}`
+                } you ${insult || 'API error'}`
               )
               .catch(err => {
                 console.log(err);
