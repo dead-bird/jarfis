@@ -1,3 +1,17 @@
+## [0.15.2](https://github.com/dead-bird/jarfis/compare/v0.15.1...v0.15.2) (2019-12-20)
+
+
+### Bug Fixes
+
+* hopefully fix websocket issues with insults ([3fe8a38](https://github.com/dead-bird/jarfis/commit/3fe8a38de2fc58272d8ddcff0880dab8abaccc69))
+
+
+### Features
+
+* split !heist msg to show big emoji ([5fb5124](https://github.com/dead-bird/jarfis/commit/5fb51242cf4a0cbb7d52b24cc03d13303e012319))
+
+
+
 ## [0.15.1](https://github.com/dead-bird/jarfis/compare/v0.14.3...v0.15.1) (2019-10-14)
 
 
