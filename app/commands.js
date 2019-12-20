@@ -137,14 +137,10 @@ let self = (module.exports = {
         }
 
         if (headEmote !== null) {
-          heads = `https://cdn.discordapp.com/emojis/${
-            headEmote[1]
-          }.${headExt}`;
+          heads = `https://cdn.discordapp.com/emojis/${headEmote[1]}.${headExt}`;
         }
         if (tailEmote !== null) {
-          tails = `https://cdn.discordapp.com/emojis/${
-            tailEmote[1]
-          }.${tailExt}`;
+          tails = `https://cdn.discordapp.com/emojis/${tailEmote[1]}.${tailExt}`;
         }
       }
 
@@ -842,11 +838,7 @@ let self = (module.exports = {
         .catch(console.error);
 
       msg.channel.send(
-        `<:grab:633069576837398538> ${
-          args[0]
-        } <:barg:633069641261907968>\n<:space:499933777749868546> <:toem:633033736711176266>\n<:palm:633033632382058506> ${
-          args[1]
-        } <:mlap:633033685096202240>`
+        `<:grab:633069576837398538> ${args[0]} <:barg:633069641261907968>\n<:space:499933777749868546> <:toem:633033736711176266>\n<:palm:633033632382058506> ${args[1]} <:mlap:633033685096202240>`
       );
     },
   },

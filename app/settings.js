@@ -15,9 +15,7 @@ let self = (module.exports = {
     let embed = new Discord.RichEmbed()
       .setColor(3447003)
       .setDescription(
-        `:joystick:  Run \`${
-          options.prefix
-        }settings change | [setting name] | [value]\` to edit`
+        `:joystick:  Run \`${options.prefix}settings change | [setting name] | [value]\` to edit`
       );
 
     for (let setting in self.config) {
@@ -35,7 +33,7 @@ let self = (module.exports = {
       .delete()
       .then()
       .catch(console.error);
-    msg.channel.send({embed});
+    msg.channel.send({ embed });
   },
 
   change(client, msg, setting, value) {
@@ -119,7 +117,7 @@ let self = (module.exports = {
       name: ':speech_balloon:  Default Channel',
       desc: 'Set the default channel that Jarfis responds in',
       change: (id, callback) => callback(id.replace(/<#(\d*)>/g, '$1')), // <#id> -> id
-      list: id => `<#${id}>`
+      list: id => `<#${id}>`,
     },
     announcements: {
       name: ':round_pushpin:  Pin Announcements',
@@ -127,11 +125,12 @@ let self = (module.exports = {
       change(value, callback) {
         let option = false;
 
-        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON')
+          option = true;
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off')
+      list: option => (option ? 'On' : 'Off'),
     },
     restart: {
       name: ':construction:  Restart Message',
@@ -139,11 +138,12 @@ let self = (module.exports = {
       change(value, callback) {
         let option = false;
 
-        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON')
+          option = true;
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off')
+      list: option => (option ? 'On' : 'Off'),
     },
     pins: {
       name: ':pushpin:  Bot Pinning Limit',
@@ -160,19 +160,21 @@ let self = (module.exports = {
 
         return callback(option);
       },
-      list: option => (option ? option : '0')
+      list: option => (option ? option : '0'),
     },
     twitter: {
       name: ':bird:  Twitter Link Integration',
-      desc: 'Choose if jarfis expands tweet links posted that have more than 2 images',
+      desc:
+        'Choose if jarfis expands tweet links posted that have more than 2 images',
       change(value, callback) {
         let option = false;
 
-        if (value === true || value === 'true' || value.toUpperCase() === 'ON') option = true;
+        if (value === true || value === 'true' || value.toUpperCase() === 'ON')
+          option = true;
 
         return callback(option);
       },
-      list: option => (option ? 'On' : 'Off')
-    }
-  }
+      list: option => (option ? 'On' : 'Off'),
+    },
+  },
 });
