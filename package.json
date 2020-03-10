@@ -1,8 +1,15 @@
 {
   "name": "jarfis",
-  "version": "0.15.2",
+  "version": "1.0.0",
   "description": "a Discord bot that does some things",
-  "homepage": "https://github.com/dead-bird/jarfis",
+  "main": "jarfis.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dead-bird/jarfis.git"
+  },
   "contributors": [
     {
       "name": "Dave Phillips",
@@ -20,51 +27,13 @@
       "url": "https://github.com/Dylan-Tarry"
     }
   ],
-  "files": [
-    "app"
-  ],
-  "main": "app/jarfis.js",
-  "keywords": [
-    ""
-  ],
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-xo-space": "^0.16.0",
-    "mocha": "^4.1.0",
-    "nodemon": "^1.19.4",
-    "nsp": "^2.6.3"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dead-bird/jarfis/issues"
   },
-  "scripts": {
-    "prestart": "mocha app/test/env.js",
-    "dev": "npm start",
-    "start": "nodemon",
-    "pretest": "eslint .",
-    "test": "mocha app/**/test.js",
-    "release": "standard-changelog && git commit -a -m \"chore: release v`./node_modules/.bin/print-pkg-version`\" && git tag v`./node_modules/.bin/print-pkg-version` && git push origin master --tags"
-  },
-  "eslintConfig": {
-    "extends": "xo-space",
-    "env": {
-      "node": true,
-      "mocha": true
-    }
-  },
-  "repository": "https://github.com/dead-bird/jarfis.git",
-  "license": "unlicense",
+  "homepage": "https://github.com/dead-bird/jarfis#readme",
   "dependencies": {
-    "@discordjs/uws": "^11.149.1",
-    "axios": "^0.18.1",
-    "changelog-parser": "^2.8.0",
-    "discord.js": "^11.5.1",
-    "dotenv": "^4.0.0",
-    "enmap": "^0.6.2",
-    "enmap-level": "^1.0.1",
-    "event-stream": "^3.3.5",
-    "express": "^4.17.1",
-    "leveldown": "^4.0.2",
-    "print-pkg-version": "^0.2.1",
-    "semver": "^6.3.0",
-    "standard-changelog": "^2.0.21",
-    "twitter": "^1.7.1"
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0"
   }
 }
