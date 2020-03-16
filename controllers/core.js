@@ -22,8 +22,5 @@ module.exports = {
                 }
             }
         }
-    },
-    error: {
-
     }
 }
