@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectID;
 const client = new Discord.Client({ forceFetchUsers: true });
 const message = require('./controllers/message');
 const db = require('./controllers/db');
-const core = require('./utils/core');
+const serverUtil = require('./utils/server');
 const pkg = require('./package.json');
 const jarfisModel = require('./models/jarfis');
 const serverModel = require('./models/servers');
@@ -34,7 +34,7 @@ client.on('ready', async () => {
         let id = guild.channels.cache.first().id;
 
         if (servers.length === 0) {
-            await serverModel.insert(core.server.default(client, guild));
+            await serverModel.insert(serverUtil.default(client, guild));
             guild.channels.cache.first().send(`What up pimps! My default prefix is ! and your default channel is <#${id}>. Hit dat fatty !help to change shit`);
         }
     });
