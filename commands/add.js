@@ -16,7 +16,7 @@ module.exports = async (message, client, args) => {
 
     if (server[0]) {
         if (server[0].responses[trigger]) {
-            return errorHandler.general(message, `be more original "${trigger}" is already a trigger`);
+            return errorHandler.general(message, `be more original \`${trigger}\` is already a trigger`);
         }
 
         server[0].responses[trigger] = {
