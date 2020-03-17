@@ -1,6 +1,7 @@
 require('dotenv').config({ path: '.env' });
 
 const Discord = require('discord.js');
+const ObjectId = require('mongodb').ObjectID;
 const client = new Discord.Client({ forceFetchUsers: true });
 const message = require('./controllers/message');
 const db = require('./controllers/db');
@@ -8,7 +9,7 @@ const core = require('./controllers/core');
 const pkg = require('./package.json');
 const jarfisModel = require('./models/jarfis');
 const serverModel = require('./models/servers');
-const ObjectId = require('mongodb').ObjectID;
+const errorHandler = require('./utils/error');
 
 client.login(process.env.TOKEN);
 client.on('error', err => console.error(err));
@@ -42,7 +43,22 @@ client.on('message', async msg => {
     if (!msg.author.bot && msg.guild) {
         const server = await serverModel.read({ discordId: msg.guild.id });
         if (server[0] && msg.content.startsWith(server[0].settings.prefix)) {
-            message(msg, client, server[0].settings.prefix)
+            return message(msg, client, server[0].settings.prefix)
+        }
+
+        // trigger logic, to be moved to util maybe
+        for (let trigger of Object.keys(server[0].responses)) {
+            if (server[0].responses[trigger].fullMatch === false && msg.content.match(trigger)) {
+                msg.channel.send(server[0].responses[trigger].response).catch(err => errorHandler.dead(msg, err));
+                if (server[0].responses[trigger].destruct === true) {
+                    msg.delete().catch(err => errorHandler.dead(msg, err));
+                }
+            } else if (msg.content === trigger && server[0].responses[trigger].fullMatch === true) {
+                msg.channel.send(server[0].responses[trigger].response).catch(err => errorHandler.dead(msg, err));
+                if (server[0].responses[trigger].destruct === true) {
+                    msg.delete().catch(err => errorHandler.dead(msg, err));
+                }
+            }
         }
     }
 });

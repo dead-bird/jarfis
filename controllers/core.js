@@ -18,6 +18,7 @@ module.exports = {
                         response: '( ͡° ͜ʖ ͡°)',
                         author: client.user.id,
                         destruct: false,
+                        fullMatch: false
                     },
                 }
             }
