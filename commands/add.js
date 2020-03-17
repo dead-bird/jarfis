@@ -27,7 +27,7 @@ module.exports = async (message, client, args) => {
 
         await serverModel.update({ discordId: message.guild.id }, server[0]);
 
-        message.delete();
+        message.delete().catch(err => errorHandler.dead(message, err));
         message.channel.send(`*I'll remember that*`).then(message => {
             message.delete({ timeout: 3000 }).catch(err => errorHandler.dead(message, err));
         })

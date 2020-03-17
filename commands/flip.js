@@ -13,6 +13,7 @@ module.exports = (message, client, args) => {
     }
     let selection = Math.floor(Math.random() * 2) === 0 ? 'heads' : 'tails';
     let embed = new Discord.MessageEmbed().setColor(flip[selection].colour).setTitle(`it's ${selection} motherfucker`).setImage(flip[selection].imageUrl);
-    message.delete();
+
+    message.delete().catch(err => errorHandler.dead(message, err));
     message.channel.send({ embed });
 }

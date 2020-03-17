@@ -24,6 +24,6 @@ module.exports = (message, client, args) => {
         }
     }
 
-    message.delete();
+    message.delete().catch(err => errorHandler.dead(message, err));
     message.channel.send(`<a:fortnite:491257645823688714> ${user}, sorry bro I can't tell if you're jamming or not :(`).catch(err => console.log(err));
 }

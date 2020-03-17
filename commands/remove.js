@@ -14,7 +14,8 @@ module.exports = async (message, client, args) => {
         if (server[0].responses[trigger]) {
             delete server[0].responses[trigger];
             await serverModel.update({ discordId: message.guild.id }, server[0]);
-            message.delete();
+            
+            message.delete().catch(err => errorHandler.dead(message, err));
             message.channel.send(`I've removed \`${trigger}\` from your responses`).catch(err => errorHandler.dead(message, err));
         } else {
             errorHandler.general(message, `couldn't find that trigger, maybe learn to spell?`);

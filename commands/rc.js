@@ -6,6 +6,6 @@ module.exports = (message, client, args) => {
     let str = args.join(' ');
     str = str.split('').map(c => Math.random() < 0.5 ? c.toLowerCase() : c.toUpperCase()).join('');
     
-    message.delete();
+    message.delete().catch(err => errorHandler.dead(message, err));
     message.channel.send(str).catch(err => errorHandler.dead(message, err))
 }
