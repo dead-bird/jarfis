@@ -1,6 +1,5 @@
 const errorHandler = require('../utils/error');
 const serverModel = require('../models/servers');
-const ObjectId = require('mongodb').ObjectID;
 
 module.exports = async (message, client, args) => {
     const trigger = args[0].toLowerCase();
@@ -26,7 +25,7 @@ module.exports = async (message, client, args) => {
             fullMatch: fullMatch
         }
 
-        await serverModel.update({ _id: ObjectId(server[0]._id) }, server[0]);
+        await serverModel.update({ discordId: message.guild.id }, server[0]);
 
         message.delete();
         message.channel.send(`*I'll remember that*`).then(message => {
