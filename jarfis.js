@@ -48,7 +48,7 @@ client.on('message', async msg => {
 
         // trigger logic, to be moved to util maybe
         for (let trigger of Object.keys(server[0].responses)) {
-            if (server[0].responses[trigger].fullMatch === false && msg.content.match(trigger)) {
+            if (server[0].responses[trigger].fullMatch === false && msg.content.match(new RegExp(`(?:^|\\W)${trigger}(?:$|\\W)`))) {
                 msg.channel.send(server[0].responses[trigger].response).catch(err => errorHandler.dead(msg, err));
                 if (server[0].responses[trigger].destruct === true) {
                     msg.delete().catch(err => errorHandler.dead(msg, err));
