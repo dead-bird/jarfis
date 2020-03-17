@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const errorHandler = require('../utils/error');
 
 module.exports = (message, client, args) => {
     let flip = {
