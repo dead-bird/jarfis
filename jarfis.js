@@ -30,7 +30,7 @@ client.on('ready', async () => {
 
     //Check all current servers are in the db if not create one
     client.guilds.cache.map(async guild => {
-        let servers = await serverModel.read({ discordId: guild.id, name: guild.name });
+        let servers = await serverModel.read({ discordId: guild.id });
         let id = guild.channels.cache.first().id;
 
         if (servers.length === 0) {
