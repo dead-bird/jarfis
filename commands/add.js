@@ -3,16 +3,16 @@ const serverModel = require('../models/servers');
 
 module.exports = {
     desc: 'add a response',
-    args: ['trigger', 'response', 'selfDestruct', 'fullMatch'],
-    execute: async (message, client, args) => {
+    args: ['trigger', 'response'],
+    flags: ['selfDestruct', 'fullMatch'],
+    execute: async (message, client, args, flags) => {
+        console.log(flags);
         if (!args) {
             return errorHandler.args(message);
         } else if (!args.trigger || !args.response) {
             return errorHandler.args(message, 'Small **oof** my dude check that formatting');
         }
 
-        const selfDestruct = ((args.selfDestruct && args.selfDestruct.match('true') || args.selfDestruct && args.selfDestruct.match('yes')) ? true : false);
-        const fullMatch = ((args.fullMatch && args.fullMatch.match('true') || args.fullMatch && args.fullMatch.match('yes')) ? true : false);
         const server = await serverModel.read({ discordId: message.guild.id });
 
         if (server[0]) {
@@ -23,8 +23,8 @@ module.exports = {
             server[0].responses[args.trigger] = {
                 response: args.response,
                 author: message.author.id,
-                destruct: selfDestruct,
-                fullMatch: fullMatch
+                destruct: flags.selfDestruct,
+                fullMatch: flags.fullMatch
             }
             server[0].updatedAt = new Date();
 
