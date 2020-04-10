@@ -12,7 +12,7 @@ module.exports = async () => {
             process.db = database.db('devfis');
             console.log('Connected to dev database');
         } else {
-            console.log('I dont know what environment youre supposed to be on dude');
+            console.log('Either no environment variable or db connection failed');
             console.log('No database connection established, exiting');
             process.exit(0);
         }
