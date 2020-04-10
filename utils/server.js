@@ -19,7 +19,8 @@ module.exports = {
                     destruct: false,
                     fullMatch: false
                 },
-            }
+            },
+            createdAt: new Date()
         }
     }
 }
