@@ -26,6 +26,7 @@ module.exports = {
                 destruct: selfDestruct,
                 fullMatch: fullMatch
             }
+            server[0].updatedAt = new Date();
 
             await serverModel.update({ discordId: message.guild.id }, server[0]);
 
