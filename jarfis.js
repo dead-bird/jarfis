@@ -25,6 +25,7 @@ client.on('ready', async () => {
     const jarfis = await jarfisModel.read({ _id: ObjectId('5e6f73031c9d440000296dff') });
     if (jarfis[0] && jarfis[0].version && jarfis[0].version !== pkg.version && jarfis[0].version < pkg.version) {
         jarfis[0].version = pkg.version;
+        jarfis[0].updatedAt = new Date();
         jarfisModel.update({ _id: ObjectId('5e6f73031c9d440000296dff') }, jarfis[0]);
     }
 

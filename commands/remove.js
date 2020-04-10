@@ -15,6 +15,7 @@ module.exports = {
         if (server[0]) {
             if (server[0].responses[args.trigger]) {
                 delete server[0].responses[args.trigger];
+                server[0].updatedAt = new Date();
                 await serverModel.update({ discordId: message.guild.id }, server[0]);
 
                 message.delete().catch(err => errorHandler.dead(message, err));
