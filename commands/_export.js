@@ -4,6 +4,7 @@ const np = require('./np');
 const add = require('./add');
 const remove = require('./remove');
 const help = require('./help');
+const clear = require('./clear');
 
 module.exports = {
     flip,
@@ -11,5 +12,6 @@ module.exports = {
     np,
     add,
     remove,
-    help
+    help,
+    clear
 }
