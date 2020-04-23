@@ -5,6 +5,7 @@ const add = require('./add');
 const remove = require('./remove');
 const help = require('./help');
 const clear = require('./clear');
+const echo = require('./echo');
 
 module.exports = {
     flip,
@@ -13,5 +14,6 @@ module.exports = {
     add,
     remove,
     help,
-    clear
+    clear,
+    echo
 }
