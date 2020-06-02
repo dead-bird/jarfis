@@ -1,3 +1,5 @@
+const pins = require('../resources/pins');
+
 module.exports = {
     default(client, guild) {
         return {
@@ -22,5 +24,19 @@ module.exports = {
             },
             createdAt: new Date()
         }
+    },
+    announcePins(channel) {
+        channel.startTyping();
+        channel.messages.fetchPinned()        
+        .then(messages => {
+          const i = messages.array().length;
+  
+          channel.send(i + `/50 pins ${pins[i - 1]}`).catch(console.error);
+          channel.stopTyping();
+        })
+        .catch(err => {
+          console.error(err);
+          channel.stopTyping();
+        });
     }
 }

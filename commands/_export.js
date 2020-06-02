@@ -8,6 +8,7 @@ const clear = require('./clear');
 const echo = require('./echo');
 const responses = require('./responses');
 const clap = require('./clap');
+const pins = require('./pins');
 
 module.exports = {
     flip,
@@ -19,5 +20,6 @@ module.exports = {
     clear,
     echo,
     responses,
-    clap
+    clap,
+    pins,
 }
