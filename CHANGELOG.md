@@ -1,3 +1,12 @@
+## [0.15.3](https://github.com/dead-bird/jarfis/compare/v0.15.2...v0.15.3) (2020-12-10)
+
+
+### Bug Fixes
+
+* incorrect apcry implementation ([a2e98b3](https://github.com/dead-bird/jarfis/commit/a2e98b3a4def1a45cbcf6ec86b17f82a104492aa))
+
+
+
 ## [0.15.2](https://github.com/dead-bird/jarfis/compare/v0.15.1...v0.15.2) (2019-12-20)
 
 
