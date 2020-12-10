@@ -748,24 +748,22 @@ let self = (module.exports = {
     args: 'string',
     execute: (client, msg, args) => {
       if (!args) return core.err.empty(msg);
-
+    
       // Strip emote spam for now until we have better func in place
-      str = core.msg.replace.emotes(args[0]);
-
+      input = core.msg.replace.emotes(args[0]);
+    
       axios
-        .get(`${env.APCRY + encodeURI(str)}`)
-        .then(res => {
-          if (res.data.status === 200) {
-            msg
-              .delete()
-              .then()
-              .catch(console.error);
-
-            msg.channel
-              // Escape MD chars
-              .send(core.msg.escape(res.data.tears))
-              .catch(err => core.err.dead(msg, err));
-          }
+        .post(env.APCRY, { input })
+        .then(({ data }) => {
+          msg
+            .delete()
+            .then()
+            .catch(console.error);
+    
+          msg.channel
+            // Escape MD chars
+            .send(core.msg.escape(data.tears))
+            .catch(err => core.err.dead(msg, err));
         })
         .catch(e => {
           console.error(e);
