@@ -16,7 +16,7 @@ module.exports = {
             if (server[0].responses[args.trigger]) {
                 delete server[0].responses[args.trigger];
                 server[0].updatedAt = new Date();
-                await serverModel.update({ discordId: message.guild.id }, server[0]);
+                await serverModel.update({ discordId: message.guild.id }, server[0]).catch(err => errorHandler.dead(message, err));
 
                 message.delete().catch(err => errorHandler.dead(message, err));
                 message.channel.send(`I've removed \`${args.trigger}\` from your responses`).catch(err => errorHandler.dead(message, err));

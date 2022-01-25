@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '.env' });
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb');
 
 module.exports = async () => {
     try {
