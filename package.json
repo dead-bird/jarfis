@@ -60,7 +60,7 @@
     "enmap": "^0.6.2",
     "enmap-level": "^1.0.1",
     "event-stream": "^3.3.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "leveldown": "^4.0.2",
     "print-pkg-version": "^0.2.1",
     "semver": "^6.3.0",
